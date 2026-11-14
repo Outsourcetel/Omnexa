@@ -1,0 +1,22 @@
+{
+  "brand": "Omnexa Solutions",
+  "base_url": "https://omnexasol.com",
+  "primary_city": "Riyadh",
+  "country": "Saudi Arabia",
+  "phone": "+966558187808",
+  "phone_display": "+966 55 818 7808",
+  "whatsapp": "966558187808",
+  "email": "info@omnexasol.com",
+  "street_address": "",
+  "address_note": "Al Olaya District, Riyadh, Saudi Arabia",
+  "gtm_id": "",
+  "form_endpoint": "",
+  "proof": {
+    "iso9001_certificate": "",
+    "iso9001_certifying_body": "",
+    "pest_licence": "",
+    "commercial_registration": "",
+    "years_in_service": "",
+    "verified_clients": []
+  }
+}
