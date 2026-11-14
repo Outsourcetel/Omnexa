@@ -22,3 +22,14 @@
     });
   });
 })();
+(function(){
+  var els=document.querySelectorAll('h2.s,p.sub,.cards .card,.card.feature,ul.ticks li,ol.steps li,details,.notice,.cta-band h2');
+  if(!('IntersectionObserver' in window)){return;}
+  var n=0;
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(el){
+    el.classList.add('reveal');
+    el.style.transitionDelay=(n++%4)*70+'ms';
+    io.observe(el);
+  });
+})();

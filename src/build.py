@@ -53,6 +53,17 @@ def gtm_body():
             'style="display:none;visibility:hidden"></iframe></noscript>' % g) if g else ""
 
 
+ICON = {
+ "bug": '<svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="14" rx="5" ry="6"/><circle cx="12" cy="6.5" r="2.5"/><path d="M7 11 4 9M17 11l3-2M7 15H4M17 15h3M8 19l-3 2M16 19l3 2M12 8v12"/></svg>',
+ "shield": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>',
+ "doc": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg>',
+}
+
+
+def ic(kind):
+    return '<span class="ic">' + ICON[kind] + '</span>'
+
+
 WA = "https://wa.me/" + C["whatsapp"]
 
 
@@ -123,9 +134,12 @@ def page(path, title, desc, body, extra_ld=None, crumbs=None, noindex=False):
 <title>{E(title)}</title><meta name="description" content="{E(desc)}">
 <link rel="canonical" href="{url}">{robots}
 <meta property="og:type" content="website"><meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{url}">
+<script>document.documentElement.className="js"</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
 {''.join(ld(o) for o in ldo)}
-{gtm_head()}</head><body>{gtm_body()}
+{gtm_head()}</head><body class="{"fam-pest" if path.startswith("/pest-control") else "fam-iso" if path.startswith("/iso-consultancy") else "fam-home"}">{gtm_body()}
 {header()}
 {body}
 {footer()}
@@ -152,7 +166,7 @@ def service_page(path, d, parent, family):
     if "children" in d:
         base = "/" + d["slug"] + "/"
         src = PEST if family == "pest" else ISO
-        cards = "".join(f'<a class="card" href="{base}{c}/"><h3>{E(fmt(src[c]["h1"]))}</h3><p>{E(fmt(src[c]["lead"]))}</p></a>' for c in d["children"])
+        cards = "".join(f'<a class="card" href="{base}{c}/">{ic("bug" if family == "pest" else "doc")}<h3>{E(fmt(src[c]["h1"]))}</h3><p>{E(fmt(src[c]["lead"]))}</p></a>' for c in d["children"])
         related = f'<section class="alt"><div class="wrap"><h2 class="s">Our {E(d["service"])} services</h2><div class="cards">{cards}</div></div></section>'
     elif parent:
         related = f'<section class="alt"><div class="wrap"><p>See all <a href="{parent[1]}">{E(parent[0])}</a> services.</p></div></section>'
@@ -161,7 +175,7 @@ def service_page(path, d, parent, family):
         notice = '<div class="notice">We are ISO consultants. Certificates are issued by an accredited certification body of your choice; we prepare you for its audit.</div>'
     cta_text = wa_link("Hello, I need " + d["service"])
     body = f"""{crumbs_html(cr)}
-<div class="hero"><div class="wrap grid"><div><h1>{E(h1)}</h1><p class="lead">{E(fmt(d['lead']))}</p>
+<div class="hero"><div class="hero-bg" aria-hidden="true"><i></i><i></i><i></i></div><div class="wrap grid"><div><h1>{E(h1)}</h1><p class="lead">{E(fmt(d['lead']))}</p>
 <div class="cta"><a class="btn btn-wa" href="{cta_text}">WhatsApp us</a><a class="btn btn-call" href="tel:{C['phone']}">Call {E(C['phone_display'])}</a></div>{trust(family)}</div>
 <div class="card"><h2>Request a free {'inspection' if family=='pest' else 'consultation'}</h2>{form(d['service'])}</div></div></div>
 <section><div class="wrap"><h2 class="s">{E(h1)}: what we do</h2><p class="sub">{E(fmt(d['intro']))}</p><ul class="ticks">{ticks}</ul>{notice}</div></section>
@@ -188,14 +202,14 @@ def build():
             service_page(hp + k + "/", {**data[k], "slug": hub["slug"]}, (name, hp), fam)
 
     # home
-    pest_cards = "".join(f'<a class="card" href="/pest-control/{s}/"><h3>{E(fmt(PEST[s]["service"]))}</h3></a>' for s in PEST["hub"]["children"])
-    iso_cards = "".join(f'<a class="card" href="/iso-consultancy/{s}/"><h3>{E(ISO[s]["service"])}</h3></a>' for s in ISO["hub"]["children"])
-    home = f"""<div class="hero"><div class="wrap"><h1>Pest Control and ISO Consultancy in Saudi Arabia</h1>
+    pest_cards = "".join(f'<a class="card f-pest" href="/pest-control/{s}/">{ic("bug")}<h3>{E(fmt(PEST[s]["service"]))}</h3></a>' for s in PEST["hub"]["children"])
+    iso_cards = "".join(f'<a class="card f-iso" href="/iso-consultancy/{s}/">{ic("doc")}<h3>{E(ISO[s]["service"])}</h3></a>' for s in ISO["hub"]["children"])
+    home = f"""<div class="hero"><div class="hero-bg" aria-hidden="true"><i></i><i></i><i></i></div><div class="wrap"><span class="eyebrow">Saudi Arabia</span><h1>Pest Control and <em>ISO Consultancy</em> in Saudi Arabia</h1>
 <p class="lead">Inspection-led pest management and practical ISO implementation, from one company. Free site inspection and free ISO consultation.</p>
 <div class="cta"><a class="btn btn-wa" href="{wa_link('Hello, I would like to enquire')}">WhatsApp us</a><a class="btn btn-call" href="tel:{C['phone']}">Call {E(C['phone_display'])}</a></div>{trust()}</div></div>
 <section><div class="wrap"><div class="cards">
-<a class="card" href="/pest-control/"><h3>Pest Control in {E(city)}</h3><p>Termites, rodents, cockroaches, bed bugs, fumigation and commercial IPM programmes.</p><p><b>View pest control →</b></p></a>
-<a class="card" href="/iso-consultancy/"><h3>ISO Consultancy</h3><p>ISO 9001, 22000, 45001, 14001 and 27001: gap analysis, documentation and certification preparation.</p><p><b>View ISO consultancy →</b></p></a></div></div></section>
+<a class="card feature f-pest" href="/pest-control/">{ic("bug")}<h3>Pest Control in {E(city)}</h3><p>Termites, rodents, cockroaches, bed bugs, fumigation and commercial IPM programmes.</p><p><b>View pest control →</b></p></a>
+<a class="card feature f-iso" href="/iso-consultancy/">{ic("shield")}<h3>ISO Consultancy</h3><p>ISO 9001, 22000, 45001, 14001 and 27001: gap analysis, documentation and certification preparation.</p><p><b>View ISO consultancy →</b></p></a></div></div></section>
 <section class="alt"><div class="wrap"><h2 class="s">Pest control services</h2><div class="cards">{pest_cards}</div></div></section>
 <section><div class="wrap"><h2 class="s">ISO standards we support</h2><div class="cards">{iso_cards}</div></div></section>
 <section class="alt"><div class="wrap"><h2 class="s">Why food, hospitality and industrial clients use both</h2>
@@ -207,7 +221,7 @@ def build():
 
     # other services
     cards = "".join(f'<div class="card"><h3>{E(a)}</h3><p>{E(b)}</p></div>' for a, b in OTHER)
-    body = f"""{crumbs_html([('Home','/'),('Other services','/facility-services/')])}<div class="hero"><div class="wrap"><h1>Facility and Technical Services</h1><p class="lead">We also provide these services. Contact us for a quotation.</p></div></div>
+    body = f"""{crumbs_html([('Home','/'),('Other services','/facility-services/')])}<div class="hero"><div class="hero-bg" aria-hidden="true"><i></i><i></i><i></i></div><div class="wrap"><h1>Facility and Technical Services</h1><p class="lead">We also provide these services. Contact us for a quotation.</p></div></div>
 <section><div class="wrap"><div class="cards">{cards}</div><div class="cta" style="margin-top:20px"><a class="btn btn-wa" href="{WA}">WhatsApp us</a></div></div></section>"""
     page("/facility-services/", "Facility & Technical Services | Omnexa Solutions", "HVAC, electrical, plumbing and construction services from Omnexa Solutions in Saudi Arabia.", body,
          crumbs=[("Home", "/"), ("Other services", "/facility-services/")])
