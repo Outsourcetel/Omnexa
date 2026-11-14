@@ -22,14 +22,19 @@
     });
   });
 })();
+/* Scroll reveal. Illustrations start drawing when they come into view. */
 (function(){
-  var els=document.querySelectorAll('h2.s,p.sub,.cards .card,.card.feature,ul.ticks li,ol.steps li,details,.notice,.cta-band h2');
-  if(!('IntersectionObserver' in window)){return;}
-  var n=0;
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
-  els.forEach(function(el){
+  var show=function(el){el.classList.add('in');};
+  var fade=document.querySelectorAll('main section h2.s,main section .kicker,main section p.sub,.cards .card,.door,ul.ticks li,ol.steps li,details,.notice,.chips a,.cta-band h2');
+  var art=document.querySelectorAll('.illus');
+  if(!('IntersectionObserver' in window)){fade.forEach(show);art.forEach(show);return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target);}});},{threshold:.15,rootMargin:'0px 0px -30px 0px'});
+  var last=null,n=0;
+  fade.forEach(function(el){
     el.classList.add('reveal');
-    el.style.transitionDelay=(n++%4)*70+'ms';
+    n=(el.parentNode===last)?n+1:0; last=el.parentNode;
+    el.style.transitionDelay=Math.min(n,6)*70+'ms';
     io.observe(el);
   });
+  art.forEach(function(el){io.observe(el);});
 })();

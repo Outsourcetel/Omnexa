@@ -26,3 +26,10 @@ Serve `/404.html` as the error page and keep trailing-slash URLs. Redirect `www`
 
 ## Not included yet
 Arabic pages (/ar/ with hreflang), blog, HVAC/electrical/plumbing/construction detail pages, photography.
+
+## Design system
+- Light base: white reads as hygiene (pest) and paper (ISO).
+- Pest pages: green `#1c7c54` + hi-vis amber. ISO pages: blue `#1f4fbf` + seal gold. Set by `t-pest` / `t-iso` classes.
+- Fonts: IBM Plex Sans (body), IBM Plex Sans Condensed (headings), IBM Plex Mono (standard numbers, labels). IBM Plex Sans Arabic is the planned match for /ar/.
+- Illustrations and icons are inline SVG generated in `src/build.py` (`illus_pest`, `illus_iso`, `ICON`).
+- Animations respect `prefers-reduced-motion` and the site works without JavaScript.
