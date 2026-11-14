@@ -1,7 +1,10 @@
 {
   "brand": "Omnexa Solutions",
   "base_url": "https://omnexasol.com",
-  "primary_city": "Riyadh",
+  "cities": [
+    "Riyadh",
+    "Jeddah"
+  ],
   "country": "Saudi Arabia",
   "phone": "+966558187808",
   "phone_display": "+966 55 818 7808",

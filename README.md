@@ -18,7 +18,7 @@ Serve `/404.html` as the error page and keep trailing-slash URLs. Redirect `www`
 1. `gtm_id`: add the GTM container ID; in GTM add GA4 + Google Ads conversion tags on events
    `generate_lead`, `click_whatsapp`, `click_to_call` (already pushed to dataLayer by site.js).
 2. `proof`: add ISO certificate no./body, pest licence, CR, years in service ONLY when verified. Empty = not shown.
-3. `street_address`: add the full street address; confirm primary city (Riyadh vs Jeddah) and set `primary_city`.
+3. `street_address`: add the full street address; `cities` lists the cities served (each gets a landing page per service; add content in CITY_PAGES).
 4. `form_endpoint`: optional JSON endpoint to store leads; otherwise the form opens WhatsApp prefilled.
 5. Add real photos, verified client logos and testimonials (the old site's Pakistani client logos were NOT carried over).
 6. Search Console: verify domain, submit /sitemap.xml. Create Google Business Profile.

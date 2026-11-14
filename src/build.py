@@ -2,13 +2,14 @@
 """Static site generator. Run: python3 src/build.py  ->  writes ./public"""
 import json, html, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
-from content import PEST, ISO, OTHER, EXTRA, MORE_FAQS
+from content import PEST, ISO, OTHER, EXTRA, MORE_FAQS, CITY_PAGES, PEST_STEPS, ISO_STEPS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "public")
 C = json.load(open(os.path.join(ROOT, "src", "config.json"), encoding="utf-8"))
 E = html.escape
-city = C["primary_city"]
+CITIES = C["cities"]
+city = " and ".join(CITIES)
 BASE = C["base_url"].rstrip("/")
 PAGES = []  # (url path) for sitemap
 
@@ -31,8 +32,8 @@ def ld(obj):
 def business_ld():
     o = {"@context": "https://schema.org", "@type": "LocalBusiness", "@id": BASE + "/#business", "name": C["brand"],
          "url": BASE + "/", "telephone": C["phone"], "email": C["email"],
-         "areaServed": [{"@type": "Country", "name": C["country"]}],
-         "address": {"@type": "PostalAddress", "addressLocality": city, "addressCountry": "SA"}}
+         "areaServed": [{"@type": "City", "name": x} for x in CITIES] + [{"@type": "Country", "name": C["country"]}],
+         "address": {"@type": "PostalAddress", "addressLocality": CITIES[0], "addressCountry": "SA"}}
     if C["street_address"]:
         o["address"]["streetAddress"] = C["street_address"]
     return o
@@ -147,26 +148,29 @@ def footer():
     pest = "".join(f'<li><a href="/pest-control/{s}/">{E(fmt(PEST[s]["service"]))}</a></li>' for s in PEST["hub"]["children"])
     iso = "".join(f'<li><a href="/iso-consultancy/{s}/">{E(ISO[s]["service"])}</a></li>' for s in ISO["hub"]["children"])
     addr = E(C["street_address"] or C["address_note"])
+    areas = "".join(f'<li><a href="/{h}/{x.lower()}/">{l} in {E(x)}</a></li>' for h, l in (("pest-control", "Pest control"), ("iso-consultancy", "ISO consultants")) for x in CITIES)
     return f"""<footer class="site"><div class="wrap"><div class="cols">
 <div><p class="brand"><span class="mark" aria-hidden="true"></span>{E(C['brand'])}</p><p>{addr}</p><p><a href="tel:{C['phone']}">{E(C['phone_display'])}</a><br><a href="mailto:{C['email']}">{E(C['email'])}</a></p></div>
 <div><h4>Pest Control</h4><ul>{pest}</ul></div>
 <div><h4>ISO Consultancy</h4><ul>{iso}</ul></div>
+<div><h4>Areas</h4><ul>{areas}</ul></div>
 <div><h4>Company</h4><ul><li><a href="/facility-services/">Other services</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li></ul></div>
 </div><p class="copy">&copy; 2026 {E(C['brand'])}</p></div></footer>
 <div class="sticky"><a class="btn btn-call" href="tel:{C['phone']}">{ICON['phone']}Call</a><a class="btn btn-wa" href="{WA}">{ICON['wa']}WhatsApp</a></div>"""
 
 
-def form(service):
+def form(service, sel_city=None):
     opts = ["Pest Control", "Termite Control", "Rodent Control", "Cockroach / Insect Control", "Bed Bug Treatment", "Fumigation",
             "Commercial IPM Programme", "ISO Consultancy", "ISO 9001", "ISO 22000", "ISO 45001", "ISO 14001", "ISO 27001", "Other"]
     if service not in opts:
         opts.insert(0, service)
     o = "".join(f'<option{" selected" if x == service else ""}>{E(x)}</option>' for x in opts)
+    copts = "".join(f'<option{" selected" if x == sel_city else ""}>{E(x)}</option>' for x in CITIES + ["Other city"])
     return f"""<form class="lead" data-wa="{C['whatsapp']}" data-endpoint="{E(C['form_endpoint'])}">
 <label for="n">Name</label><input id="n" name="name" required autocomplete="name">
 <label for="p">Phone / WhatsApp</label><input id="p" name="phone" type="tel" required autocomplete="tel">
 <label for="s">Service</label><select id="s" name="service">{o}</select>
-<label for="c">City</label><input id="c" name="city" value="{E(city)}">
+<label for="c">City</label><select id="c" name="city">{copts}</select>
 <label for="m">Details (optional)</label><textarea id="m" name="message" rows="2"></textarea>
 <button class="btn btn-wa" type="submit">{ICON['wa']}Send via WhatsApp</button>
 <p class="small">Opens WhatsApp with your details filled in. We reply during business hours.</p></form>"""
@@ -187,7 +191,7 @@ def trust(family="pest"):
         items += ["Free consultation", "Gap analysis and audit preparation"]
     else:
         items += ["Free site inspection", "Free ISO consultation"]
-    items.append(f"Serving {city} and Saudi Arabia")
+    items.append(f"Serving {city}")
     return '<ul class="trust">' + "".join(f"<li>{E(i)}</li>" for i in items) + "</ul>"
 
 
@@ -293,13 +297,14 @@ def service_page(path, d, parent, family, slug=None):
         cards = "".join(f'<a class="card" href="{hub_path}{c}/">{card_icon(family, c)}<h3>{E(fmt(data[c]["h1"]))}</h3><p>{E(fmt(data[c]["lead"]))}</p><span class="more">Learn more</span></a>'
                         for c in hub["children"])
         ktitle = "Pest control services" if family == "pest" else "ISO standards we support"
-        related = f'<section class="alt"><div class="wrap"><p class="kicker">Services</p><h2 class="s">{ktitle}</h2><div class="cards">{cards}</div></div></section>'
+        areas = "".join(f'<a href="{hub_path}{x.lower()}/">{E(CITY_PAGES[(family, x.lower())]["h1"])}</a>' for x in CITIES)
+        related = f'<section class="alt"><div class="wrap"><p class="kicker">Services</p><h2 class="s">{ktitle}</h2><div class="cards">{cards}</div><p class="kicker" style="margin-top:36px">Areas we serve</p><div class="chips">{areas}</div></div></section>'
         eyebrow = ("Pest control" if family == "pest" else "ISO consultancy") + " · " + (city if family == "pest" else "Saudi Arabia")
         label = "MANAGEMENT SYSTEM"
     else:
         sib = "".join(f'<a href="{hub_path}{c}/">{E(fmt(data[c]["service"]))}</a>' for c in hub["children"] if c != slug)
         related = f'<section class="alt tight"><div class="wrap"><p class="kicker">Related services</p><div class="chips">{sib}<a class="all" href="{hub_path}">All {E(parent[0].lower())} services</a></div></div></section>'
-        eyebrow = parent[0]
+        eyebrow = parent[0] + (" · " + d["city"] if d.get("city") else "")
         label = d["service"].upper()
     notice = ""
     if family == "iso":
@@ -309,7 +314,7 @@ def service_page(path, d, parent, family, slug=None):
     body = f"""<div class="hero"><div class="wrap">{crumbs_html(cr)}<div class="grid"><div>
 <p class="eyebrow">{E(eyebrow)}</p><h1>{E(h1)}</h1><p class="lead">{E(fmt(d['lead']))}</p>
 <div class="cta">{btn_wa(cta)}{btn_call()}</div>{trust(family)}</div>
-<div class="card formcard"><h2>Request a free {noun}</h2>{form(d['service'])}</div></div></div></div>
+<div class="card formcard"><h2>Request a free {noun}</h2>{form(d['service'], d.get('city'))}</div></div></div></div>
 {onpage}
 <section><div class="wrap two"><div><p class="kicker">What's included</p><h2 class="s">{E(d['service'])}: what we do</h2><p class="sub">{E(fmt(d['intro']))}</p><ul class="ticks">{ticks}</ul>{notice}</div>
 <div class="art">{art}</div></div></section>
@@ -334,11 +339,14 @@ def build():
         service_page(hp, hub, None, fam)
         for k in hub["children"]:
             service_page(hp + k + "/", data[k], (name, hp), fam, slug=k)
+        for x in CITIES:
+            d = dict(CITY_PAGES[(fam, x.lower())], steps=PEST_STEPS if fam == "pest" else ISO_STEPS)
+            service_page(hp + x.lower() + "/", d, (name, hp), fam, slug=x.lower())
 
     # home
     pest_cards = "".join(f'<a class="card" href="/pest-control/{s}/">{card_icon("pest", s)}<h3>{E(fmt(PEST[s]["service"]))}</h3><span class="more">Learn more</span></a>' for s in PEST["hub"]["children"])
     iso_cards = "".join(f'<a class="card" href="/iso-consultancy/{s}/">{card_icon("iso", s)}<h3>{E(ISO[s]["service"])}</h3><span class="more">Learn more</span></a>' for s in ISO["hub"]["children"])
-    home = f"""<div class="hero home"><div class="wrap"><p class="eyebrow">{E(city)} · Saudi Arabia</p>
+    home = f"""<div class="hero home"><div class="wrap"><p class="eyebrow">{E(" · ".join(CITIES))}</p>
 <h1>Pest Control and ISO Consultancy in Saudi Arabia</h1>
 <p class="lead">Inspection-led pest management and practical ISO implementation, from one company.</p>
 <div class="cta">{btn_wa(wa_link('Hello, I would like to enquire'))}{btn_call()}</div>{trust('home')}</div></div>

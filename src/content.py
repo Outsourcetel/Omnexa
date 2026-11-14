@@ -1,5 +1,5 @@
 # Page content. Keep claims factual and unsupported superlatives out (Google Ads policy).
-# {city} is replaced with config primary_city at build time.
+# {city} is replaced with the config cities joined by "and" at build time.
 
 PEST_STEPS = [
     ("Site inspection", "A technician inspects the premises, identifies the pest, entry points and conditions that attract it."),
@@ -11,7 +11,7 @@ PEST_STEPS = [
 PEST = {
     "hub": dict(
         slug="pest-control",
-        title="Pest Control in {city}, Saudi Arabia | Omnexa Solutions",
+        title="Pest Control in {city} | Omnexa Solutions",
         desc="Pest control in {city} for homes, restaurants, warehouses and factories. Termites, rodents, cockroaches, bed bugs and fumigation. Free site inspection.",
         h1="Pest Control in {city}",
         lead="Inspection-led pest management for homes, restaurants, hotels, warehouses and food facilities. Request a free site inspection today.",
@@ -28,7 +28,7 @@ PEST = {
         children=["termite-control", "rodent-control", "cockroach-control", "bed-bug-treatment", "fumigation", "commercial-ipm"],
     ),
     "termite-control": dict(
-        title="Termite Control in {city} | Pre & Post Construction | Omnexa Solutions",
+        title="Termite Control in {city} | Omnexa Solutions",
         desc="Termite treatment in {city}: inspection, soil and wood treatment, and pre-construction anti-termite protection. Book a free inspection.",
         h1="Termite Control in {city}",
         lead="Find out whether you have termites and get a treatment plan. Free site inspection.",
@@ -85,7 +85,7 @@ PEST = {
         ],
     ),
     "fumigation": dict(
-        title="Fumigation Services in {city} | Warehouses & Stored Goods | Omnexa Solutions",
+        title="Fumigation Services in {city} | Omnexa Solutions",
         desc="Fumigation for warehouses, containers and stored products in {city}. Request an assessment and quotation.",
         h1="Fumigation Services in {city}",
         lead="Fumigation for warehouses, stored goods and structures, planned and carried out with safety controls.",
@@ -99,7 +99,7 @@ PEST = {
         ],
     ),
     "commercial-ipm": dict(
-        title="Commercial Pest Control & IPM in {city} | Food, Hotels, Healthcare",
+        title="Commercial Pest Control in {city} | Omnexa Solutions",
         desc="Integrated Pest Management programmes in {city} for food facilities, hotels, hospitals and warehouses. Scheduled visits and audit-ready records.",
         h1="Commercial Pest Control and IPM in {city}",
         lead="Scheduled Integrated Pest Management programmes with monitoring and audit-ready records.",
@@ -125,7 +125,7 @@ ISO_STEPS = [
 ISO = {
     "hub": dict(
         slug="iso-consultancy",
-        title="ISO Consultants in Saudi Arabia | ISO 9001, 22000, 45001 | Omnexa Solutions",
+        title="ISO Consultants in Saudi Arabia | Omnexa Solutions",
         desc="ISO consultancy in Saudi Arabia: gap analysis, documentation, internal audit and certification preparation for ISO 9001, 22000, 45001, 14001 and 27001.",
         h1="ISO Consultants in Saudi Arabia",
         lead="Practical help to implement ISO management systems and prepare for certification. Book a free consultation.",
@@ -137,7 +137,7 @@ ISO = {
             ("Are you a certification body?", "No. We are consultants. We help you implement the standard and prepare. The certificate is issued by an accredited certification body that you choose."),
             ("How long does ISO certification take?", "It varies with company size, existing processes and the standard. We give a timeline after the gap analysis."),
             ("Which ISO standard do I need?", "It depends on your industry and customers. ISO 9001 suits most companies; food businesses often need ISO 22000; contractors often need ISO 45001 and 14001."),
-            ("Do you work outside Riyadh?", "Yes. We work with companies across Saudi Arabia and the Gulf. Some stages can be done remotely."),
+            ("Do you work outside Riyadh and Jeddah?", "Yes. We work with companies across Saudi Arabia and the Gulf. Some stages can be done remotely."),
         ],
         children=["iso-9001", "iso-22000", "iso-45001", "iso-14001", "iso-27001"],
     ),
@@ -170,7 +170,7 @@ ISO = {
         ],
     ),
     "iso-45001": dict(
-        title="ISO 45001 Health & Safety Consultants in Saudi Arabia | Omnexa Solutions",
+        title="ISO 45001 Consultants in Saudi Arabia | Omnexa Solutions",
         desc="ISO 45001 occupational health and safety consultancy for contractors, factories and facilities in Saudi Arabia.",
         h1="ISO 45001 Health and Safety Consultants",
         lead="Build an occupational health and safety management system and prepare for certification.",
@@ -682,5 +682,130 @@ MORE_FAQS.update({
     ("Is this an IT project?", "IT is central, but the system also covers people, suppliers and physical security. Management has to own it."),
     ("How long does it take?", "Commonly four to eight months, depending on your scope and how mature your IT practices are."),
     ("Do you carry out penetration testing?", "No. We are management system consultants. We tell you where technical testing is needed and work with your IT team or their provider."),
+],
+})
+
+
+# ---- city landing pages (one per service per city) ----
+# District lists are examples and must be confirmed by the business.
+CITY_PAGES = {
+("pest", "riyadh"): dict(
+    city="Riyadh",
+    title="Pest Control in Riyadh | Free Inspection | Omnexa Solutions",
+    desc="Pest control in Riyadh for villas, compounds, restaurants and warehouses. Termites, rodents, cockroaches and bed bugs. Request a free site inspection.",
+    h1="Pest Control in Riyadh",
+    lead="Inspection-led pest control for villas, compounds, restaurants and warehouses across Riyadh.",
+    service="Pest Control",
+    intro="We provide pest control and scheduled pest management across Riyadh, for homes and for businesses. Every job starts with an inspection and ends with a written service record.",
+    bullets=["Termite control for villas and new builds", "Rodent control for compounds and warehouses", "Cockroach and insect control for kitchens", "Bed bug treatment for homes and hotels", "Fumigation for stored goods", "Service contracts for businesses"],
+    faqs=[
+        ("Which parts of Riyadh do you cover?", "We cover the city and its industrial areas. Tell us your district when you enquire and we will confirm the earliest available visit."),
+        ("Do you work in residential compounds?", "Yes. We treat individual villas and also run programmes for whole compounds through the management office."),
+        ("Can you treat a new villa before we move in?", "Yes. A pre-occupancy treatment and a termite check are easiest while the property is empty."),
+    ],
+),
+("pest", "jeddah"): dict(
+    city="Jeddah",
+    title="Pest Control in Jeddah | Free Inspection | Omnexa Solutions",
+    desc="Pest control in Jeddah for homes, restaurants, hotels and warehouses. Cockroaches, termites, rodents, mosquitoes and fumigation. Request a free site inspection.",
+    h1="Pest Control in Jeddah",
+    lead="Inspection-led pest control for homes, restaurants, hotels and warehouses across Jeddah.",
+    service="Pest Control",
+    intro="We provide pest control and scheduled pest management across Jeddah, for homes and for businesses. Every job starts with an inspection and ends with a written service record.",
+    bullets=["Cockroach and insect control for homes and kitchens", "Termite control for villas and buildings", "Rodent control for restaurants and warehouses", "Mosquito control for gardens and compounds", "Fumigation for warehouses and containers", "Service contracts for businesses"],
+    faqs=[
+        ("Which parts of Jeddah do you cover?", "We cover the city, its industrial areas and the port area. Tell us your district when you enquire and we will confirm the earliest available visit."),
+        ("Do you fumigate containers and warehouses?", "Yes. Send us the commodity, volume and timing and we will prepare a fumigation plan and quotation."),
+        ("Does humidity make pests worse?", "Yes. Cockroaches, mosquitoes and termites all do well in humid conditions, so follow-up visits and prevention matter more on the coast."),
+    ],
+),
+("iso", "riyadh"): dict(
+    city="Riyadh",
+    title="ISO Consultants in Riyadh | ISO 9001, 45001, 14001 | Omnexa Solutions",
+    desc="ISO consultants in Riyadh: gap analysis, documentation, training and certification preparation for ISO 9001, 45001, 14001, 22000 and 27001. Free consultation.",
+    h1="ISO Consultants in Riyadh",
+    lead="On-site ISO consultancy for Riyadh companies, from gap analysis to the certification audit.",
+    service="ISO Consultancy",
+    intro="We help companies in Riyadh implement ISO management systems and prepare for certification. Workshops, training and the internal audit take place at your premises; document reviews can be done remotely.",
+    bullets=["ISO 9001 Quality Management", "ISO 45001 Health and Safety", "ISO 14001 Environmental Management", "ISO 22000 Food Safety", "ISO 27001 Information Security", "Integrated management systems"],
+    faqs=[
+        ("Do you come to our office in Riyadh?", "Yes. The gap analysis, workshops, training and internal audit are carried out on site."),
+        ("We need a certificate for a tender. How fast can it be done?", "It depends on your size and what is already in place. Tell us the tender date at the first meeting and we will tell you honestly whether it is achievable."),
+        ("Can you support companies with branches in other cities?", "Yes. We plan one system for all sites and visit branches as needed."),
+    ],
+),
+("iso", "jeddah"): dict(
+    city="Jeddah",
+    title="ISO Consultants in Jeddah | ISO 9001, 22000, 45001 | Omnexa Solutions",
+    desc="ISO consultants in Jeddah: gap analysis, documentation, training and certification preparation for ISO 9001, 22000, 45001, 14001 and 27001. Free consultation.",
+    h1="ISO Consultants in Jeddah",
+    lead="On-site ISO consultancy for Jeddah companies, from gap analysis to the certification audit.",
+    service="ISO Consultancy",
+    intro="We help companies in Jeddah implement ISO management systems and prepare for certification. Workshops, training and the internal audit take place at your premises; document reviews can be done remotely.",
+    bullets=["ISO 9001 Quality Management", "ISO 22000 Food Safety", "ISO 45001 Health and Safety", "ISO 14001 Environmental Management", "ISO 27001 Information Security", "Integrated management systems"],
+    faqs=[
+        ("Do you come to our site in Jeddah?", "Yes. The gap analysis, workshops, training and internal audit are carried out on site."),
+        ("We are a food business. Which standard should we start with?", "Usually ISO 22000, sometimes together with ISO 9001. We confirm after looking at what your customers ask for."),
+        ("Can you also handle our pest control?", "Yes. We provide pest control in Jeddah and document it the way a food-safety auditor expects."),
+    ],
+),
+}
+
+EXTRA.update({
+("pest", "riyadh"): [
+    ("prose", "local", "Local conditions", "Pest pressure in Riyadh",
+     ["Riyadh's dry climate and very hot summers push pests towards the places people keep cool and watered. Rodents and cockroaches move into air-conditioned buildings, and irrigated gardens keep the soil moist enough for termites.",
+      "The city is also building quickly. New villas and commercial buildings are the best time to apply anti-termite soil treatment, because it is far cheaper before the slab is poured than after damage appears."]),
+    ("cards", "common", "What we treat most", "Common call-outs in Riyadh", None,
+     [
+      ("Termites in villas", "Door frames, wardrobes and kitchen cabinets attacked from the soil beneath the slab."),
+      ("Rodents in compounds and warehouses", "Activity around waste areas, loading bays and landscaped grounds."),
+      ("Cockroaches in kitchens", "German cockroaches in restaurant and home kitchens, American cockroaches from drains."),
+      ("Bed bugs", "In homes after travel, and in hotels and staff accommodation."),
+     ]),
+    ("list", "areas", "Coverage", "Areas we cover in Riyadh",
+     "We work across the city. Districts we visit include:",
+     ["Al Olaya and Al Sulaimaniyah", "Al Malqa, Hittin and Al Nakheel", "Al Yasmin and Al Sahafah", "Al Malaz and Al Rabwah", "Industrial areas and logistics zones", "Residential compounds across the city"]),
+],
+("pest", "jeddah"): [
+    ("prose", "local", "Local conditions", "Pest pressure in Jeddah",
+     ["Jeddah is humid for most of the year, and humidity suits the pests people complain about most. Cockroaches breed faster, mosquitoes find standing water, and termites stay active in damp soil.",
+      "As a port city, Jeddah also handles large volumes of stored food and goods. Warehouses and containers bring stored-product insects and rodents, which is why monitoring and fumigation are a bigger part of our work here."]),
+    ("cards", "common", "What we treat most", "Common call-outs in Jeddah", None,
+     [
+      ("Cockroaches", "In home and restaurant kitchens, and from drains in older buildings."),
+      ("Mosquitoes", "Around gardens, water tanks and standing water in compounds."),
+      ("Termites", "In villas and buildings where the soil stays damp."),
+      ("Warehouse and container pests", "Rodents and stored-product insects in storage and logistics sites."),
+     ]),
+    ("list", "areas", "Coverage", "Areas we cover in Jeddah",
+     "We work across the city. Districts we visit include:",
+     ["Al Rawdah and Al Zahra", "Al Salamah and Al Naeem", "Al Shati and Obhur", "Al Hamra and Al Andalus", "Industrial areas and warehouses", "The port area and logistics sites"]),
+],
+("iso", "riyadh"): [
+    ("cards", "sectors", "Who we work with", "Riyadh companies that ask us for ISO", None,
+     [
+      ("Contractors", "ISO 9001, 14001 and 45001 for client and project pre-qualification."),
+      ("Suppliers to government and large companies", "Certification requested in tenders and vendor registration."),
+      ("Facility and maintenance companies", "Quality and safety systems for work on client sites."),
+      ("IT and service companies", "ISO 27001 and ISO 9001 for clients that ask for security and quality assurance."),
+     ]),
+    ("prose", "how", "How we work", "What working with us in Riyadh looks like",
+     ["We start with a free consultation to understand what your customers or tenders are asking for and which standard answers it.",
+      "The gap analysis, workshops, staff training and internal audit are done at your premises, with your team. Document drafting and reviews happen between visits, so the time we ask of your managers stays short.",
+      "When the system is ready, you appoint an accredited certification body and we stay with you through its audit and any findings."]),
+],
+("iso", "jeddah"): [
+    ("cards", "sectors", "Who we work with", "Jeddah companies that ask us for ISO", None,
+     [
+      ("Food manufacturers and caterers", "ISO 22000 and HACCP for customers and inspections."),
+      ("Logistics, warehousing and port services", "ISO 9001 and ISO 45001 for clients and contracts."),
+      ("Hotels and hospitality", "Food safety and quality systems across kitchens and operations."),
+      ("Manufacturers and contractors", "ISO 9001, 14001 and 45001 for tenders and supplier approval."),
+     ]),
+    ("prose", "how", "How we work", "What working with us in Jeddah looks like",
+     ["We start with a free consultation to understand what your customers or tenders are asking for and which standard answers it.",
+      "The gap analysis, workshops, staff training and internal audit are done at your premises, with your team. Document drafting and reviews happen between visits, so the time we ask of your managers stays short.",
+      "When the system is ready, you appoint an accredited certification body and we stay with you through its audit and any findings."]),
 ],
 })
