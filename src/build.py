@@ -2,7 +2,7 @@
 """Static site generator. Run: python3 src/build.py  ->  writes ./public"""
 import json, html, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
-from content import PEST, ISO, OTHER
+from content import PEST, ISO, OTHER, EXTRA, MORE_FAQS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "public")
@@ -14,7 +14,8 @@ PAGES = []  # (url path) for sitemap
 
 
 def fmt(s):
-    return s.replace("{city}", city)
+    lic = C["proof"]["pest_licence"]
+    return s.replace("{city}", city).replace("{pest_licence_line}", (" Our qualification: " + lic + ".") if lic else "")
 
 
 def write(path, content):
@@ -232,6 +233,42 @@ def simple_hero(cr, h1, lead):
     return f'<div class="hero slim"><div class="wrap">{crumbs_html(cr)}<h1>{E(h1)}</h1><p class="lead">{E(lead)}</p></div></div>'
 
 
+def render_blocks(blocks):
+    """Render in-depth content blocks; returns (html, [(id, title)])."""
+    out, toc = "", []
+    for i, b in enumerate(blocks):
+        kind, bid = b[0], b[1]
+        alt = ' class="alt"' if i % 2 == 0 else ""
+        if kind == "callout":
+            out += f'<section class="tight" id="{bid}"><div class="wrap narrow"><div class="callout"><h3>{E(fmt(b[2]))}</h3><p>{E(fmt(b[3]))}</p></div></div></section>'
+            continue
+        kicker, title = b[2], fmt(b[3])
+        toc.append((bid, title))
+        head = f'<p class="kicker">{E(kicker)}</p><h2 class="s">{E(title)}</h2>'
+        if kind == "table":
+            intro, headers, rows, note = b[4], b[5], b[6], b[7]
+            th = "".join(f"<th>{E(h)}</th>" for h in headers)
+            tr = "".join("<tr>" + "".join(
+                (f'<th scope="row" data-l="{E(headers[j])}">{E(c)}</th>' if j == 0 else f'<td data-l="{E(headers[j])}">{E(c)}</td>')
+                for j, c in enumerate(r)) + "</tr>" for r in rows)
+            body = (f'<p class="sub">{E(fmt(intro))}</p>' if intro else "") + f'<div class="tbl"><table><thead><tr>{th}</tr></thead><tbody>{tr}</tbody></table></div>'
+            if note:
+                body += f'<p class="note">{E(note)}</p>'
+            out += f'<section{alt} id="{bid}"><div class="wrap">{head}{body}</div></section>'
+        elif kind == "list":
+            intro, items = b[4], b[5]
+            li = "".join(f"<li>{E(x)}</li>" for x in items)
+            out += f'<section{alt} id="{bid}"><div class="wrap narrow">{head}<p class="sub">{E(fmt(intro))}</p><ul class="ticks one">{li}</ul></div></section>'
+        elif kind == "cards":
+            intro, items = b[4], b[5]
+            cards = "".join(f'<div class="card plain"><h3>{E(h)}</h3><p>{E(t)}</p></div>' for h, t in items)
+            out += f'<section{alt} id="{bid}"><div class="wrap">{head}' + (f'<p class="sub">{E(intro)}</p>' if intro else "") + f'<div class="cards wide">{cards}</div></div></section>'
+        elif kind == "prose":
+            ps = "".join(f"<p>{E(x)}</p>" for x in b[4])
+            out += f'<section{alt} id="{bid}"><div class="wrap narrow prose">{head}{ps}</div></section>'
+    return out, toc
+
+
 def service_page(path, d, parent, family, slug=None):
     h1, title, desc = fmt(d["h1"]), fmt(d["title"]), fmt(d["desc"])
     data = PEST if family == "pest" else ISO
@@ -243,7 +280,14 @@ def service_page(path, d, parent, family, slug=None):
     cr.append((h1, path))
     ticks = "".join(f"<li>{E(fmt(b))}</li>" for b in d["bullets"])
     steps = "".join(f"<li><b>{E(a)}</b><span>{E(b)}</span></li>" for a, b in d["steps"])
-    faq = "".join(f"<details><summary>{E(q)}</summary><p>{E(a)}</p></details>" for q, a in d["faqs"])
+    key = (family, slug or "hub")
+    faqs = list(d["faqs"]) + MORE_FAQS.get(key, [])
+    faq = "".join(f"<details><summary>{E(q)}</summary><p>{E(a)}</p></details>" for q, a in faqs)
+    extra, toc = render_blocks(EXTRA.get(key, []))
+    onpage = ""
+    if toc:
+        links = "".join(f'<a href="#{i}">{E(t)}</a>' for i, t in toc) + '<a href="#process">How it works</a><a href="#faq">FAQ</a>'
+        onpage = f'<nav class="onpage" aria-label="On this page"><div class="wrap"><b>On this page</b>{links}</div></nav>'
     noun = "inspection" if family == "pest" else "consultation"
     if slug is None:  # hub
         cards = "".join(f'<a class="card" href="{hub_path}{c}/">{card_icon(family, c)}<h3>{E(fmt(data[c]["h1"]))}</h3><p>{E(fmt(data[c]["lead"]))}</p><span class="more">Learn more</span></a>'
@@ -266,18 +310,20 @@ def service_page(path, d, parent, family, slug=None):
 <p class="eyebrow">{E(eyebrow)}</p><h1>{E(h1)}</h1><p class="lead">{E(fmt(d['lead']))}</p>
 <div class="cta">{btn_wa(cta)}{btn_call()}</div>{trust(family)}</div>
 <div class="card formcard"><h2>Request a free {noun}</h2>{form(d['service'])}</div></div></div></div>
+{onpage}
 <section><div class="wrap two"><div><p class="kicker">What's included</p><h2 class="s">{E(d['service'])}: what we do</h2><p class="sub">{E(fmt(d['intro']))}</p><ul class="ticks">{ticks}</ul>{notice}</div>
 <div class="art">{art}</div></div></section>
-<section class="alt"><div class="wrap"><p class="kicker">Process</p><h2 class="s">How it works</h2><ol class="steps">{steps}</ol></div></section>
+{extra}
+<section class="alt" id="process"><div class="wrap"><p class="kicker">Process</p><h2 class="s">How it works</h2><ol class="steps">{steps}</ol></div></section>
 {related}
-<section><div class="wrap narrow"><p class="kicker">FAQ</p><h2 class="s">Frequently asked questions</h2>{faq}</div></section>
+<section id="faq"><div class="wrap narrow"><p class="kicker">FAQ</p><h2 class="s">Frequently asked questions</h2>{faq}</div></section>
 <div class="cta-band"><div class="wrap"><h2>Book your free {noun}</h2><p>Tell us about your site and we will contact you.</p>
 <div class="cta">{btn_wa(cta)}{btn_call("Call now")}</div></div></div>"""
     svc = {"@context": "https://schema.org", "@type": "Service", "name": h1, "serviceType": d["service"],
            "provider": {"@type": "LocalBusiness", "@id": BASE + "/#business", "name": C["brand"], "telephone": C["phone"]},
            "areaServed": {"@type": "Country", "name": C["country"]}, "url": BASE + path, "description": desc}
     fq = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
-        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in d["faqs"]]}
+        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]}
     page(path, title, desc, body, [svc, fq], cr)
 
 

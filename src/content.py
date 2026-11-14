@@ -143,12 +143,12 @@ ISO = {
     ),
     "iso-9001": dict(
         title="ISO 9001 Certification Consultants in Saudi Arabia | Omnexa Solutions",
-        desc="ISO 9001:2015 consultancy in Saudi Arabia: gap analysis, documentation, internal audit and certification audit support.",
+        desc="ISO 9001 consultancy in Saudi Arabia, including the 2026 edition: gap analysis, documentation, internal audit and certification audit support.",
         h1="ISO 9001 Consultants in Saudi Arabia",
-        lead="Implement a quality management system and prepare for ISO 9001:2015 certification.",
+        lead="Implement a quality management system and prepare for ISO 9001 certification, including the new 2026 edition.",
         service="ISO 9001",
         intro="ISO 9001 is the international standard for quality management systems. It is widely requested in tenders and supplier approvals.",
-        bullets=["Gap analysis against ISO 9001:2015", "Quality manual, procedures and records", "Process mapping and risk assessment", "Internal auditor training", "Management review support", "Certification audit preparation"],
+        bullets=["Gap analysis against ISO 9001 (2015 or 2026 edition)", "Quality manual, procedures and records", "Process mapping and risk assessment", "Internal auditor training", "Management review support", "Certification audit preparation"],
         steps=ISO_STEPS,
         faqs=[
             ("Is ISO 9001 only for large companies?", "No. It applies to companies of any size and sector."),
@@ -210,3 +210,172 @@ OTHER = [
     ("Plumbing and painting", "Plumbing works, leak repair, and interior and exterior painting."),
     ("Construction and fit-out", "Civil, MEP and interior fit-out works."),
 ]
+
+
+# ---------------------------------------------------------------------------
+# In-depth content blocks. Keyed by (family, slug); slug "hub" for hub pages.
+# Block types:
+#   ("table", id, kicker, title, intro, [headers], [[cells]...], note)
+#   ("list",  id, kicker, title, intro, [items])
+#   ("cards", id, kicker, title, intro, [(heading, text)...])
+#   ("prose", id, kicker, title, [paragraphs])
+#   ("callout", id, title, text)
+# Facts here were checked in Nov 2026: Balady qualification for public health
+# pest control; SFDA registration number on public health pesticide labels;
+# ISO 9001:2026 published 16 Sep 2026 with an expected ~3-year transition.
+# ---------------------------------------------------------------------------
+EXTRA = {
+("pest", "hub"): [
+    ("table", "pests", "Know your pest", "Pests we deal with in {city}",
+     "Most call-outs fall into six groups. The signs tell us what we are dealing with before treatment starts.",
+     ["Pest", "Signs you may notice", "Why it matters", "How we treat it"],
+     [
+      ["Cockroaches", "Droppings like ground pepper, egg cases, a musty smell, sightings at night near drains and kitchens", "They contaminate food and surfaces, and are a hygiene finding in food premises", "Gel baits in hiding places, targeted residual treatment, drain treatment, then a follow-up visit"],
+      ["Termites", "Mud tubes on walls or skirting, hollow-sounding wood, discarded wings, doors that start to stick", "Damage to door frames, cabinets and structural timber that is costly to repair", "Soil barrier treatment before or after construction, baiting, and wood treatment"],
+      ["Rats and mice", "Droppings, gnaw marks, greasy rub marks along walls, scratching sounds at night", "They contaminate stock and damage cables and packaging", "Proofing of entry points, tamper-resistant bait stations, traps and monitoring"],
+      ["Bed bugs", "Bites in lines or clusters, small blood spots on sheets, dark spots along mattress seams", "They spread between rooms quickly, which is serious for hotels and staff housing", "Detailed inspection, treatment of beds and furniture, and a follow-up after the egg cycle"],
+      ["Ants and flies", "Trails leading to food, flies around waste areas and drains", "Nuisance and food contamination", "Baiting, removing the source, and fly control units for commercial kitchens"],
+      ["Stored-product insects", "Beetles, moths or webbing in grain, flour, dates or packaged goods", "Stock loss and rejected consignments", "Inspection, stock rotation advice, and fumigation where needed"],
+     ], None),
+    ("cards", "who", "Who we work for", "Homes and businesses need different things", None,
+     [
+      ("Homes and villas", "One-off or seasonal treatments, planned around children, pets and food areas, with clear preparation instructions before we arrive."),
+      ("Restaurants and food businesses", "Scheduled visits, monitoring points and service records that a municipal inspector or food-safety auditor can read."),
+      ("Warehouses and logistics", "Rodent monitoring, stored-product pest control and fumigation, planned around receiving and dispatch."),
+      ("Hotels, compounds and healthcare", "Room-by-room programmes, discreet service and a fast response when a guest or resident reports a problem."),
+     ]),
+    ("list", "price", "Pricing", "What affects the price",
+     "We quote in writing after the inspection, so you know the scope and cost before any work starts. The quotation depends on:",
+     ["The size and type of property", "The pest, and how established the infestation is", "How many visits the treatment needs", "Whether it is a one-off treatment or a service contract", "Access and timing, such as night or out-of-hours work"]),
+    ("list", "prepare", "Before and after", "How to prepare for a treatment",
+     "A little preparation makes treatment more effective. We confirm the exact steps for your site when you book.",
+     ["Tell us about children, pets, fish tanks, pregnancy or respiratory conditions in the household", "Clear the areas to be treated: under sinks, kitchen cupboards, storage rooms", "Cover or put away food, utensils and children's toys", "Keep people and pets out of treated rooms for the period we advise", "Afterwards, ventilate as instructed and avoid mopping treated edges for the period we advise", "Keep the service report: it lists what was used and where"]),
+    ("callout", "licence", "Check your provider's licence",
+     "In Saudi Arabia, a company offering public health pest control needs a qualification issued through the Balady municipal platform. Public health pesticides also carry an SFDA registration number on the label. Ask any provider to show you both before work starts.{pest_licence_line}"),
+],
+("pest", "termite-control"): [
+    ("list", "signs", "Early warning", "Signs of termites in a building",
+     "Termites stay hidden, so the signs are easy to miss. Call for an inspection if you see any of these:",
+     ["Mud tubes, the width of a pencil, on walls, skirting or foundations", "Wood that sounds hollow when tapped", "Blistered paint or a rippled surface on door frames and cabinets", "Small piles of discarded wings near windows or lights", "Doors or windows that begin to stick", "Fine soil or mud packed into joints and cracks"]),
+    ("prose", "how", "How it happens", "How termites get into buildings",
+     ["The termites that damage buildings here are mainly subterranean. They nest in the soil and travel to timber through cracks in the floor slab, expansion joints, and gaps around pipes and cable conduits.",
+      "They build mud tubes to stay protected from dry air and light, which is why the damage is often well advanced before anyone sees an insect. Door frames, skirting, wardrobes and kitchen cabinets are usually attacked first.",
+      "Because the colony is in the ground, spraying the visible insects does not solve the problem. Treatment has to put a treated zone between the soil and the building, or eliminate the colony through baiting."]),
+    ("table", "methods", "Treatment options", "Which termite treatment is right for your building",
+     "We recommend a method after the inspection. These are the main options.",
+     ["Method", "When it is used", "How it works", "Disruption"],
+     [
+      ["Pre-construction soil treatment", "New buildings, before the floor slab is poured", "Termiticide is applied to the compacted soil under and around the foundations to form a treated zone", "None for occupants. It has to be scheduled with the contractor"],
+      ["Post-construction barrier (drill and inject)", "Existing buildings with termite activity, or at risk", "Small holes are drilled along walls and floor joints, termiticide is injected into the soil beneath, and the holes are sealed", "Low. Rooms stay in use; some furniture is moved"],
+      ["Baiting system", "Where drilling is not suitable, or for long-term monitoring", "Stations are placed around the building. Termites feed on the bait and carry it back to the colony", "Minimal. It works over weeks to months"],
+      ["Wood and joinery treatment", "Affected frames, cabinets and timber", "Infested wood is treated directly or replaced", "Limited to the affected item"],
+     ], None),
+    ("cards", "contractors", "For developers and contractors", "Pre-construction anti-termite treatment", None,
+     [
+      ("Timing", "Soil treatment is applied after final compaction and before the vapour barrier and slab. Tell us your pour dates early so it does not hold up the programme."),
+      ("Perimeter", "The external perimeter is treated after backfilling and final grading, so the treated zone is not disturbed by later earthworks."),
+      ("Handover records", "You receive a treatment record for the project file, stating the areas treated, the product and the quantity applied."),
+     ]),
+    ("list", "price", "Pricing", "What affects the price of termite treatment",
+     "We measure the building at the inspection and quote in writing. The price depends on:",
+     ["The treated area or the length of walls to be treated", "Construction type and floor finishes", "How far the activity has spread", "The method: barrier, baiting or both", "The warranty period you ask for"]),
+    ("callout", "writing", "Ask for it in writing",
+     "Before you agree to any termite treatment, ask for the product name and its registration number, the areas to be treated, the quantity to be applied, and the warranty terms. A reputable provider gives you all four."),
+],
+("iso", "hub"): [
+    ("table", "which", "Start here", "Which ISO standard do you need?",
+     "The right standard depends on your industry and on what your customers and tenders ask for.",
+     ["Standard", "What it covers", "Who usually needs it"],
+     [
+      ["ISO 9001 Quality", "Consistent delivery and customer satisfaction", "Almost any company. Commonly requested in tenders and supplier approvals"],
+      ["ISO 22000 Food safety", "Control of food-safety hazards across the food chain, including HACCP principles", "Food manufacturers, caterers, central kitchens, packers and cold stores"],
+      ["ISO 45001 Health and safety", "Workplace hazards, incident prevention and legal compliance", "Contractors, factories, and facility and maintenance companies"],
+      ["ISO 14001 Environment", "Waste, emissions, resource use and compliance obligations", "Manufacturers, contractors, and suppliers to clients with environmental requirements"],
+      ["ISO 27001 Information security", "Risk assessment and controls to protect information", "IT, software, finance and outsourcing firms, and any company that handles client data"],
+     ], "Many companies combine two or three standards in one integrated management system, which reduces duplicated documents and audit days."),
+    ("callout", "new9001", "ISO 9001:2026 has been published",
+     "The new edition of ISO 9001 was published in September 2026. A transition period of about three years is expected, during which existing ISO 9001:2015 certificates remain valid. If you are starting now, we agree with you and your certification body which edition to implement."),
+    ("cards", "roles", "Who does what", "Consultant, certification body, accreditation body", None,
+     [
+      ("We are the consultant", "We run the gap analysis, build the system with your team, train your staff, carry out the internal audit and prepare you for the certification audit."),
+      ("The certification body audits you", "An independent body audits in two stages: Stage 1 checks your documentation and readiness, Stage 2 checks that the system is working. It issues the certificate."),
+      ("The accreditation body checks the certifier", "A credible certificate comes from a certification body accredited by a recognised accreditation body, such as the Saudi Accreditation Center or the GCC Accreditation Center."),
+      ("After certification", "The certificate normally runs for three years, with surveillance audits each year and a recertification audit at the end. We can support those too."),
+     ]),
+    ("table", "timeline", "Timeline", "How long ISO certification takes",
+     "Most small and mid-sized companies take three to six months. It depends on your size, the number of sites, and how much is already in place.",
+     ["Phase", "What happens", "Typical duration"],
+     [
+      ["Gap analysis", "We compare your current practice with the standard and agree a plan", "1 to 2 weeks"],
+      ["Design and documentation", "Policies, process maps, procedures and forms are written with your team", "4 to 8 weeks"],
+      ["Implementation and training", "The system is put into use and staff are trained", "4 to 8 weeks"],
+      ["Internal audit and management review", "We audit the system, you fix the findings, management reviews the results", "2 to 3 weeks"],
+      ["Certification audit", "The certification body carries out Stage 1 and Stage 2", "2 to 4 weeks, by its schedule"],
+     ], "Durations are typical, not a commitment. We give you a dated plan after the gap analysis."),
+    ("list", "cost", "Cost", "What ISO certification costs",
+     "There are two separate costs, plus the ongoing ones. We give a fixed written quotation for our part after the free consultation.",
+     ["Consultancy fee: depends on the standard, number of sites, headcount, and how much you already have in place", "Certification body fee: based on audit days, which are set by headcount, sites and the risk level of your activity", "Annual surveillance audits by the certification body", "A recertification audit every three years", "Your own staff time to run the system"]),
+    ("list", "credible", "Buyer's guide", "How to avoid a worthless certificate",
+     "Certificates from non-accredited bodies are often rejected in tenders. Before you pay anyone, check:",
+     ["The certification body is accredited, and the accreditation covers the standard and your sector", "The certificate can be verified on the certification body's public register", "A real audit takes place, on site or remote, with an audit report", "Nobody is promising a certificate within days or a guaranteed pass", "The consultant and the certification body are separate organisations"]),
+],
+("iso", "iso-9001"): [
+    ("callout", "new9001", "ISO 9001:2026 has been published",
+     "The new edition was published in September 2026, replacing ISO 9001:2015. A transition period of about three years is expected, during which 2015 certificates remain valid. New to ISO 9001? We agree the edition with your certification body before work starts. Already certified? We can run a gap analysis against the new edition."),
+    ("table", "clauses", "Inside the standard", "What ISO 9001 requires, clause by clause",
+     "The requirements sit in clauses 4 to 10. This is what each asks for and what we produce with you.",
+     ["Clause", "What the standard asks for", "What we do with you"],
+     [
+      ["4. Context of the organisation", "Understand your business and interested parties; define the scope and processes", "Scope statement, process map, interested-party register"],
+      ["5. Leadership", "Top management commitment, a quality policy, clear roles", "Quality policy, responsibilities matrix, management briefing"],
+      ["6. Planning", "Risks and opportunities, quality objectives, planning of changes", "Risk register, measurable objectives with owners and dates"],
+      ["7. Support", "People, infrastructure, competence, awareness and documented information", "Training matrix, document control, calibration and maintenance records"],
+      ["8. Operation", "Sales, design where applicable, purchasing, delivery, and control of nonconforming output", "Procedures and forms for your core processes, supplier evaluation"],
+      ["9. Performance evaluation", "Monitoring, customer satisfaction, internal audit and management review", "KPIs, internal audit programme and report, management review minutes"],
+      ["10. Improvement", "Nonconformity, corrective action and continual improvement", "Corrective action log and a root-cause method your team can use"],
+     ], "Clause numbers follow the harmonised structure shared by ISO management system standards, so the same framework carries over to ISO 14001, 45001 and 22000."),
+    ("list", "documents", "Deliverables", "What you will have at the end",
+     "A working system, not a shelf of binders. Typical documents and records:",
+     ["Scope of the quality management system", "Quality policy and measurable objectives", "Process map and process descriptions", "Risk and opportunity register", "Procedures and forms for core processes", "Training and competence records", "Supplier evaluation records", "Internal audit report", "Management review minutes", "Corrective action log"]),
+    ("table", "audits", "The audit", "What happens at the certification audit",
+     "The certification body, not the consultant, carries out these audits.",
+     ["Audit", "Purpose", "When"],
+     [
+      ["Stage 1", "Reviews your documentation and checks you are ready for Stage 2", "Once the system is documented and running"],
+      ["Stage 2", "Checks the system is implemented and effective, by interviewing staff and sampling records", "Usually a few weeks after Stage 1"],
+      ["Surveillance", "Confirms the system is being maintained", "Normally once a year"],
+      ["Recertification", "A full review to renew the certificate", "Every three years"],
+     ], None),
+    ("list", "fails", "Avoid these", "Common reasons companies get nonconformities",
+     "We see the same gaps repeatedly. The internal audit we run before certification is designed to catch them.",
+     ["No internal audit was completed before the certification audit", "Management review was not held, or not recorded", "Quality objectives are not measurable", "Documents in use are out of date or uncontrolled", "Suppliers are not evaluated", "Calibration records are missing for measuring equipment", "Corrective actions are closed without a root cause", "Staff cannot explain the quality policy or their role in it"]),
+],
+}
+
+MORE_FAQS = {
+("pest", "hub"): [
+    ("How long does a treatment take?", "A typical apartment or villa treatment takes one to two hours. Larger sites and termite work take longer. We confirm the time when we quote."),
+    ("How soon can we use the rooms again?", "It depends on the product and method. We tell you the re-entry time for each area before we start, and it is written on the service report."),
+    ("Do you offer contracts for restaurants and warehouses?", "Yes. Contracts include scheduled visits, monitoring points and a service report after every visit."),
+    ("Will one treatment be enough?", "For some pests, yes. Cockroaches, bed bugs and rodents usually need a follow-up visit because eggs hatch or new activity appears. We tell you what to expect in the quotation."),
+],
+("pest", "termite-control"): [
+    ("Is drilling through my floor tiles noticeable?", "Holes are small, placed along joints where possible, and sealed with matching material after injection."),
+    ("Do I need to move out during treatment?", "Usually not. Rooms stay in use and we tell you if any area needs to be vacated for a short time."),
+    ("How long does protection last?", "It depends on the product, the soil and the method. The warranty period is stated in the quotation, so ask to see it in writing."),
+    ("Is baiting better than a chemical barrier?", "They do different jobs. A barrier protects the building quickly; baiting targets the colony and suits sites where drilling is not possible. We sometimes recommend both."),
+],
+("iso", "hub"): [
+    ("Can you guarantee we will be certified?", "No honest consultant can, because the decision belongs to the independent certification body. What we do is prepare you thoroughly and stay with you through the audit and any findings."),
+    ("Can small companies get certified?", "Yes. The standards apply to organisations of any size, and a small company's system can be short and simple."),
+    ("Can we combine several standards?", "Yes. ISO 9001, 14001 and 45001 share the same structure, so they are often implemented together as one integrated system."),
+    ("Do you provide training?", "Yes. Awareness training for staff and internal auditor training are part of most projects."),
+],
+("iso", "iso-9001"): [
+    ("Should we certify to the 2015 or the 2026 edition?", "It depends on your timing and your certification body. We check the current transition rules with them at the start so you do not have to redo work."),
+    ("We are already certified to ISO 9001:2015. What should we do?", "Your certificate remains valid during the transition period. Plan a gap analysis against the 2026 edition and update the system ahead of a scheduled audit."),
+    ("How many staff need to be involved?", "A management representative and the owners of your main processes. We keep their time to short working sessions."),
+    ("Does ISO 9001 require a quality manual?", "A manual is not mandatory, but you do need documented information that describes your system. Many companies keep a short manual because customers ask for it."),
+    ("Can the audit be done remotely?", "Certification bodies can audit some activities remotely, depending on their rules and your operations. They decide, not the consultant."),
+],
+}

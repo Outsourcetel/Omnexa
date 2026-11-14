@@ -250,3 +250,38 @@ footer.site p{margin-bottom:8px}
   footer.site .cols{grid-template-columns:1fr}
   .cta .btn{flex:1 1 auto}
 }
+
+/* in-depth content blocks */
+.onpage{border-bottom:1px solid var(--line);background:#fff;font-size:.9rem}
+.onpage .wrap{display:flex;gap:6px 18px;flex-wrap:wrap;align-items:center;padding-top:12px;padding-bottom:12px}
+.onpage b{font:500 .74rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.onpage a{color:var(--text);text-decoration:none;border-bottom:1px solid transparent}
+.onpage a:hover{color:var(--acc-d);border-color:var(--acc)}
+section[id]{scroll-margin-top:80px}
+.tbl{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+thead th{font:500 .74rem var(--mono);letter-spacing:.08em;text-transform:uppercase;text-align:left;color:#fff;background:var(--acc-d);padding:13px 18px}
+tbody th,tbody td{padding:15px 18px;text-align:left;vertical-align:top;border-top:1px solid var(--line)}
+tbody th{font:700 1.05rem var(--cond);color:var(--ink);white-space:normal;min-width:150px}
+tbody td{color:var(--muted)}
+tbody tr:hover{background:var(--tint)}
+.note{font-size:.9rem;color:var(--muted);margin-top:14px;padding-left:14px;border-left:3px solid var(--hi)}
+ul.ticks.one{grid-template-columns:1fr}
+.cards.wide{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card.plain{box-shadow:none;border-top:4px solid var(--acc)}
+.card.plain h3{font-size:1.2rem;margin:0 0 8px}
+.card.plain p{margin:0;color:var(--muted);font-size:.95rem}
+.prose p{margin-bottom:16px;max-width:68ch}
+.callout{background:var(--tint);border:1px solid color-mix(in srgb,var(--acc) 30%,transparent);border-left:6px solid var(--hi);border-radius:var(--r);padding:24px 26px}
+.callout h3{font-size:1.35rem;margin-bottom:8px}
+.callout p{color:var(--text)}
+@media (max-width:760px){
+  thead{display:none}
+  table,tbody,tr,tbody th,tbody td{display:block}
+  tbody tr{padding:14px 16px;border-top:1px solid var(--line)}
+  tbody tr:first-child{border-top:0}
+  tbody th,tbody td{padding:3px 0;border:0}
+  tbody th{font-size:1.15rem;margin-bottom:4px}
+  tbody td:before{content:attr(data-l) ": ";font-weight:600;color:var(--ink)}
+  .onpage .wrap{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap}
+}
