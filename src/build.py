@@ -3,7 +3,7 @@
 import json, html, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from process import PROCESS, scene, SAMPLE_REPORT, SAMPLE_GANTT
-from content import PEST, ISO, OTHER, EXTRA, MORE_FAQS, CITY_PAGES, PEST_STEPS, ISO_STEPS
+from content import PEST, ISO, OTHER, EXTRA, MORE_FAQS, VALUES, SECTORS, CITY_PAGES, PEST_STEPS, ISO_STEPS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "public")
@@ -70,10 +70,17 @@ ICON = {
     "building": _svg('<path d="M4 21V4.5h10V21M14 10h6v11M2.5 21h19M7 8h1.2M10 8h1.2M7 12h1.2M10 12h1.2M7 16h1.2M10 16h1.2M17 14h.2M17 17.5h.2"/>'),
     "shield": _svg('<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/>'),
     "wa": _svg('<path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/>'),
+    "mosquito": _svg('<ellipse cx="7" cy="9" rx="4.2" ry="2" transform="rotate(-25 7 9)"/><ellipse cx="17" cy="9" rx="4.2" ry="2" transform="rotate(25 17 9)"/><path d="M12 8v9M12 17l-1.2 4M12 17l1.2 4M12 8V4l-1.6-2M9 12l-4 2M15 12l4 2"/>'),
+    "bird": _svg('<path d="M3 15c3-1 4-4 7-5 3-1 6 0 7 3l4-1-2 4c-1 3-4 5-8 5-5 0-8-2-8-6z"/><path d="M10 10c0-3 2-5 5-5 2 0 3 1 3 3"/><circle cx="16" cy="12" r=".8" class="fill"/>'),
+    "snake": _svg('<path d="M18 4c-4 0-5 3-3 5s1 5-3 6-6 3-4 6"/><path d="M18 4l3 1-3 1"/><circle cx="17" cy="4.6" r=".6" class="fill"/>'),
+    "people": _svg('<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.4"/><path d="M16 20a5 5 0 0 1 6 0"/>'),
+    "grid": _svg('<rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/>'),
     "phone": _svg('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>'),
 }
 PEST_ICON = {"termite-control": "termite", "rodent-control": "rodent", "cockroach-control": "roach",
-             "bed-bug-treatment": "bed", "fumigation": "fume", "commercial-ipm": "building"}
+             "bed-bug-treatment": "bed", "fumigation": "fume", "commercial-ipm": "building",
+             "mosquito-control": "mosquito", "bird-control": "bird", "wildlife-control": "snake"}
+ISO_ICON = {"training": "people", "other-standards": "grid"}
 
 
 def ic(kind):
@@ -85,7 +92,9 @@ def seal(num):
 
 
 def card_icon(family, slug):
-    return ic(PEST_ICON[slug]) if family == "pest" else seal(slug.replace("iso-", ""))
+    if family == "pest":
+        return ic(PEST_ICON[slug])
+    return ic(ISO_ICON[slug]) if slug in ISO_ICON else seal(slug.replace("iso-", ""))
 
 
 def illus_pest():
@@ -100,6 +109,15 @@ def illus_pest():
 <circle class="node" cx="56" cy="152" r="6"/><circle class="node n2" cx="304" cy="152" r="6"/><circle class="node n3" cx="180" cy="238" r="6"/>
 <g class="bug" transform="translate(26 62)">{bug}</g><g class="bug" transform="translate(334 236) rotate(140)">{bug}</g><g class="bug" transform="translate(326 54) rotate(40)">{bug}</g>
 <g transform="translate(180 50)"><g class="pop"><path class="badge" d="M0-24l19 7v14c0 13-8.5 21-19 25-10.5-4-19-12-19-25v-14z"/><path class="badge-ck" d="M-8 0l6 6 10-12"/></g></g>
+</svg>'''
+
+
+def illus_ipm():
+    return '''<svg class="illus ipm" viewBox="0 0 360 280" role="img" aria-label="The IPM cycle: assess, prevent, control">
+<g class="ipm-ring"><path class="ar a1" d="M180 40a100 100 0 0 1 86.600 50"/><path class="ar a2" d="M266.600 190a100 100 0 0 1-173.200 0"/><path class="ar a3" d="M93.400 90A100 100 0 0 1 180 40"/>
+<path class="fl1" d="m272 84 8 20-21-3z"/><path class="fl2" d="m88 206-8-20 21 3z"/><path class="fl3" d="m96 78 20-9-4 21z"/></g>
+<circle class="core" cx="180" cy="140" r="52"/><text class="cn" x="180" y="136" text-anchor="middle">IPM</text><text class="cs" x="180" y="156" text-anchor="middle">integrated pest management</text>
+<text class="lb" x="340" y="52" text-anchor="end">PREVENT</text><text class="lb" x="180" y="266" text-anchor="middle">CONTROL</text><text class="lb" x="20" y="52" text-anchor="start">ASSESS</text>
 </svg>'''
 
 
@@ -139,7 +157,7 @@ def btn_call(label=None):
 
 def header():
     return f"""<header class="site"><div class="wrap">
-<a class="brand" href="/"><span class="mark" aria-hidden="true"></span>{E(C['brand'])}</a>
+<a class="brand" href="/"><img src="/assets/logo.png" width="154" height="40" alt="{E(C['brand'])}"></a>
 <nav class="main" aria-label="Main"><a href="/pest-control/">Pest Control</a><a href="/iso-consultancy/">ISO Consultancy</a><a href="/how-it-works/">How It Works</a><a href="/facility-services/">Other Services</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav>
 <a class="btn btn-ghost" href="tel:{C['phone']}">{ICON['phone']}{E(C['phone_display'])}</a>
 </div></header>"""
@@ -151,7 +169,7 @@ def footer():
     addr = E(C["street_address"] or C["address_note"])
     areas = "".join(f'<li><a href="/{h}/{x.lower()}/">{l} in {E(x)}</a></li>' for h, l in (("pest-control", "Pest control"), ("iso-consultancy", "ISO consultants")) for x in CITIES)
     return f"""<footer class="site"><div class="wrap"><div class="cols">
-<div><p class="brand"><span class="mark" aria-hidden="true"></span>{E(C['brand'])}</p><p>{addr}</p><p><a href="tel:{C['phone']}">{E(C['phone_display'])}</a><br><a href="mailto:{C['email']}">{E(C['email'])}</a></p></div>
+<div><p class="flogo"><img src="/assets/logo.png" width="190" height="50" alt="{E(C['brand'])}" loading="lazy"></p><p>{addr}</p><p><a href="tel:{C['phone']}">{E(C['phone_display'])}</a><br><a href="mailto:{C['email']}">{E(C['email'])}</a></p></div>
 <div><h4>Pest Control</h4><ul>{pest}</ul></div>
 <div><h4>ISO Consultancy</h4><ul>{iso}</ul></div>
 <div><h4>Areas</h4><ul>{areas}</ul></div>
@@ -162,7 +180,8 @@ def footer():
 
 def form(service, sel_city=None):
     opts = ["Pest Control", "Termite Control", "Rodent Control", "Cockroach / Insect Control", "Bed Bug Treatment", "Fumigation",
-            "Commercial IPM Programme", "ISO Consultancy", "ISO 9001", "ISO 22000", "ISO 45001", "ISO 14001", "ISO 27001", "Other"]
+            "Commercial IPM Programme", "Mosquito / Dengue Control", "Bird Control", "Snake / Lizard / Stray Animal Control",
+            "ISO Consultancy", "ISO 9001", "ISO 22000", "ISO 45001", "ISO 14001", "ISO 27001", "Other ISO Standards", "ISO Training", "Other"]
     if service not in opts:
         opts.insert(0, service)
     o = "".join(f'<option{" selected" if x == service else ""}>{E(x)}</option>' for x in opts)
@@ -213,7 +232,7 @@ def page(path, title, desc, body, extra_ld=None, crumbs=None, noindex=False):
     doc = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{E(title)}</title><meta name="description" content="{E(desc)}">
-<link rel="canonical" href="{url}">{robots}
+<link rel="canonical" href="{url}"><link rel="icon" type="image/png" href="/assets/favicon.png">{robots}
 <meta property="og:type" content="website"><meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{url}">
 <script>document.documentElement.className="js"</script>
 {FONTS}
@@ -398,7 +417,7 @@ def service_page(path, d, parent, family, slug=None):
     notice = ""
     if family == "iso":
         notice = '<div class="notice">We are ISO consultants. Certificates are issued by an accredited certification body of your choice; we prepare you for its audit.</div>'
-    art = illus_pest() if family == "pest" else illus_iso(label)
+    art = illus_ipm() if slug == "commercial-ipm" else (illus_pest() if family == "pest" else illus_iso(label))
     if slug is None or d.get("city"):
         proc = process_widget(family)
     else:
@@ -464,18 +483,27 @@ def build():
 
     # other services
     cr = [("Home", "/"), ("Other services", "/facility-services/")]
-    cards = "".join(f'<div class="card"><h3>{E(a)}</h3><p>{E(b)}</p></div>' for a, b in OTHER)
+    cards = "".join(f'<div class="card plain"><h3>{E(a)}</h3><p>{E(b)}</p><ul class="mini">' + "".join(f"<li>{E(x)}</li>" for x in c) + "</ul></div>" for a, b, c in OTHER)
     body = f"""{simple_hero(cr, 'Facility and Technical Services', 'We also provide these services. Contact us for a quotation.')}
-<section><div class="wrap"><div class="cards">{cards}</div><div class="cta" style="margin-top:28px">{btn_wa(WA)}{btn_call()}</div></div></section>"""
-    page("/facility-services/", "Facility & Technical Services | Omnexa Solutions", "HVAC, electrical, plumbing and construction services from Omnexa Solutions in Saudi Arabia.", body, crumbs=cr)
+<section><div class="wrap"><div class="cards wide">{cards}</div><div class="cta" style="margin-top:28px">{btn_wa(WA)}{btn_call()}</div></div></section>"""
+    page("/facility-services/", "Facility & Technical Services | Omnexa Solutions", "HVAC, construction, safety signage and equipment, and IT services from Omnexa Solutions in Saudi Arabia.", body, crumbs=cr)
 
     # about
     cr = [("Home", "/"), ("About", "/about/")]
-    body = f"""{simple_hero(cr, 'About ' + C['brand'], C['brand'] + ' provides pest control and ISO consultancy in Saudi Arabia, with additional facility services.')}
-<section><div class="wrap narrow"><p class="sub">Our office is at {E(C['street_address'] or C['address_note'])}.</p>
+    vals = "".join(f'<div class="card plain"><h3>{E(t)}</h3><p>{E(d)}</p></div>' for t, d in VALUES)
+    sec = "".join(f"<li>{E(x)}</li>" for x in SECTORS)
+    body = f"""{simple_hero(cr, 'About ' + C['brand'], 'Pest management, ISO consultancy and training, and facility services for businesses in Saudi Arabia.')}
+<section><div class="wrap two"><div><p class="kicker">Who we are</p><h2 class="s">One company for pest control and ISO</h2>
+<p class="sub">{E(C['brand'])} provides Integrated Pest Management (pesticide and non-pesticide), ISO consultancy and training, and facility services including air-conditioning, construction and IT. Our office is at {E(C['street_address'] or C['address_note'])}.</p>
+<p class="sub">We also advise and train in environment, health and safety, quality management, Integrated Pest Management and food safety management.</p></div>
+<div class="art"><img class="about-logo" src="/assets/logo.png" width="360" height="94" alt="{E(C['brand'])}" loading="lazy"></div></div></section>
+<section class="alt"><div class="wrap"><div class="cards wide"><div class="card plain"><h3>Our mission</h3><p>To give clients dependable service, and to make sure our staff, products and equipment meet the standards our clients set.</p></div>
+<div class="card plain"><h3>Our vision</h3><p>To be the pest management and facility services provider that clients choose for reliability and value.</p></div></div></div></section>
+<section><div class="wrap"><p class="kicker">What we stand for</p><h2 class="s">Our values</h2><div class="cards wide">{vals}</div></div></section>
+<section class="alt"><div class="wrap"><p class="kicker">Where we work</p><h2 class="s">Sectors we serve</h2><p class="sub">Our pest control and consultancy cover public health and food safety across these kinds of sites.</p><ul class="ticks">{sec}</ul></div></section>
 <!-- TODO: add verified company facts, licences, certificate details, team and client list. Nothing is shown here until provided. -->
-<div class="cta">{btn_wa(WA)}{btn_call()}</div></div></section>"""
-    page("/about/", "About Omnexa Solutions", "About Omnexa Solutions: pest control and ISO consultancy in Saudi Arabia.", body, crumbs=cr)
+<div class="cta-band"><div class="wrap"><h2>Talk to us</h2><p>Free site inspection and free ISO consultation.</p><div class="cta">{btn_wa(WA)}{btn_call("Call now")}</div></div></div>"""
+    page("/about/", "About Omnexa Solutions", "About Omnexa Solutions: pest management, ISO consultancy and training, and facility services in Saudi Arabia.", body, crumbs=cr)
 
     # contact
     cr = [("Home", "/"), ("Contact", "/contact/")]

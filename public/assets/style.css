@@ -439,3 +439,23 @@ ul.ticks.one{grid-template-columns:1fr}
   .g-row,.g-scale{grid-template-columns:1fr;gap:4px}
   .gantt{padding:20px 16px}
 }
+
+/* logo, facility lists, IPM cycle */
+.brand img{display:block;height:40px;width:auto}
+header.site .wrap{min-height:64px}
+.flogo{display:inline-block;background:#fff;padding:8px 14px;border-radius:10px;margin-bottom:14px}
+.flogo img{display:block;height:44px;width:auto}
+.about-logo{display:block;max-width:100%;height:auto;margin:30px auto}
+ul.mini{list-style:none;margin-top:12px;display:grid;gap:6px}
+ul.mini li{padding-left:20px;position:relative;font-size:.93rem;color:var(--text)}
+ul.mini li:before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:2px;background:var(--acc)}
+.illus.ipm .ar{fill:none;stroke-width:14;stroke-linecap:round}
+.illus.ipm .a1{stroke:var(--acc)}.illus.ipm .a2{stroke:var(--amber)}.illus.ipm .a3{stroke:var(--ink)}
+.illus.ipm .fl1{fill:var(--acc)}.illus.ipm .fl2{fill:var(--amber)}.illus.ipm .fl3{fill:var(--ink)}
+.illus.ipm .core{fill:#fff;stroke:var(--line);stroke-width:2}
+.illus.ipm text.cn{font:800 30px var(--cond);fill:var(--ink)}
+.illus.ipm text.cs{font:500 8.5px var(--sans);fill:var(--muted)}
+.illus.ipm text.lb{font:500 11px var(--mono);letter-spacing:.12em;fill:var(--acc-d)}
+.illus.ipm .ipm-ring{transform-origin:180px 140px}
+@media (max-width:640px){.brand img{height:34px}}
+.art:has(.about-logo){background:#fff}

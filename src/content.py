@@ -809,3 +809,296 @@ EXTRA.update({
       "When the system is ready, you appoint an accredited certification body and we stay with you through its audit and any findings."]),
 ],
 })
+
+
+# =====================================================================
+# Content adapted from the company's own profile (English/Arabic) and the
+# group's consultancy profiles. Written for Saudi Arabia. Points marked
+# REVIEW in the hand-off message need the business to confirm.
+# =====================================================================
+PEST["hub"]["children"] += ["mosquito-control", "bird-control", "wildlife-control"]
+PEST.update({
+"mosquito-control": dict(
+    title="Mosquito and Dengue Control in {city} | Omnexa Solutions",
+    desc="Mosquito and dengue mosquito control in {city}: breeding-site inspection, larvicide treatment, fogging and barrier treatment for homes, compounds and businesses.",
+    h1="Mosquito and Dengue Control in {city}",
+    lead="Find where mosquitoes breed, stop them at the source, and treat the adults that are biting.",
+    service="Mosquito / Dengue Control",
+    intro="Some mosquitoes carry disease, and the Aedes mosquito that spreads dengue breeds in small amounts of standing water around homes and buildings. Fogging alone does not solve it. Effective control finds and removes the breeding sites, treats water that cannot be removed, and then targets adult mosquitoes.",
+    bullets=["Breeding-site inspection of gardens, roofs, tanks and drains", "Larvicide treatment of water that cannot be drained", "Adult mosquito treatment by fogging and barrier spraying", "Advice on removing breeding sites", "Programmes for compounds, hotels, schools and construction sites", "Follow-up inspections and monitoring"],
+    steps=PEST_STEPS,
+    faqs=[
+        ("How do mosquitoes breed around a home?", "Females lay eggs in standing water. Pot saucers, buckets, tyres, blocked gutters, uncovered tanks and drains are common places. Some species can breed in a bottle cap of water."),
+        ("Is fogging enough?", "No. Fogging kills adult mosquitoes that are flying at the time, but new ones emerge from the breeding sites within days. It works best as one part of a plan that removes and treats the breeding sites."),
+        ("Is the treatment safe around people and pets?", "Tell us about children, pets, fish ponds and plants when you book. We choose products and methods to suit, and tell you how long to stay out of treated areas."),
+    ],
+),
+"bird-control": dict(
+    title="Bird Control in {city} | Pigeons, Sparrows, Starlings | Omnexa Solutions",
+    desc="Bird control in {city}: netting, spikes, wires and nest cleaning for pigeons and other birds on buildings, warehouses, food sites and compounds.",
+    h1="Bird Control in {city}",
+    lead="Keep pigeons and other nuisance birds off your building, with proofing that lasts.",
+    service="Bird Control",
+    intro="Birds nesting on buildings leave droppings that stain and corrode surfaces, block gutters, ducts and air-conditioning units, and create hygiene risks. The lasting fix is to stop them landing and nesting, not just to move them on.",
+    bullets=["Inspection of roosting and nesting sites", "Netting of balconies, shafts, atriums and loading bays", "Spikes, tensioned wire and other landing deterrents", "Removal of nests and cleaning of droppings", "Proofing of plant rooms, ducts and AC platforms", "Advice on removing food and water that attract birds"],
+    steps=PEST_STEPS,
+    faqs=[
+        ("Which birds cause the most problems?", "Pigeons are the most common on buildings. Sparrows and starlings cause problems in warehouses, food sites and atriums."),
+        ("Are bird droppings dangerous?", "Dried droppings can carry disease organisms and release dust when disturbed. Cleaning should be done with protective equipment, which is why we do it as part of the job."),
+        ("Do you harm the birds?", "Our approach is proofing and deterrents. The aim is to stop birds landing and nesting, not to poison them."),
+    ],
+),
+"wildlife-control": dict(
+    title="Snake, Lizard and Stray Animal Control in {city} | Omnexa Solutions",
+    desc="Snake, lizard, cat and dog control in {city} for villas, compounds, farms and businesses: inspection, exclusion advice and safe removal.",
+    h1="Snake, Lizard and Stray Animal Control in {city}",
+    lead="Safe handling of snakes, lizards and stray animals around homes, compounds and business sites.",
+    service="Snake / Lizard / Stray Animal Control",
+    intro="Gardens, compounds, farms and warehouses can attract snakes, lizards and stray cats and dogs. These are best handled by trained people, with attention to safety for residents and for the animals.",
+    bullets=["Inspection of gardens, compounds and building edges", "Safe capture and removal of snakes by trained staff", "Lizard control in kitchens, stores and buildings", "Advice on stray cats and dogs in compounds", "Exclusion advice: gaps, drains and vegetation", "Follow-up visits where activity continues"],
+    steps=PEST_STEPS,
+    faqs=[
+        ("What should I do if I see a snake?", "Keep away, keep children and pets back, and call us. Do not try to catch or kill it: most bites happen when people try."),
+        ("Why do I have lizards in the kitchen?", "They follow the insects that follow food and light. Reducing insects, sealing gaps and fitting door sweeps reduces lizards."),
+        ("Can you remove stray animals?", "We advise and assist in compounds and business sites. Where an authority is responsible for stray animals, we coordinate with them."),
+    ],
+),
+})
+
+EXTRA.update({
+("pest", "mosquito-control"): [
+    ("table", "cycle", "Know your pest", "How mosquitoes develop, and where to break the cycle",
+     "Mosquitoes spend the first part of their life in water. That is where control works best.",
+     ["Stage", "Where it lives", "What it means for control"],
+     [
+      ["Egg", "On the wet edge of containers, just above the waterline", "Eggs can survive dry spells and hatch when water returns. Scrub containers, do not just tip them out"],
+      ["Larva and pupa", "In standing water, for roughly a week or two in warm weather", "The easiest stage to control: empty the water, cover it, or treat it with larvicide"],
+      ["Adult", "Resting in shade, vegetation and dark corners; biting people", "Treated with fogging or barrier spraying, which gives short-term relief"],
+     ], "Aedes mosquitoes, which can spread dengue, typically bite during the day and breed in small containers close to people."),
+    ("list", "sources", "Inspection", "Where we look for breeding sites",
+     "Mosquitoes need very little water. We check:",
+     ["Plant pot saucers, buckets, tyres and discarded containers", "Roof gutters and flat roofs where water collects", "Water tanks, cisterns and covers", "Floor drains, manholes and sumps", "Air-conditioner drip trays and condensate drains", "Fountains, ponds and ornamental water", "Construction sites, excavations and open pipes"]),
+    ("cards", "plan", "Integrated approach", "Assess, prevent, control", None,
+     [
+      ("Assess", "We inspect the property, find the species and breeding sites, and map where to act."),
+      ("Prevent", "We remove, cover or drain water where possible, and advise on weekly checks."),
+      ("Control", "We treat water that cannot be removed, then treat adult mosquitoes where they rest and bite."),
+      ("Monitor", "We recheck the site, record what we find, and adjust the programme."),
+     ]),
+    ("list", "tips", "What you can do", "Weekly habits that reduce mosquitoes",
+     "Most of the control work is routine. These take a few minutes a week.",
+     ["Empty and scrub containers that hold water", "Cover water tanks and check the covers are intact", "Keep gutters and drains clear", "Check air-conditioner drip trays", "Change water in pet bowls and vases frequently", "Keep window and door screens in good repair"]),
+    ("callout", "orgs", "For compounds, hotels, schools and construction sites",
+     "Large sites need a programme, not a one-off visit. We map the site, set a schedule for inspection and larvicide treatment, and report each visit so the property manager can see what was done."),
+],
+("pest", "bird-control"): [
+    ("table", "birds", "Know your pest", "Which bird is it, and what works?",
+     "Each species behaves differently, so the solution differs.",
+     ["Bird", "Where it causes problems", "What works"],
+     [
+      ["Pigeon", "Ledges, balconies, roofs, AC platforms, loading bays, shafts", "Netting for voids and balconies, spikes or tensioned wire for ledges, removing food sources"],
+      ["Sparrow", "Warehouses, food stores, atriums, shopfront signs, plant rooms", "Netting and sealing roof gaps, closing dock doors, controlling spilled food"],
+      ["Starling", "Large roosts in trees and on buildings, noisy at dusk", "Roost deterrents, trimming trees, netting where birds enter buildings"],
+     ], None),
+    ("list", "harm", "Why it matters", "The problems birds cause",
+     "Bird problems are rarely only about appearance.",
+     ["Droppings that stain facades and corrode metal and stonework", "Slip hazards on walkways and entrances", "Nests that block gutters, drains, ducts and AC units", "Droppings and feathers contaminating food, packaging and water tanks", "Noise at dawn and dusk", "Complaints from guests, tenants and customers"]),
+    ("table", "methods", "Our methods", "Proofing options",
+     "We recommend the lightest method that works for the site.",
+     ["Method", "Best for", "Notes"],
+     [
+      ["Bird netting", "Balconies, courtyards, shafts, loading bays, under solar panels", "Fully blocks access. Needs correct mesh size and tight fixing"],
+      ["Bird spikes", "Ledges, signs, beams, parapets", "Stops landing. Needs regular cleaning of debris"],
+      ["Tensioned wire", "Long ledges and rooflines", "Discreet and suits heritage and modern facades"],
+      ["Gel and visual deterrents", "Small, specific spots", "Short-term. Birds can get used to them"],
+      ["Nest removal and cleaning", "Any site with nests or heavy droppings", "Done in protective equipment. We dispose of waste properly"],
+     ], None),
+    ("callout", "safety", "Cleaning droppings is a health task",
+     "Dried bird droppings carry dust that can be breathed in. We clean heavy deposits in protective equipment and bag the waste, so your staff or tenants are not exposed."),
+],
+("pest", "wildlife-control"): [
+    ("table", "types", "What we handle", "Snakes, lizards, cats and dogs",
+     "Each needs a different approach.",
+     ["Animal", "Where it appears", "What we do"],
+     [
+      ["Snakes", "Gardens, compounds, farms, stores, drains, piles of rubble", "Inspect, locate and capture safely using trained staff and proper tools. Advise on removing the hiding places and food that attract them"],
+      ["Lizards and geckos", "Kitchens, stores, walls with lights, ceilings", "Reduce the insects they feed on, seal gaps, fit door sweeps, treat entry points"],
+      ["Stray cats and dogs", "Compounds, car parks, waste areas, business premises", "Advise on food and waste control and entry points, and coordinate with the relevant authority where one is responsible"],
+     ], None),
+    ("list", "snake", "If you see a snake", "Safety steps",
+     "Most snake bites happen when people try to catch or kill the snake.",
+     ["Keep still, then move slowly away", "Keep children and pets back", "Do not try to catch, hit or trap it", "Note where it went", "Call us with the location", "If someone is bitten, seek medical help immediately"]),
+    ("list", "prevent", "Prevention", "What attracts them, and how to reduce it",
+     "Animals come for food, water and shelter. Removing those reduces visits.",
+     ["Remove rubble, wood piles and dense ground cover next to buildings", "Control rodents, because snakes follow them", "Keep waste in lidded bins and clear food waste daily", "Seal gaps under doors and around pipes", "Trim vegetation away from walls and fences", "Fix leaking taps and standing water"]),
+],
+("pest", "commercial-ipm"): [
+    ("cards", "cycle", "The IPM cycle", "Assess, prevent, control, then assess again", None,
+     [
+      ("Assessment", "Survey the site, identify pests and risks, and set a baseline."),
+      ("Prevention", "Proof the building, improve sanitation and storage, and remove what attracts pests."),
+      ("Control", "Treat only where monitoring shows activity, using the lightest effective method."),
+      ("Review", "Trend the monitoring data, check the plan works, and adjust it."),
+     ]),
+    ("table", "govsec", "More sectors", "Offices, banks and government buildings",
+     "Not every site needs the same programme. Offices and public buildings have different risks from food sites.",
+     ["Sector", "Main risks", "Programme focus"],
+     [
+      ["Government buildings", "Rodents, cockroaches, birds, ants", "Scheduled visits, reporting to the facility manager, waste and canteen areas"],
+      ["Banks and offices", "Cockroaches, ants, rodents in pantries and basements", "Out-of-hours visits, pantry and basement monitoring, discreet service"],
+      ["Schools and universities", "Cockroaches, ants, rodents, birds", "Visits timed around term, canteen focus, low-risk methods in classrooms"],
+     ], None),
+],
+("iso", "other-standards"): [
+    ("table", "mgmt", "Management systems", "Management system standards we support",
+     "The same method (gap analysis, documentation, implementation, internal audit) applies to each. We confirm which one fits your needs at the free consultation.",
+     ["Standard", "What it covers", "Who usually asks for it"],
+     [
+      ["ISO 50001 Energy management", "Measuring and reducing energy use", "Factories, large buildings, and companies with energy-saving targets"],
+      ["ISO 22301 Business continuity", "Staying operational through disruption", "Banks, healthcare, logistics, telecom, and government suppliers"],
+      ["ISO 20000-1 IT service management", "Delivering and supporting IT services reliably", "IT service providers and internal IT departments"],
+      ["ISO 37001 Anti-bribery", "Preventing and detecting bribery", "Contractors and suppliers to large or public clients"],
+      ["ISO 27701 Privacy information management", "Handling personal data responsibly, as an extension to ISO 27001", "Companies that process personal data for clients"],
+      ["ISO 13485 Medical devices", "Quality systems for medical device makers and suppliers", "Manufacturers, importers and distributors of medical devices"],
+      ["ISO 21001 Educational organisations", "Quality management for schools and training providers", "Schools, universities and training centres"],
+      ["ISO 28000 Supply chain security", "Securing the movement of goods", "Logistics, ports and freight operators"],
+      ["ISO 10002 Complaints handling", "Handling customer complaints consistently", "Service companies and retailers"],
+     ], "ISO 31000 (risk management) and ISO 26000 (social responsibility) are guidance standards rather than certifiable ones. We can still use them to build your system."),
+    ("table", "food", "Food safety schemes", "Food safety and hygiene schemes",
+     "Customers and retailers often ask for a specific food-safety scheme. Which one depends on who buys from you.",
+     ["Scheme", "What it is", "Who usually asks for it"],
+     [
+      ["HACCP", "Hazard analysis and critical control points", "Any food business, and the base for the schemes below"],
+      ["FSSC 22000", "ISO 22000 plus extra requirements, recognised by major retailers", "Larger manufacturers and exporters"],
+      ["BRCGS, IFS, SQF", "Retailer-recognised food safety and quality standards", "Suppliers to international retailers and brands"],
+      ["GMP, GHP", "Good manufacturing and hygiene practice", "Food, pharmaceutical and packaging manufacturers"],
+      ["Halal", "Halal certification and the controls behind it", "Food producers, caterers and exporters"],
+     ], "Halal and food-product registration are regulated. We work to the requirements of the relevant Saudi and Gulf authorities and tell you what needs their approval."),
+    ("table", "supply", "Customer and export requirements", "Supply chain and export compliance",
+     "Some buyers, and some export markets, ask for specific audits or product approvals.",
+     ["Requirement", "What it covers", "Who usually asks for it"],
+     [
+      ["SMETA / Sedex, BSCI, SA 8000", "Labour, ethics, health and safety, environment", "Suppliers to international brands and retailers"],
+      ["EcoVadis, ISCC", "Sustainability ratings and certification", "Companies in global supply chains"],
+      ["C-TPAT", "Supply chain security for US-bound goods", "Exporters and freight operators"],
+      ["CE marking, RoHS, REACH, FDA registration", "Product compliance for specific export markets", "Manufacturers exporting to Europe or the US"],
+      ["SASO and SFDA requirements", "Product conformity and registration for the Saudi market", "Manufacturers and importers selling in Saudi Arabia"],
+     ], "We check the current requirements with the relevant authority before we advise, because they change."),
+    ("callout", "start", "Not sure which one you need?",
+     "Tell us who is asking: a customer, a tender, a regulator or an export buyer. We will tell you the standard or scheme that answers it, and which ones you can safely skip."),
+],
+("iso", "training"): [
+    ("table", "courses", "Courses", "Training we offer",
+     "Courses run at your premises or ours, in groups sized to suit. Delivery language and dates are agreed when you book.",
+     ["Course", "Who it is for", "What they learn"],
+     [
+      ["ISO awareness", "All staff, and managers starting a project", "What the standard requires, and what each person's role is"],
+      ["Internal auditor: ISO 9001, 14001, 45001", "Staff who will audit the system", "How to plan and run an audit, collect evidence, write findings and follow them up"],
+      ["Internal auditor: ISO 22000 and HACCP", "Food safety teams", "HACCP principles, prerequisite programmes, and auditing a food safety system"],
+      ["Internal auditor: ISO 27001", "IT and security staff", "Risk assessment, controls, and auditing an information security system"],
+      ["HSE and workplace safety", "Supervisors and operatives", "Hazard spotting, safe working, PPE and emergency response"],
+      ["Integrated Pest Management", "Food, hospitality and facility staff", "Recognising pests, preventing them, and working with a pest control provider"],
+     ], "Lead auditor-style courses with a particular accreditation can be arranged. Tell us what you need and we will confirm which course and body apply."),
+    ("cards", "why", "Why train", "Training that gets used", None,
+     [
+      ("Practical, using your documents", "Exercises use your own procedures and records, so people leave knowing how to use them."),
+      ("Short and focused", "Sessions are planned around shifts, so production and service are not interrupted."),
+      ("Records for the auditor", "Attendance and competence records are kept, because an auditor will ask for them."),
+      ("A trained internal team", "Your own staff can run internal audits after certification, so you depend less on outside help."),
+     ]),
+    ("list", "after", "After the course", "What you receive",
+     "Each participant and the company receive:",
+     ["Course materials", "A certificate of attendance", "Practical exercises and worked examples", "Attendance and competence records for your files", "Follow-up questions answered after the course"]),
+],
+("iso", "hub"): [
+    ("callout", "conf", "Your information stays confidential",
+     "To assess your system we need to see your processes, customers and sometimes your costs. We treat everything you share as confidential, and are happy to sign a confidentiality agreement before the gap analysis."),
+    ("table", "cbsteps", "The certification body's process", "What the certification body does at its end",
+     "These steps are the certification body's, not ours. Knowing them in advance avoids surprises.",
+     ["Step", "What happens", "Who acts"],
+     [
+      ["1. Application", "You complete the certification body's application form with company details, scope and the standard", "You, with our help"],
+      ["2. Proposal, contract and fees", "It sends a proposal and contract, and you pay the agreed certification fees", "Certification body and you"],
+      ["3. Audit programme", "It plans the dates and assigns an audit team", "Certification body"],
+      ["4. Stage 1 and Stage 2 audits", "Stage 1 reviews your documents and readiness; Stage 2 checks the system works in practice", "Certification body"],
+      ["5. Decision", "The audit reports and your corrective actions go to a decision-maker who was not on the audit team. If approved, the certificate is issued", "Certification body"],
+     ], None),
+],
+})
+ISO["hub"]["children"] += ["other-standards", "training"]
+ISO.update({
+"other-standards": dict(
+    title="ISO 50001, 22301, 20000, 37001 and Other Standards | Omnexa Solutions",
+    desc="ISO consultancy beyond ISO 9001 in Saudi Arabia: ISO 50001, 22301, 20000, 37001, 13485, HACCP, FSSC 22000, Halal, supplier audits and export compliance.",
+    h1="Other ISO Standards and Compliance Schemes",
+    lead="Energy, continuity, anti-bribery, IT service, food-safety schemes, supplier audits and export compliance.",
+    service="Other ISO Standards",
+    intro="Beyond ISO 9001, 14001, 45001, 22000 and 27001, companies are often asked for other standards or customer schemes. The method is the same: we find the gaps, build the system with your team, audit it internally, and prepare you for the certification body.",
+    bullets=["ISO 50001 energy management", "ISO 22301 business continuity", "ISO 20000-1 IT service management", "ISO 37001 anti-bribery", "ISO 13485 medical devices", "HACCP, FSSC 22000, BRCGS, GMP and Halal", "Supplier ethics and sustainability audits", "Export product compliance"],
+    steps=ISO_STEPS,
+    faqs=[
+        ("Can you help with a standard that is not listed?", "Probably. Tell us the standard or scheme and who is asking for it. If it needs a specialist we will say so, and tell you who can help."),
+        ("Do you carry out the certification?", "No. We are consultants. Certification is by an accredited certification body, or by the scheme owner for customer schemes."),
+        ("Can we combine several standards?", "Yes, where they share a structure, which many ISO management system standards do. One integrated system saves documents and audit days."),
+    ],
+),
+"training": dict(
+    title="ISO and HSE Training in Riyadh and Jeddah | Omnexa Solutions",
+    desc="ISO awareness, internal auditor, HACCP, HSE and Integrated Pest Management training in Riyadh and Jeddah, at your premises or ours.",
+    h1="ISO and HSE Training in {city}",
+    lead="Practical ISO, internal auditor, HSE and pest management training for your teams.",
+    service="ISO Training",
+    intro="A management system only works if your own people can run it. We train staff to understand the standard, audit the system and keep it going after certification.",
+    bullets=["ISO awareness for all staff", "Internal auditor courses", "HACCP and food safety training", "HSE and workplace safety", "Integrated Pest Management for food and hospitality teams", "Training records for your audit file"],
+    steps=ISO_STEPS,
+    faqs=[
+        ("Where is the training held?", "At your premises or at a venue we arrange, in Riyadh or Jeddah. Group size and dates are agreed when you book."),
+        ("Do participants receive a certificate?", "Yes, a certificate of attendance. If you need a course with a specific accreditation, tell us and we will confirm the options."),
+        ("Can training be combined with an ISO project?", "Yes. Most projects include awareness and internal auditor training, so your team can run the system afterwards."),
+    ],
+),
+})
+MORE_FAQS.update({
+("pest", "mosquito-control"): [
+    ("How often should treatment be repeated?", "It depends on the season and the site. In warm weather, programmes usually check breeding sites regularly, because new water collects after rain or watering."),
+    ("Can you treat a construction site?", "Yes. Excavations, open pipes and stored water are common breeding places. We set a schedule and report each visit to the site manager."),
+],
+("pest", "bird-control"): [
+    ("How long does netting last?", "Good netting that is correctly fixed lasts for years. The mesh size and the fixing points matter more than the price."),
+    ("Will the birds just move to the next building?", "They can. Proofing the nesting and roosting sites you control, and removing food, is what stops them returning to yours."),
+],
+("pest", "wildlife-control"): [
+    ("Do you handle snakes in farms and large grounds?", "We can inspect and advise on large sites. Capture depends on access and safety, so we assess it first."),
+    ("Is removal humane?", "Our aim is safe capture and removal with minimal harm, and advice that stops animals coming back."),
+],
+("iso", "other-standards"): [
+    ("How long does ISO 50001 or ISO 22301 take?", "Often three to six months, depending on size and how much you already measure or plan. We give a dated plan after the gap analysis."),
+    ("Do we need ISO 9001 first?", "Not required. But if you have ISO 9001, the new system can reuse its processes, documents and audits."),
+],
+("iso", "training"): [
+    ("How many people can attend?", "Group size depends on the course. We plan it with you to keep exercises practical."),
+    ("Do you train in Arabic?", "Tell us the language your team needs when you enquire, and we will confirm what we can deliver."),
+],
+})
+
+OTHER = [
+    ("HVAC and AC services", "Installation, servicing and maintenance of air-conditioning for homes, offices and commercial sites.",
+     ["AC installation and ducting", "Troubleshooting and fault diagnosis", "Filter cleaning and AC service", "Compressor repair", "Gas refilling for AC, refrigerators and deep freezers", "Annual and preventive maintenance contracts"]),
+    ("Construction", "Construction services across Saudi Arabia, in line with Vision 2030 goals for quality and sustainable development.",
+     ["Civil and structural works", "MEP coordination", "Interior fit-out", "Industrial and commercial buildings"]),
+    ("Safety signage", "Signs for workplaces, sites and public buildings.",
+     ["Warning signs", "Prohibition signs", "Mandatory signs", "Safe condition signs", "Photoluminescent (glow-in-the-dark) signs"]),
+    ("Safety equipment", "Personal protective equipment for staff and contractors.",
+     ["Safety helmets", "Gloves", "Eye protection", "High-visibility clothing", "Safety footwear", "Safety harnesses"]),
+    ("IT and software", "Custom software and system integration for businesses in Saudi Arabia and the Gulf.",
+     ["Custom software development", "Web and enterprise applications", "AI-powered applications", "System integration"]),
+]
+VALUES = [
+    ("Safety, health and environment", "People and the environment come first on every job."),
+    ("Ethics and integrity", "Honest quotations, honest findings, and honest reports."),
+    ("Reliability and consistency", "The same standard at every visit and on every project."),
+    ("Excellence and quality", "We check our own work before the client does."),
+    ("Respect and teamwork", "Respect for clients, colleagues and the people who live and work on site."),
+    ("Innovation", "Better methods, better monitoring and better records."),
+]
+SECTORS = ["Government buildings", "Shopping malls", "Hotels", "Commercial buildings", "Hospitals and clinics", "Banks and offices", "Restaurants", "Food industries"]
