@@ -33,3 +33,11 @@ Arabic pages (/ar/ with hreflang), blog, HVAC/electrical/plumbing/construction d
 - Fonts: IBM Plex Sans (body), IBM Plex Sans Condensed (headings), IBM Plex Mono (standard numbers, labels). IBM Plex Sans Arabic is the planned match for /ar/.
 - Illustrations and icons are inline SVG generated in `src/build.py` (`illus_pest`, `illus_iso`, `ICON`).
 - Animations respect `prefers-reduced-motion` and the site works without JavaScript.
+
+## Deploying on Vercel
+`vercel.json` is in the repo root (static output from `public/`, no build step, trailing-slash URLs).
+1. vercel.com > Add New > Project > import `Outsourcetel/Omnexa`.
+2. Framework preset: Other. Leave Build Command and Install Command empty. Output Directory: `public`.
+3. Deploy. Every push to `main` redeploys; other branches get their own preview URLs.
+4. Domain: add `omnexasol.com` and `www.omnexasol.com` under Settings > Domains, make `www` redirect to the apex.
+Note: Vercel's free Hobby plan is for non-commercial use; a company site needs Pro (verify current terms).
