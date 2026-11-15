@@ -38,7 +38,7 @@ Validate every keyword in Keyword Planner (language Arabic or English, location 
 - **Networks:** Search only at first. Turn off the Search Partners and Display expansion.
 - **Match types:** phrase and exact only at launch. Do not use broad match until there are conversions to guide it.
 - **Schedule:** the Saudi work week is Sunday to Thursday. Pest control and emergency-type searches can run every day. ISO consultancy and training enquiries can be limited to Sunday to Thursday daytime plus Saturday evening for WhatsApp, if nobody answers on Fridays. Check the time zone is UTC+3.
-- **Ad rotation and assets:** add sitelinks (Termite, Rodents, Commercial, How it works), callouts ("Free site inspection", "Written service reports", "WhatsApp enquiries"), a call asset (`+966 55 818 7808`) and a location asset (Riyadh and Jeddah offices).
+- **Ad rotation and assets:** add sitelinks (Termite, Rodents, Commercial, How it works), callouts ("Free site inspection", "Written service reports", "WhatsApp enquiries"), a call asset (`+966 50 039 3660`) and a location asset (Riyadh and Jeddah offices).
 - **Bidding:** start with Maximize clicks with a maximum CPC limit (no more than you can afford per click), then move to Maximize conversions after about 30 conversions per campaign. Do not start on target CPA with no data.
 
 ## 4. Launch in phases
