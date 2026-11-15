@@ -2,6 +2,7 @@
 """Static site generator. Run: python3 src/build.py  ->  writes ./public"""
 import json, html, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
+from process import PROCESS, scene, SAMPLE_REPORT, SAMPLE_GANTT
 from content import PEST, ISO, OTHER, EXTRA, MORE_FAQS, CITY_PAGES, PEST_STEPS, ISO_STEPS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -139,7 +140,7 @@ def btn_call(label=None):
 def header():
     return f"""<header class="site"><div class="wrap">
 <a class="brand" href="/"><span class="mark" aria-hidden="true"></span>{E(C['brand'])}</a>
-<nav class="main" aria-label="Main"><a href="/pest-control/">Pest Control</a><a href="/iso-consultancy/">ISO Consultancy</a><a href="/facility-services/">Other Services</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav>
+<nav class="main" aria-label="Main"><a href="/pest-control/">Pest Control</a><a href="/iso-consultancy/">ISO Consultancy</a><a href="/how-it-works/">How It Works</a><a href="/facility-services/">Other Services</a><a href="/about/">About</a><a href="/contact/">Contact</a></nav>
 <a class="btn btn-ghost" href="tel:{C['phone']}">{ICON['phone']}{E(C['phone_display'])}</a>
 </div></header>"""
 
@@ -154,7 +155,7 @@ def footer():
 <div><h4>Pest Control</h4><ul>{pest}</ul></div>
 <div><h4>ISO Consultancy</h4><ul>{iso}</ul></div>
 <div><h4>Areas</h4><ul>{areas}</ul></div>
-<div><h4>Company</h4><ul><li><a href="/facility-services/">Other services</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li></ul></div>
+<div><h4>Company</h4><ul><li><a href="/how-it-works/">How it works</a></li><li><a href="/facility-services/">Other services</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li></ul></div>
 </div><p class="copy">&copy; 2026 {E(C['brand'])}</p></div></footer>
 <div class="sticky"><a class="btn btn-call" href="tel:{C['phone']}">{ICON['phone']}Call</a><a class="btn btn-wa" href="{WA}">{ICON['wa']}WhatsApp</a></div>"""
 
@@ -273,6 +274,94 @@ def render_blocks(blocks):
     return out, toc
 
 
+def wyg(st):
+    return ('<div class="wyg"><div><h4>What we do</h4><p>' + E(st["we"]) + '</p></div><div><h4>What you do</h4><p>' + E(st["you"]) +
+            '</p></div><div class="gets"><h4>What you get</h4><p>' + E(st["get"]) + '</p></div></div>')
+
+
+def process_widget(family):
+    steps = PROCESS[family]
+    btns = "".join(
+        f'<button type="button" class="pstep{" active" if i == 0 else ""}" role="tab" id="t-{family}-{i}" aria-controls="p-{family}-{i}" aria-selected="{"true" if i == 0 else "false"}" data-i="{i}">'
+        f'<span class="pn">{i+1:02d}</span><span class="pt"><b>{E(st["title"])}</b><small>{E(st["short"])}</small></span><span class="pbar"></span></button>'
+        for i, st in enumerate(steps))
+    panels = "".join(
+        f'<div class="ppanel{" active" if i == 0 else ""}" role="tabpanel" id="p-{family}-{i}" aria-labelledby="t-{family}-{i}">'
+        f'<div class="pscene">{scene(st["icon"])}<span class="pcount">Step {i+1} of {len(steps)}</span></div>'
+        f'<div class="pbody"><span class="chip">{E(st["time"])}</span><h3>{E(st["title"])}</h3>{wyg(st)}</div></div>'
+        for i, st in enumerate(steps))
+    what = "a pest control job" if family == "pest" else "an ISO project"
+    return (f'<section class="alt" id="process"><div class="wrap"><p class="kicker">Process</p><h2 class="s">How {what} works, step by step</h2>'
+            f'<p class="sub">Pick a step to see what we do, what we need from you, and what you receive. Durations are typical and are confirmed in your quotation.</p>'
+            f'<div class="pw"><div class="plist" role="tablist" aria-label="Process steps">{btns}</div><div class="ppanels">{panels}</div></div>'
+            f'<p class="more-link"><a href="/{"pest-control" if family == "pest" else "iso-consultancy"}/how-it-works/">See the full process, with a sample {"service report" if family == "pest" else "project plan"} &rarr;</a></p></div></section>')
+
+
+def lane(family):
+    steps = PROCESS[family]
+    name, path = ("Pest control", "/pest-control/how-it-works/") if family == "pest" else ("ISO consultancy", "/iso-consultancy/how-it-works/")
+    li = "".join(f'<li style="--d:{i*90}ms"><span class="ln-n">{i+1}</span><b>{E(st["title"])}</b></li>' for i, st in enumerate(steps))
+    return f'<div class="lane t-{family}"><h3>{name}</h3><ol class="lane-steps">{li}</ol><a class="more" href="{path}">See how it works</a></div>'
+
+
+def sample_report():
+    rows = "".join(f"<div><dt>{E(k)}</dt><dd>{E(v)}</dd></div>" for k, v in SAMPLE_REPORT)
+    return ('<div class="paper"><span class="stamp-s">Sample</span><p class="kicker">Service report</p><h3>What you receive after every visit</h3>'
+            f'<dl>{rows}</dl><p class="small">This is an illustration. Your report is filled in with the real details of your visit.</p></div>')
+
+
+def sample_gantt():
+    wk = 24
+    rows = ""
+    for i, (label, a, b, who) in enumerate(SAMPLE_GANTT):
+        left, width = (a - 1) / wk * 100, (b - a + 1) / wk * 100
+        rows += (f'<div class="g-row"><span class="g-l">{E(label)}</span><span class="g-t"><i class="g-b {who}" style="left:{left:.2f}%;width:{width:.2f}%;--d:{i*140}ms"></i></span></div>')
+    scale = "".join(f"<span>{w}</span>" for w in (1, 4, 8, 12, 16, 20, 24))
+    return ('<div class="gantt"><p class="kicker">Illustrative plan</p><h3>A typical five-month ISO project</h3>'
+            f'<div class="g-scale"><span class="g-l">Week</span><span class="g-t g-ticks">{scale}</span></div>{rows}'
+            '<div class="g-key"><span><i class="g-b us"></i>Our work with your team</span><span><i class="g-b you"></i>Your management</span>'
+            '<span><i class="g-b cb"></i>Certification body (its own schedule)</span></div>'
+            '<p class="small">Your plan is dated after the gap analysis. The certification body sets the dates of its own audits.</p></div>')
+
+
+def process_page(family):
+    steps = PROCESS[family]
+    hub = "pest-control" if family == "pest" else "iso-consultancy"
+    path = f"/{hub}/how-it-works/"
+    nm = "Pest control" if family == "pest" else "ISO consultancy"
+    h1 = f"How our {nm.lower()} works" if family == "pest" else "How ISO certification works with us"
+    cr = [("Home", "/"), (nm, f"/{hub}/"), ("How it works", path)]
+    tl = "".join(
+        f'<article class="tl" id="step-{st["id"]}"><span class="tl-m">{i+1}</span><div class="tl-in"><div class="tl-sc">{scene(st["icon"])}</div>'
+        f'<div><span class="chip">{E(st["time"])}</span><h2>{E(st["title"])}</h2>{wyg(st)}</div></div></article>' for i, st in enumerate(steps))
+    extra = sample_report() if family == "pest" else sample_gantt()
+    lead = ("From the first call to the follow-up visit: what happens, who does what, and what you get at each step." if family == "pest"
+            else "From the first meeting to the certificate and beyond: what happens, who does what, and who decides at each step.")
+    nav = "".join(f'<a href="#step-{st["id"]}">{i+1}. {E(st["title"])}</a>' for i, st in enumerate(steps))
+    cta = "Book a free inspection" if family == "pest" else "Book a free consultation"
+    cl = wa_link("Hello, I would like to book " + ("an inspection" if family == "pest" else "an ISO consultation"))
+    body = (f'<div class="hero slim t-{family}"><div class="wrap">{crumbs_html(cr)}<h1>{E(h1)}</h1><p class="lead">{E(lead)}</p>'
+            f'<div class="cta">{btn_wa(cl)}{btn_call()}</div></div></div>'
+            f'<nav class="onpage" aria-label="Steps"><div class="wrap"><b>Steps</b>{nav}</div></nav>'
+            f'<section><div class="wrap"><div class="tlwrap"><div class="tlrail" aria-hidden="true"><i></i></div>{tl}</div></div></section>'
+            f'<section class="alt"><div class="wrap narrow">{extra}</div></section>'
+            f'<div class="cta-band"><div class="wrap"><h2>{cta}</h2><p>Tell us about your site and we will contact you.</p><div class="cta">{btn_wa(cl)}{btn_call("Call now")}</div></div></div>')
+    page(path, f"How {nm} Works | Step by Step Process | Omnexa Solutions",
+         ("How our pest control works in Riyadh and Jeddah: inspection, written plan, treatment, service report and follow-up." if family == "pest"
+          else "How ISO certification works: gap analysis, documentation, training, internal audit, certification audit and renewal."), body, crumbs=cr)
+
+
+def process_hub():
+    cr = [("Home", "/"), ("How it works", "/how-it-works/")]
+    cols = ""
+    for fam, nm, path, desc in (("pest", "Pest control", "/pest-control/how-it-works/", "Inspection first, a written plan, treatment, a report after every visit, and follow-up."),
+                                ("iso", "ISO consultancy", "/iso-consultancy/how-it-works/", "Gap analysis, documentation, training, internal audit, then the certification audit by an accredited body.")):
+        cols += f'<a class="door t-{fam}" href="{path}"><div class="door-txt"><p class="kicker">{nm}</p><h2>{len(PROCESS[fam])} steps from first contact to result</h2><p>{desc}</p><span class="more">See the full process</span></div></a>'
+    body = (f'<div class="hero slim"><div class="wrap">{crumbs_html(cr)}<h1>How we work</h1><p class="lead">Both services follow a clear process, with written records at every stage.</p></div></div>'
+            f'<section><div class="wrap doors flat">{cols}</div></section>')
+    page("/how-it-works/", "How We Work | Pest Control and ISO Process | Omnexa Solutions", "How our pest control and ISO consultancy processes work, step by step.", body, crumbs=cr)
+
+
 def service_page(path, d, parent, family, slug=None):
     h1, title, desc = fmt(d["h1"]), fmt(d["title"]), fmt(d["desc"])
     data = PEST if family == "pest" else ISO
@@ -310,6 +399,11 @@ def service_page(path, d, parent, family, slug=None):
     if family == "iso":
         notice = '<div class="notice">We are ISO consultants. Certificates are issued by an accredited certification body of your choice; we prepare you for its audit.</div>'
     art = illus_pest() if family == "pest" else illus_iso(label)
+    if slug is None or d.get("city"):
+        proc = process_widget(family)
+    else:
+        proc = (f'<section class="alt" id="process"><div class="wrap"><p class="kicker">Process</p><h2 class="s">How it works</h2><ol class="steps">{steps}</ol>'
+                f'<p class="more-link"><a href="/{hub["slug"]}/how-it-works/">See the full process &rarr;</a></p></div></section>')
     cta = wa_link("Hello, I need " + d["service"])
     body = f"""<div class="hero"><div class="wrap">{crumbs_html(cr)}<div class="grid"><div>
 <p class="eyebrow">{E(eyebrow)}</p><h1>{E(h1)}</h1><p class="lead">{E(fmt(d['lead']))}</p>
@@ -319,7 +413,7 @@ def service_page(path, d, parent, family, slug=None):
 <section><div class="wrap two"><div><p class="kicker">What's included</p><h2 class="s">{E(d['service'])}: what we do</h2><p class="sub">{E(fmt(d['intro']))}</p><ul class="ticks">{ticks}</ul>{notice}</div>
 <div class="art">{art}</div></div></section>
 {extra}
-<section class="alt" id="process"><div class="wrap"><p class="kicker">Process</p><h2 class="s">How it works</h2><ol class="steps">{steps}</ol></div></section>
+{proc}
 {related}
 <section id="faq"><div class="wrap narrow"><p class="kicker">FAQ</p><h2 class="s">Frequently asked questions</h2>{faq}</div></section>
 <div class="cta-band"><div class="wrap"><h2>Book your free {noun}</h2><p>Tell us about your site and we will contact you.</p>
@@ -356,12 +450,17 @@ def build():
 </div>
 <section class="t-pest"><div class="wrap"><p class="kicker">Pest control</p><h2 class="s">Pest control services</h2><div class="cards">{pest_cards}</div></div></section>
 <section class="alt t-iso"><div class="wrap"><p class="kicker">ISO consultancy</p><h2 class="s">ISO standards we support</h2><div class="cards">{iso_cards}</div></div></section>
-<section><div class="wrap narrow"><p class="kicker">One provider</p><h2 class="s">Why food, hospitality and industrial clients use both</h2>
+<section id="how"><div class="wrap"><p class="kicker">How we work</p><h2 class="s">Clear steps, written records</h2><p class="sub">Every job follows the same path: we inspect or assess first, agree the plan in writing, do the work, and give you the paperwork.</p><div class="lanes">{lane("pest")}{lane("iso")}</div></div></section>
+<section class="alt"><div class="wrap narrow"><p class="kicker">One provider</p><h2 class="s">Why food, hospitality and industrial clients use both</h2>
 <p class="sub">Food-safety audits look at both your management system and your pest control records. Working with one company for both makes audits simpler.</p>
 <a class="btn btn-call" href="/contact/">Talk to us</a></div></section>
 <div class="cta-band"><div class="wrap"><h2>Tell us what you need</h2><p>We respond with next steps.</p><div class="cta">{btn_wa(WA)}{btn_call("Call now")}</div></div></div>"""
     page("/", "Pest Control & ISO Consultancy in Saudi Arabia | Omnexa Solutions",
          "Pest control and ISO consultancy in Saudi Arabia. Free site inspection and free ISO consultation. Termites, rodents, ISO 9001, 22000, 45001.", home)
+
+    process_page("pest")
+    process_page("iso")
+    process_hub()
 
     # other services
     cr = [("Home", "/"), ("Other services", "/facility-services/")]
