@@ -147,7 +147,7 @@ ICON = {
 PEST_ICON = {"termite-control": "termite", "rodent-control": "rodent", "cockroach-control": "roach",
              "bed-bug-treatment": "bed", "fumigation": "fume", "commercial-ipm": "building",
              "mosquito-control": "mosquito", "bird-control": "bird", "wildlife-control": "snake"}
-ISO_ICON = {"training": "people", "other-standards": "grid", "iso-9001-training": "cap"}
+ISO_ICON = {"training": "people", "other-standards": "grid", "iso-9001-training": "cap", "iso-14001-training": "cap", "iso-45001-training": "cap", "iso-22000-training": "cap", "iso-27001-training": "cap"}
 
 
 def ic(kind):
@@ -352,10 +352,10 @@ def footer():
 
 FORM_OPTS_EN = ["Pest Control", "Termite Control", "Rodent Control", "Cockroach / Insect Control", "Bed Bug Treatment", "Fumigation",
                 "Commercial IPM Programme", "Mosquito / Dengue Control", "Bird Control", "Snake / Lizard / Stray Animal Control",
-                "ISO Consultancy", "ISO 9001", "ISO 22000", "ISO 45001", "ISO 14001", "ISO 27001", "Other ISO Standards", "ISO Training", "ISO 9001 Training", "Other"]
+                "ISO Consultancy", "ISO 9001", "ISO 22000", "ISO 45001", "ISO 14001", "ISO 27001", "Other ISO Standards", "ISO Training", "ISO 9001 Training", "ISO 14001 Training", "ISO 45001 Training", "ISO 22000 and HACCP Training", "ISO 27001 Training", "Other"]
 FORM_OPTS_AR = ["مكافحة الحشرات", "مكافحة النمل الأبيض", "مكافحة القوارض", "مكافحة الصراصير والحشرات", "مكافحة بق الفراش", "التبخير",
                 "برنامج مكافحة تجاري متكامل", "مكافحة البعوض وحمى الضنك", "مكافحة الطيور", "مكافحة الثعابين والسحالي والحيوانات الضالة",
-                "استشارات الأيزو", "ISO 9001", "ISO 22000", "ISO 45001", "ISO 14001", "ISO 27001", "معايير أيزو أخرى", "التدريب على الأيزو", "التدريب على ISO 9001", "أخرى"]
+                "استشارات الأيزو", "ISO 9001", "ISO 22000", "ISO 45001", "ISO 14001", "ISO 27001", "معايير أيزو أخرى", "التدريب على الأيزو", "التدريب على ISO 9001", "التدريب على ISO 14001", "التدريب على ISO 45001", "التدريب على ISO 22000 وهاسب", "التدريب على ISO 27001", "أخرى"]
 
 
 def form(service, sel_city=None):
