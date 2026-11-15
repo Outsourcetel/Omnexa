@@ -538,3 +538,15 @@ html[dir=rtl] .illus text.mono.ar{font-size:12px}
   html[dir=rtl] .stamp-s{left:auto}
 }
 html[dir=rtl] .illus text,html[dir=rtl] .scene text{direction:ltr}
+
+.art .scene{max-width:340px;margin:0 auto}
+/* standalone scene illustrations (not inside the stepper): show them fully, with a gentle loop */
+.art .scene .a-pop,.art .scene .a-stamp,.art .scene .a-slide,.art .scene .a-ring{opacity:1}
+.art .scene .a-draw{stroke-dashoffset:0}
+.art .scene .a-grow{transform:none}
+@media (prefers-reduced-motion:no-preference){
+  .art .scene .a-pop{animation:bob 3.2s ease-in-out infinite}
+  .art .scene .a-pop.p2{animation-delay:.4s}
+  .art .scene .a-pop.p3{animation-delay:.8s}
+}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}

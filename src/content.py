@@ -1105,3 +1105,80 @@ VALUES = [
     ("Innovation", "Better methods, better monitoring and better records."),
 ]
 SECTORS = ["Government buildings", "Shopping malls", "Hotels", "Commercial buildings", "Hospitals and clinics", "Banks and offices", "Restaurants", "Food industries"]
+
+
+# ---------------- ISO 9001 training page (no prices: customers ask for a quote) ----------------
+TRAIN_STEPS = [
+    ("Enquire", "Tell us the course, the number of people, your preferred dates and the location."),
+    ("Agree the plan", "We confirm the format, language, venue and schedule in writing."),
+    ("Attend the course", "Interactive sessions with exercises that use your own examples."),
+    ("Certificate and follow-up", "Attendance certificates, course materials, and answers to follow-up questions."),
+]
+ISO["training"].update(cta="quote", steps=TRAIN_STEPS, no_notice=True, plink=False, art="train",
+                       inc_kicker="Overview", inc_title="What the training covers",
+                       trust=["Request a quote", "Courses at your premises or ours", "Attendance certificates", "Serving Riyadh and Jeddah"])
+ISO["hub"]["children"] += ["iso-9001-training"]
+ISO["iso-9001-training"] = dict(
+    title="ISO 9001 Training in {city} | Foundation, Internal Auditor | Omnexa Solutions",
+    desc="ISO 9001 training in {city}: foundation, internal auditor and transition courses for teams, at your premises or ours. Request a quote.",
+    h1="ISO 9001 Training in {city}",
+    lead="Courses that teach your people to understand, run and audit an ISO 9001 quality management system. Request a quote for your team.",
+    service="ISO 9001 Training",
+    intro="ISO 9001 only works if the people who use it understand it. Our courses range from a one-day foundation for everyone, to internal auditor training for the people who check the system, to transition training for companies moving to the new edition.",
+    bullets=["ISO 9001 foundation (awareness) course", "ISO 9001 internal auditor course", "Transition to the 2026 edition", "Workshops for process owners and managers", "In-house courses at your premises", "Attendance certificates and course materials"],
+    steps=TRAIN_STEPS, cta="quote", no_notice=True, plink=False, art="train",
+    inc_kicker="Overview", inc_title="What the training covers",
+    trust=["Request a quote", "Courses at your premises or ours", "Attendance certificates", "Serving Riyadh and Jeddah"],
+    faqs=[
+        ("Which ISO 9001 course should I choose?", "Choose by role. Everyone who needs to understand the standard takes the foundation course. The people who will audit the system take the internal auditor course. If you hold an ISO 9001:2015 certificate, the transition course covers the move to the new edition."),
+        ("Can you run the course at our premises?", "Yes. In-house courses are the most common. We bring the materials and run the sessions at your site in Riyadh or Jeddah, using your own procedures for the exercises."),
+        ("Do participants receive a certificate?", "Yes, a certificate of attendance. If you need a course with a specific accreditation, tell us when you enquire and we will confirm what we can offer."),
+        ("How do I get a quote?", "Send us the course, the number of people, your preferred dates and the location, using the form on this page or WhatsApp. We will reply with a written quote."),
+    ],
+)
+EXTRA[("iso", "iso-9001-training")] = [
+    ("cards", "ladder", "Course path", "Courses in the ISO 9001 training path",
+     "Choose the level that matches each person's role. We can combine levels in one programme for your team.",
+     [
+      ("Foundation (awareness)", "For anyone who needs to understand ISO 9001: what it requires, the vocabulary, and how their own role fits in. Typically one day."),
+      ("Internal auditor", "For staff who will audit your quality management system. Covers planning an audit, collecting evidence, writing findings and following them up, with practical exercises. Typically two days."),
+      ("Transition to the 2026 edition", "For managers and auditors working with ISO 9001:2015 who need to move to the new edition: what changes, what to update, and how to plan the move. Typically one day."),
+      ("Lead auditor", "For people who will lead audit teams. Available on request. Tell us the accreditation or recognition you need and we will confirm what we can deliver."),
+     ]),
+    ("table", "who", "Who should attend", "The right course for each role",
+     "Most companies train several groups. This is how roles usually map to courses.",
+     ["Role", "Recommended course", "Why"],
+     [
+      ["Top management", "Foundation", "To understand leadership responsibilities and what auditors will ask management"],
+      ["Department heads and process owners", "Foundation", "To run their processes in line with the standard and keep the records"],
+      ["Management representative", "Foundation, then internal auditor", "To coordinate the system and understand how it is audited"],
+      ["Internal auditors", "Internal auditor", "To plan and carry out audits that find real problems"],
+      ["Quality managers", "Internal auditor and transition", "To keep the system current when the standard changes"],
+     ], None),
+    ("table", "content", "Course content", "What each course covers",
+     "Each course combines explanation with exercises, so people practise on realistic examples.",
+     ["Course", "Main topics", "Practical work"],
+     [
+      ["Foundation", "The purpose of ISO 9001, the quality management principles, the process approach, risk-based thinking, the structure of the standard, and documented information", "Mapping a process from your own business, and matching clauses to everyday work"],
+      ["Internal auditor", "Audit principles, planning an audit programme, checklists, interviewing, collecting evidence, writing nonconformities, reporting, and following up corrective action", "Role-played interviews, a mock audit, and writing findings from case studies"],
+      ["Transition", "What has changed between editions, how the changes affect your system, a gap analysis approach, updating documents, and agreeing timing with your certification body", "A gap analysis applied to a sample of your own system"],
+     ], "Course content is adapted to your sector and to the documents you already use."),
+    ("list", "outcomes", "Learning outcomes", "What participants will be able to do",
+     "By the end of the training, participants should be able to:",
+     ["Explain what ISO 9001 requires and why", "Find the clauses that apply to their own work", "Plan and carry out an internal audit", "Collect evidence and write clear, factual findings", "Raise and follow up corrective actions", "Prepare for a certification or surveillance audit"]),
+    ("cards", "delivery", "Ways to attend", "Choose how the training is delivered", None,
+     [
+      ("At your premises", "We come to your site in Riyadh or Jeddah and use your own procedures and records for the exercises."),
+      ("At a venue we arrange", "For smaller groups or several companies, we arrange a training room in Riyadh or Jeddah."),
+      ("Live online", "Available on request for courses that suit it. Ask us which formats work for the course you need."),
+      ("Language", "Tell us the language your team needs when you enquire, and we will confirm what we can deliver."),
+     ]),
+    ("list", "receive", "What you receive", "Every participant receives",
+     "Each participant and the company receive:",
+     ["Course materials", "A certificate of attendance", "Practical exercises and worked examples", "Attendance and competence records for your audit file", "Answers to follow-up questions after the course"]),
+    ("list", "before", "Before you attend", "Prerequisites",
+     "Most people can start at the foundation level. For the other courses we recommend:",
+     ["Foundation: no prior knowledge of ISO 9001 is needed", "Internal auditor: knowledge of ISO 9001, from the foundation course or similar experience", "Transition: working knowledge of ISO 9001:2015 and access to your own quality manual or procedures", "Please bring or share a copy of your procedures if you want the exercises built around them"]),
+    ("callout", "quote", "Get a quote for your team",
+     "Tell us the course, the number of people, your preferred dates and the location. We will send you a written quote."),
+]

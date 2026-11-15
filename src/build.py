@@ -141,12 +141,13 @@ ICON = {
     "snake": _svg('<path d="M18 4c-4 0-5 3-3 5s1 5-3 6-6 3-4 6"/><path d="M18 4l3 1-3 1"/><circle cx="17" cy="4.6" r=".6" class="fill"/>'),
     "people": _svg('<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.4"/><path d="M16 20a5 5 0 0 1 6 0"/>'),
     "grid": _svg('<rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/>'),
+    "cap": _svg('<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5M22 9v6"/>'),
     "phone": _svg('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>'),
 }
 PEST_ICON = {"termite-control": "termite", "rodent-control": "rodent", "cockroach-control": "roach",
              "bed-bug-treatment": "bed", "fumigation": "fume", "commercial-ipm": "building",
              "mosquito-control": "mosquito", "bird-control": "bird", "wildlife-control": "snake"}
-ISO_ICON = {"training": "people", "other-standards": "grid"}
+ISO_ICON = {"training": "people", "other-standards": "grid", "iso-9001-training": "cap"}
 
 
 def ic(kind):
@@ -351,10 +352,10 @@ def footer():
 
 FORM_OPTS_EN = ["Pest Control", "Termite Control", "Rodent Control", "Cockroach / Insect Control", "Bed Bug Treatment", "Fumigation",
                 "Commercial IPM Programme", "Mosquito / Dengue Control", "Bird Control", "Snake / Lizard / Stray Animal Control",
-                "ISO Consultancy", "ISO 9001", "ISO 22000", "ISO 45001", "ISO 14001", "ISO 27001", "Other ISO Standards", "ISO Training", "Other"]
+                "ISO Consultancy", "ISO 9001", "ISO 22000", "ISO 45001", "ISO 14001", "ISO 27001", "Other ISO Standards", "ISO Training", "ISO 9001 Training", "Other"]
 FORM_OPTS_AR = ["مكافحة الحشرات", "مكافحة النمل الأبيض", "مكافحة القوارض", "مكافحة الصراصير والحشرات", "مكافحة بق الفراش", "التبخير",
                 "برنامج مكافحة تجاري متكامل", "مكافحة البعوض وحمى الضنك", "مكافحة الطيور", "مكافحة الثعابين والسحالي والحيوانات الضالة",
-                "استشارات الأيزو", "ISO 9001", "ISO 22000", "ISO 45001", "ISO 14001", "ISO 27001", "معايير أيزو أخرى", "التدريب على الأيزو", "أخرى"]
+                "استشارات الأيزو", "ISO 9001", "ISO 22000", "ISO 45001", "ISO 14001", "ISO 27001", "معايير أيزو أخرى", "التدريب على الأيزو", "التدريب على ISO 9001", "أخرى"]
 
 
 def form(service, sel_city=None):
@@ -373,9 +374,11 @@ def form(service, sel_city=None):
 <p class="small">{T('Opens WhatsApp with your details filled in. We reply during business hours.', 'يفتح واتساب وتفاصيلك مكتوبة مسبقاً. نردّ خلال ساعات العمل.')}</p></form>"""
 
 
-def trust(family="pest"):
+def trust(family="pest", override=None):
     p = C["proof"]
     items = []
+    if override:
+        return '<ul class="trust">' + "".join(f"<li>{E(i)}</li>" for i in override) + "</ul>"
     if p["iso9001_certificate"]:
         items.append(T("ISO 9001 certified: ", "حاصلة على ISO 9001: ") + p["iso9001_certificate"])
     if p["pest_licence"] and family != "iso":
@@ -610,6 +613,7 @@ def service_page(path, d, parent, family, slug=None):
         links = "".join(f'<a href="#{i}">{E(t)}</a>' for i, t in toc) + f'<a href="#process">{T("How it works", "آلية العمل")}</a><a href="#faq">{T("FAQ", "الأسئلة الشائعة")}</a>'
         onpage = f'<nav class="onpage" aria-label="{T("On this page", "في هذه الصفحة")}"><div class="wrap"><b>{T("On this page", "في هذه الصفحة")}</b>{links}</div></nav>'
     noun = T("inspection", "فحص") if family == "pest" else T("consultation", "استشارة")
+    quote = d.get("cta") == "quote"
     if slug is None:  # hub
         cards = "".join(f'<a class="card" href="{hub_path}{c}/">{card_icon(family, c)}<h3>{E(fmt(data[c]["h1"]))}</h3><p>{E(fmt(data[c]["lead"]))}</p><span class="more">{T("Learn more", "اعرف المزيد")}</span></a>'
                         for c in hub["children"])
@@ -625,16 +629,21 @@ def service_page(path, d, parent, family, slug=None):
         eyebrow = parent[0] + (" · " + cname(d["city"]) if d.get("city") else "")
         label = d["service"].upper() if LANG == "en" else d["service"]
     notice = ""
-    if family == "iso":
+    if family == "iso" and not d.get("no_notice"):
         notice = f'<div class="notice">{T("We are ISO consultants. Certificates are issued by an accredited certification body of your choice; we prepare you for its audit.", "نحن مستشارون في الأيزو. تُصدر الشهادة جهة منح شهادات معتمدة من اختيارك، ونحن نجهّزك لتدقيقها.")}</div>'
     art = illus_ipm() if slug == "commercial-ipm" else (illus_pest() if family == "pest" else illus_iso(label))
+    if d.get("art") == "train":
+        art = scene("train", LANG)
     if slug is None or d.get("city"):
         proc = process_widget(family)
     else:
         arrow = "&larr;" if LANG == "ar" else "&rarr;"
-        proc = (f'<section class="alt" id="process"><div class="wrap"><p class="kicker">{T("Process", "آلية العمل")}</p><h2 class="s">{T("How it works", "كيف نعمل")}</h2><ol class="steps">{steps}</ol>'
-                f'<p class="more-link"><a href="/{hub["slug"]}/how-it-works/">{T("See the full process", "اطّلع على العملية كاملة")} {arrow}</a></p></div></section>')
-    cta = wa_link(T("Hello, I need " + d["service"], "السلام عليكم، أحتاج إلى خدمة: " + d["service"]))
+        plink = f'<p class="more-link"><a href="/{hub["slug"]}/how-it-works/">{T("See the full process", "اطّلع على العملية كاملة")} {arrow}</a></p>' if d.get("plink", True) else ""
+        proc = (f'<section class="alt" id="process"><div class="wrap"><p class="kicker">{T("Process", "آلية العمل")}</p><h2 class="s">{T("How it works", "كيف نعمل")}</h2><ol class="steps">{steps}</ol>{plink}</div></section>')
+    if quote:
+        cta = wa_link(T("Hello, I would like a quote for " + d["service"], "السلام عليكم، أرغب في الحصول على عرض سعر لـ " + d["service"]))
+    else:
+        cta = wa_link(T("Hello, I need " + d["service"], "السلام عليكم، أحتاج إلى خدمة: " + d["service"]))
     office_note = (f'<p class="office-note">{T("Our " + d["city"] + " office: ", "مكتبنا في " + cname(d["city"]) + ": ")}{E(office_for(d["city"]))}</p>' if d.get("city") and office_for(d.get("city")) else "")
     gallery = field_strip() if (family == "pest" and (slug is None or d.get("city"))) else ""
     if slug == "commercial-ipm":
@@ -646,24 +655,26 @@ def service_page(path, d, parent, family, slug=None):
                    + '</p></div></div></section>')
     body = f"""<div class="hero"><div class="wrap">{crumbs_html(cr)}<div class="grid"><div>
 <p class="eyebrow">{E(eyebrow)}</p><h1>{E(h1)}</h1><p class="lead">{E(fmt(d['lead']))}</p>
-<div class="cta">{btn_wa(cta)}{btn_call()}</div>{trust(family)}{office_note}</div>
-<div class="card formcard"><h2>{T("Request a free " + noun, "اطلب " + noun + " مجانية" if family != "pest" else "اطلب فحصاً مجانياً")}</h2>{form(d['service'], d.get('city'))}</div></div></div></div>
+<div class="cta">{btn_wa(cta)}{btn_call()}</div>{trust(family, d.get("trust"))}{office_note}</div>
+<div class="card formcard"><h2>{T("Request a quote", "اطلب عرض سعر") if quote else T("Request a free " + noun, "اطلب " + noun + " مجانية" if family != "pest" else "اطلب فحصاً مجانياً")}</h2>{form(d['service'], d.get('city'))}</div></div></div></div>
 {onpage}
-<section><div class="wrap two"><div><p class="kicker">{T("What's included", "ما تشمله الخدمة")}</p><h2 class="s">{E(d['service'])}{T(": what we do", ": ماذا نقدّم")}</h2><p class="sub">{E(fmt(d['intro']))}</p><ul class="ticks">{ticks}</ul>{notice}</div>
+<section><div class="wrap two"><div><p class="kicker">{d.get("inc_kicker") or T("What's included", "ما تشمله الخدمة")}</p><h2 class="s">{d.get("inc_title") or (E(d['service']) + T(": what we do", ": ماذا نقدّم"))}</h2><p class="sub">{E(fmt(d['intro']))}</p><ul class="ticks">{ticks}</ul>{notice}</div>
 <div class="art">{art}</div></div></section>
 {extra}
 {gallery}
 {proc}
 {related}
 <section id="faq"><div class="wrap narrow"><p class="kicker">{T("FAQ", "الأسئلة الشائعة")}</p><h2 class="s">{T("Frequently asked questions", "الأسئلة الأكثر شيوعاً")}</h2>{faq}</div></section>
-<div class="cta-band"><div class="wrap"><h2>{T("Book your free " + noun, "احجز فحصك المجاني" if family == "pest" else "احجز استشارتك المجانية")}</h2><p>{T("Tell us about your site and we will contact you.", "أخبرنا عن موقعك وسنتواصل معك.")}</p>
+<div class="cta-band"><div class="wrap"><h2>{T("Request a quote for your team", "اطلب عرض سعر لفريقك") if quote else T("Book your free " + noun, "احجز فحصك المجاني" if family == "pest" else "احجز استشارتك المجانية")}</h2><p>{T("Tell us the course, the number of people and your preferred dates. We will send you a written quote.", "أخبرنا بالدورة وعدد المشاركين والمواعيد المفضلة وسنرسل لك عرض سعر مكتوباً.") if quote else T("Tell us about your site and we will contact you.", "أخبرنا عن موقعك وسنتواصل معك.")}</p>
 <div class="cta">{btn_wa(cta)}{btn_call(T("Call now", "اتصل الآن"))}</div></div></div>"""
     svc = {"@context": "https://schema.org", "@type": "Service", "name": h1, "serviceType": d["service"],
            "provider": {"@type": "LocalBusiness", "@id": BASE + "/#business", "name": brand(), "telephone": C["phone"]},
            "areaServed": {"@type": "Country", "name": T(C["country"], "المملكة العربية السعودية")}, "url": BASE + P(path), "description": desc, "inLanguage": LANG}
+    crs = ({"@context": "https://schema.org", "@type": "Course", "name": h1, "description": desc, "inLanguage": LANG,
+            "provider": {"@type": "Organization", "name": brand(), "url": BASE + P("/")}} if quote else None)
     fq = {"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": LANG, "mainEntity": [
         {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]}
-    page(path, title, desc, body, [svc, fq], cr)
+    page(path, title, desc, body, [svc, fq] + ([crs] if crs else []), cr)
 
 
 def build_site():
