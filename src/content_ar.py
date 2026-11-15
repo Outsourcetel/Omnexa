@@ -1320,3 +1320,7 @@ for _slug, _d in _TRAIN_AR.items():
     _pg, _bl = _tg.make(_tg.SHARED_AR, _d)
     ISO[_slug] = _pg
     EXTRA[("iso", _slug)] = _bl
+
+
+import content_more_ar as _more_ar
+_more_ar.apply(globals())

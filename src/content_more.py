@@ -1,0 +1,983 @@
+# Additional content: the building maintenance / facility services section, and the
+# pest control sector pages and guides. No prices, no invented credentials or statistics.
+# apply(ns) merges everything into content.py's namespace.
+
+FAC_STEPS = [
+    ("Site inspection", "We visit the building or the systems involved, check their condition and note what you need."),
+    ("Written scope and quotation", "You receive a written scope of work and a quotation. Nothing starts before you agree."),
+    ("Work or programme starts", "Work is carried out to the agreed scope and schedule, with your site rules respected."),
+    ("Records and follow-up", "You receive a written record of what was done, and follow-up visits where the scope includes them."),
+]
+
+FAC = {}
+FAC_EXTRA = {}
+FAC_FAQS = {}
+
+FAC["hub"] = dict(
+    slug="facility-services",
+    title="Building Maintenance and Facility Services in {city} | Omnexa Solutions",
+    desc="AC and HVAC maintenance, planned building maintenance, construction and fit-out, safety signage and equipment, and IT and software in {city}. Free site inspection and written quotation.",
+    h1="Building Maintenance and Facility Services in {city}",
+    lead="AC and HVAC maintenance, planned building maintenance, construction and fit-out, safety signs and equipment, and software, from one team. Request a quote.",
+    service="Building Maintenance and Facility Services",
+    intro="Alongside pest management, Omnexa Solutions provides technical and facility services for homes, offices and commercial and industrial sites in {city}. Each service has its own page below, with what is included, how the work runs and what we need from you to quote.",
+    bullets=["AC and HVAC installation, servicing and maintenance contracts", "Planned and reactive building maintenance programmes", "Construction, MEP coordination and interior fit-out", "Safety signage, including photoluminescent signs", "Personal protective equipment for staff and contractors", "Custom software and system integration"],
+    steps=FAC_STEPS, cta="quote", plink=False,
+    faqs=[
+        ("Which services do you provide?", "AC and HVAC services, building maintenance programmes, construction and fit-out, safety signage, safety equipment, and IT and software. Each has its own page on this site."),
+        ("Do you offer a free site inspection?", "Yes. Request a quote using the form, WhatsApp or phone, and we will arrange a visit where the work needs one."),
+        ("Can I combine services, such as AC maintenance and pest control?", "Yes. Many sites need both, and a single point of contact keeps the schedule simple. Tell us everything you need when you enquire and we will quote it as one scope or as separate ones, as you prefer."),
+        ("Do you work in both Riyadh and Jeddah?", "Yes. We have offices in Riyadh and Jeddah. Tell us the location of the site and we will confirm availability."),
+    ],
+    children=["ac-hvac-maintenance", "building-maintenance", "construction-fit-out", "safety-signage-equipment", "it-software"],
+)
+FAC_EXTRA["hub"] = [
+    ("table", "services", "What we offer", "Building maintenance and facility services at a glance",
+     "Pick the service that matches your need. Each page explains the work in detail.",
+     ["Service", "What it covers", "Typical customers"],
+     [
+      ["AC and HVAC maintenance", "Installation and ducting, fault diagnosis, filter cleaning and service, compressor repair, gas refilling, annual and preventive maintenance contracts", "Homes, offices, shops, clinics and commercial sites"],
+      ["Building maintenance", "A planned preventive schedule, reactive call-outs, checklists and written reports for the systems in the agreed scope", "Owners, landlords, property managers and tenants"],
+      ["Construction and fit-out", "Civil and structural works, MEP coordination, interior fit-out, industrial and commercial buildings", "Developers, business owners and operators fitting out premises"],
+      ["Safety signage and equipment", "Warning, prohibition, mandatory and safe condition signs, photoluminescent signs, and personal protective equipment", "Contractors, factories, warehouses and public buildings"],
+      ["IT and software", "Custom software, web and enterprise applications, AI-powered applications and system integration", "Businesses in Saudi Arabia and the Gulf"],
+     ], None),
+    ("cards", "approach", "How we work", "The same discipline on every service", None,
+     [
+      ("Inspect first", "We look at the site or the system before we quote, so the scope matches what is really there."),
+      ("Written scope", "What is included, what is not, and the timing are written down before work starts."),
+      ("Records", "You receive a written record after each visit or milestone, which you can keep for your own files."),
+      ("One point of contact", "One team to call for a leaking AC, a sign that needs replacing or a pest sighting."),
+     ]),
+    ("list", "quote", "Quotation", "What we need to prepare your quote",
+     "Request a quote and tell us as much as you can. A photo or a short voice note on WhatsApp is often enough to start.",
+     ["The location and type of building", "Which service you need, and any deadline", "The number and type of units or areas involved", "Photos of the equipment, area or problem", "Whether the work must be done out of hours", "Any site rules, permits or access arrangements we should know about"]),
+    ("callout", "scope", "Scope is agreed in writing",
+     "Each job or contract has a written scope. If we find something during a visit that is outside it, we record it and tell you, so you can decide how to handle it."),
+]
+
+# ---------------- AC and HVAC ----------------
+FAC["ac-hvac-maintenance"] = dict(
+    title="AC and HVAC Maintenance in {city} | Omnexa Solutions",
+    desc="AC and HVAC installation, servicing, filter cleaning, compressor repair, gas refilling and preventive maintenance contracts in {city}. Free site inspection.",
+    h1="AC and HVAC Maintenance in {city}",
+    lead="Installation, servicing, repair and maintenance contracts for air-conditioning in homes, offices and commercial sites.",
+    service="AC and HVAC Maintenance",
+    intro="In Saudi Arabia the AC runs for much of the year, and it matters most in the hottest weeks, exactly when a breakdown is hardest to live with. A planned service keeps units cooling efficiently and catches small faults before they become failures.",
+    bullets=["AC installation and ducting", "Troubleshooting and fault diagnosis", "Filter cleaning and AC service", "Compressor repair", "Gas refilling for AC, refrigerators and deep freezers", "Annual and preventive maintenance contracts"],
+    steps=[
+        ("Inspection or fault check", "A technician checks the units, notes their condition and diagnoses any fault."),
+        ("Written scope and quotation", "You receive the scope of the repair, service or contract in writing. Nothing starts before you agree."),
+        ("Service or repair", "The work is carried out, and anything that needs a part or a second visit is explained."),
+        ("Report and next service", "You receive a record of what was checked and done, and the date of the next planned service."),
+    ],
+    cta="quote", plink=False, photo="field-aircon", photo_cap="Servicing an air conditioner",
+    faqs=[
+        ("How often should an AC be serviced?", "At least once a year, ideally before the summer starts. Units that run most of the day, or that sit in dusty or humid locations, benefit from more frequent filter cleaning. We recommend a schedule after seeing the units."),
+        ("My AC is running but not cooling. What could be wrong?", "Common causes are dirty filters or coils, low refrigerant because of a leak, a failing fan or compressor, or an outdoor unit that cannot release heat. A technician needs to check the unit to tell which."),
+        ("Can you refill the gas?", "Yes, for AC units, refrigerators and deep freezers. Gas does not get used up, so a unit that is low on gas has a leak. We look for the leak and explain the options before refilling."),
+        ("Do you offer maintenance contracts?", "Yes. Annual and preventive maintenance contracts cover scheduled visits to all your units, a checklist and a written report. Request a quote with the number and type of units."),
+        ("Do you install new units and ducting?", "Yes. Tell us the rooms, the building type and whether it is a new installation or a replacement, and we will arrange a site visit."),
+    ],
+)
+FAC_EXTRA["ac-hvac-maintenance"] = [
+    ("table", "services", "What we do", "AC and HVAC services",
+     "From a single split unit to a building with ducted systems.",
+     ["Service", "What it involves", "When you need it"],
+     [
+      ["Installation and ducting", "Choosing unit positions, installing indoor and outdoor units and, for ducted systems, running and sealing ductwork", "New buildings, extensions, fit-outs and replacement of old units"],
+      ["Troubleshooting and fault diagnosis", "Checking airflow, temperatures, controls, electrical connections on the unit and the refrigerant circuit to find the cause", "Poor cooling, noise, leaks, tripping or a unit that will not start"],
+      ["Filter cleaning and AC service", "Cleaning filters, indoor and outdoor coils, checking drains and fans, and testing operation", "Every year, and more often where dust or humidity is heavy"],
+      ["Compressor repair", "Diagnosing compressor faults and repairing, or advising when replacement is the sensible option", "A unit that runs but does not cool, or stops soon after starting"],
+      ["Gas refilling", "Finding leaks, then recharging the correct amount of refrigerant for AC, refrigerators and deep freezers", "Reduced cooling, iced pipes or a unit that has lost gas"],
+      ["Annual and preventive maintenance contracts", "Scheduled visits to every unit with a checklist and a report", "Offices, shops, clinics, compounds and any site with several units"],
+     ], None),
+    ("cards", "summer", "Saudi conditions", "Why summer is the test for an AC", None,
+     [
+      ("Long running hours", "Units run for many hours a day through the hot months, so wear builds up faster and a small fault can turn into a breakdown at the worst time."),
+      ("Dust and sand", "Filters and coils clog with dust, particularly in inland areas such as Riyadh. Less airflow means weaker cooling and more strain on the compressor."),
+      ("Humidity on the coast", "In humid coastal areas such as Jeddah, units remove a lot of moisture. Blocked drains and wet coils are common causes of leaks and smells."),
+      ("Service before the season", "A service in spring finds weak parts while a repair can still be scheduled calmly, instead of during the hottest weeks."),
+     ]),
+    ("list", "signs", "Early warning", "Signs your AC needs attention",
+     "Call for a check if you notice any of these:",
+     ["Weak or uneven cooling", "Ice on the indoor unit or the refrigerant pipes", "Water leaking from the indoor unit", "Unusual noises such as rattling, buzzing or squealing", "A musty smell when the unit starts", "The unit switches off by itself or trips the supply", "The outdoor unit is very noisy or does not run"]),
+    ("table", "troubleshoot", "Diagnosis", "Common symptoms and what usually causes them",
+     "This is a guide only. A technician should check the unit before any repair.",
+     ["Symptom", "Common causes", "What we do"],
+     [
+      ["Not cooling enough", "Dirty filters or coils, low refrigerant, a weak fan or compressor", "Clean, test pressures and temperatures, repair or recommend replacement"],
+      ["Ice on the unit or pipes", "Restricted airflow or low refrigerant", "Restore airflow, check for leaks and recharge if needed"],
+      ["Water leaking indoors", "Blocked condensate drain, poor slope of the drain line, frozen coil that is melting", "Clear and test the drain, correct the line and find why the coil froze"],
+      ["Bad smell", "Damp filter or coil, dirty drain tray", "Clean the filter, coil and tray"],
+      ["Unit stops after a short time", "Overheating outdoors, compressor trouble, control fault", "Inspect the outdoor unit and test components"],
+     ], None),
+    ("table", "preventive", "Preventive maintenance", "What a planned AC service checks",
+     "The same checklist is used at every visit, so changes show up over time.",
+     ["Item", "What we check", "Why it matters"],
+     [
+      ["Filters", "Cleaned or replaced", "Clean filters keep airflow up and protect the coil"],
+      ["Indoor and outdoor coils", "Cleaned and inspected for damage", "Dirty coils reduce cooling and raise the load on the compressor"],
+      ["Condensate drain", "Cleared and tested", "A blocked drain causes leaks and damp"],
+      ["Fans and motors", "Run and checked for noise and wear", "Fan faults reduce airflow and can lead to breakdowns"],
+      ["Refrigerant circuit", "Checked for leaks and correct operation", "Low gas means a leak that should be found"],
+      ["Compressor", "Operation and running condition checked", "It is the most important part to protect"],
+      ["Controls and thermostat", "Tested", "Wrong readings cause poor comfort and wasted running time"],
+      ["Ducting", "Visual check of joints and insulation on accessible sections", "Leaking or uninsulated ducts waste cooled air"],
+     ], None),
+    ("prose", "gas", "Refrigerant", "Gas refilling: why a unit loses gas",
+     ["An AC or refrigerator uses a sealed circuit. The refrigerant is not consumed, so if the level is low, gas has escaped through a leak, usually at a joint, a valve or a damaged pipe.",
+      "Refilling without finding the leak gives only a short-term fix, because the gas escapes again. We check for the leak, tell you where it is and what it takes to repair, and then recharge the unit. The same applies to refrigerators and deep freezers, which we also refill."]),
+    ("cards", "ducting", "Installation", "AC installation and ducting: what to get right", None,
+     [
+      ("Unit size and position", "A unit should suit the room size, the sun exposure and the use of the space. Positions should allow airflow and service access."),
+      ("Duct routing and sealing", "Short, smooth duct runs with sealed joints lose less air. We plan routes together with other building services."),
+      ("Insulation", "Ductwork and refrigerant pipes should be insulated, particularly where they pass through hot spaces."),
+      ("Drainage and power", "Condensate lines need a proper fall and a safe discharge point, and the unit needs a supply suited to its rating."),
+     ]),
+    ("list", "contract", "Maintenance contracts", "What an annual or preventive maintenance contract includes",
+     "A contract replaces emergency repairs with planned visits. A good one is written down:",
+     ["A register of every unit, with location and type", "A visit schedule agreed with you, set by the number of units and how hard they run", "A checklist completed at every visit", "A written report after each visit, with any faults and recommendations", "Call-out arrangements between planned visits", "Clear wording on what is covered and what needs a separate quotation, such as major parts"]),
+    ("callout", "quote", "Request a quote",
+     "Send us the number and type of units, the location and a photo of the nameplate or the problem if you can. We will arrange a free site inspection and send a written quotation."),
+]
+
+# ---------------- Building maintenance ----------------
+FAC["building-maintenance"] = dict(
+    title="Building Maintenance and Facilities Management in {city} | Omnexa Solutions",
+    desc="Planned preventive maintenance, reactive call-outs, checklists and written reports for offices, shops, compounds and commercial buildings in {city}. Request a quote.",
+    h1="Building Maintenance and Facilities Management in {city}",
+    lead="A planned maintenance programme with scheduled checks, fast logging of faults and written reports, for the systems in your agreed scope.",
+    service="Building Maintenance",
+    intro="Buildings work best when problems are found early. A maintenance programme replaces emergency repairs with a schedule of checks, a clear way to report faults and records you can use. The scope is agreed with you for each site, covering the services we provide.",
+    bullets=["Planned preventive maintenance schedule", "Reactive call-outs between planned visits", "Checklists for each area and system", "Written reports after visits", "AC and HVAC maintenance within the programme", "Coordination with pest control, safety signage and works"],
+    steps=[
+        ("Site survey", "We walk the building, list the systems and areas in scope and record their condition."),
+        ("Programme and quotation", "You receive a written schedule, checklists and a quotation. Nothing starts before you agree."),
+        ("Planned visits and call-outs", "Scheduled checks are carried out, and faults you report between visits are logged and attended."),
+        ("Reports and review", "You receive reports after visits, and the programme is reviewed with you and adjusted."),
+    ],
+    cta="quote", plink=False,
+    faqs=[
+        ("What is the difference between preventive and reactive maintenance?", "Preventive maintenance is planned: scheduled checks and servicing to stop faults developing. Reactive maintenance is the response when something fails or a fault is reported. A good programme has both."),
+        ("Which systems can be included?", "The services we provide: AC and HVAC, construction and fit-out works, safety signage and equipment, and pest control. We agree the exact scope with you for each site."),
+        ("What if you find a problem outside the agreed scope?", "We record it, take photos and tell you, so you can decide who should deal with it. Nothing outside the scope is started without your agreement."),
+        ("How do I report a fault between visits?", "By phone or WhatsApp. We log it, confirm the details and arrange attendance. Photos and a short description help us send the right person."),
+        ("Can one programme cover several buildings?", "Yes. Multi-site programmes use the same checklists and report format at each site so you can compare them."),
+    ],
+)
+FAC_EXTRA["building-maintenance"] = [
+    ("prose", "approach", "The approach", "Planned maintenance first, call-outs for the rest",
+     ["Most building problems start small: a blocked AC drain, a worn sign, a gap that lets pests in. Planned preventive maintenance is a schedule of checks at set intervals, so these are found while they are small and before they interrupt your operations.",
+      "Reactive call-outs cover what happens between visits. A good programme keeps both in one record, so repeated call-outs for the same fault show up and the cause can be fixed instead of the symptom."]),
+    ("table", "schedule", "Planned maintenance", "An example planned maintenance schedule",
+     "This is an illustration. The real schedule is set for your building and the systems in your scope.",
+     ["Frequency", "Typical checks", "Record"],
+     [
+      ["At each visit", "Walk-round of the areas in scope, review of faults logged since the last visit", "Visit report with photos"],
+      ["Regular intervals set by the site", "AC filter cleaning and service checks, pest control monitoring points, condition of safety signs and equipment", "Completed checklists"],
+      ["Seasonal", "AC service ahead of the summer, review of entry points and drainage ahead of wet weather", "Seasonal checklist and recommendations"],
+      ["Annual", "Review of the programme, equipment register and any recommended works", "Annual review note"],
+     ], "Frequencies depend on the type of building, its use and the systems involved. We propose them after the site survey."),
+    ("cards", "reactive", "Between visits", "How a reactive call-out is handled", None,
+     [
+      ("Log", "You report the fault by phone or WhatsApp. We record the location, what happened and when."),
+      ("Attend", "A technician is sent with the right skills for the fault, and we tell you when to expect them."),
+      ("Fix or report", "Where the fault is within scope it is repaired. If it needs parts or a separate quotation, we explain before proceeding."),
+      ("Close and record", "The fault is closed in the log with what was found and done, so repeats can be spotted."),
+     ]),
+    ("list", "checklist", "Checklists", "What a building walk-round checks",
+     "Checklists keep every visit consistent. A typical walk-round covers:",
+     ["AC units: running, noise, filters, drains and leaks", "Safety signs: present, visible, undamaged and photoluminescent signs not obstructed", "Safety equipment: stored correctly and in usable condition", "Pest control: monitoring points intact and any new signs of activity", "Visible condition of finishes, doors and fittings, noting defects for referral", "Access routes and exits kept clear and marked"]),
+    ("list", "report", "Reporting", "What a maintenance report should contain",
+     "A report is useful only if it says exactly what was done and what you should do next.",
+     ["Date, site, areas visited and the technician's name", "The checklist with each item marked as satisfactory or needing attention", "Faults found, with photos and locations", "Work completed during the visit", "Recommendations and items needing a separate quotation", "Open items carried over from previous visits", "The date of the next planned visit"]),
+    ("cards", "who", "Who it is for", "Buildings that benefit from a programme", None,
+     [
+      ("Offices and shops", "Keep comfort, safety signs and hygiene in order without managing several suppliers."),
+      ("Compounds and residential buildings", "Planned checks of shared systems and a clear route for residents' reports."),
+      ("Clinics, schools and hospitality", "Sites where comfort, safety and hygiene are visible to customers and inspectors."),
+      ("Warehouses and industrial sites", "Safety signage, equipment and pest control kept up to date across large areas."),
+     ]),
+    ("callout", "scope", "Define the scope clearly",
+     "A maintenance contract is only as good as its scope. We list the systems and areas covered, the visit schedule and how call-outs work, and we show you what is excluded. Anything outside the scope is recorded and referred to you."),
+]
+
+# ---------------- Construction and fit-out ----------------
+FAC["construction-fit-out"] = dict(
+    title="Construction and Interior Fit-out in {city} | Omnexa Solutions",
+    desc="Civil and structural works, MEP coordination, interior fit-out and industrial and commercial buildings in {city}. Request a quote after a free site visit.",
+    h1="Construction and Fit-out in {city}",
+    lead="Civil and structural works, MEP coordination, interior fit-out, and industrial and commercial buildings.",
+    service="Construction and Fit-out",
+    intro="We provide construction services across Saudi Arabia, in line with Vision 2030 goals for quality and sustainable development. Projects run from a site visit and a written scope through to handover documents, with the trades coordinated so the building works as a whole.",
+    bullets=["Civil and structural works", "MEP coordination", "Interior fit-out", "Industrial and commercial buildings", "Written scope, programme and handover records"],
+    steps=[
+        ("Site visit and brief", "We visit the site, review your drawings and requirements and note constraints."),
+        ("Scope and quotation", "You receive a written scope, a programme and a quotation. Nothing starts before you agree."),
+        ("Execution and coordination", "Works are carried out in sequence, with the trades coordinated and progress reported."),
+        ("Inspection and handover", "Defects are listed and closed, and you receive the handover records."),
+    ],
+    cta="quote", plink=False,
+    faqs=[
+        ("What types of project do you take on?", "Civil and structural works, MEP coordination, interior fit-out, and industrial and commercial buildings. Send us the scope and location and we will confirm whether it suits us."),
+        ("What does MEP coordination mean?", "MEP stands for mechanical, electrical and plumbing. Coordination means planning those services together with the building works so they fit, in the right order, without clashes."),
+        ("Can you fit out a shop or office from an empty unit?", "Yes. Interior fit-out covers the internal works to turn an empty or existing space into one ready for use, to your design and brief."),
+        ("Do I need drawings before you quote?", "Drawings help, but are not essential for a first visit. We can start from a site visit and your brief, and tell you what drawings will be needed."),
+        ("Who handles approvals and permits?", "It depends on the project and the authority involved. Tell us the scope and location at the start and we will explain what applies and who is responsible for each item."),
+    ],
+)
+FAC_EXTRA["construction-fit-out"] = [
+    ("cards", "scope", "Scope", "What we build", None,
+     [
+      ("Civil and structural works", "Groundworks, foundations, structural elements and building envelope works, to the approved drawings and specification."),
+      ("MEP coordination", "Planning and sequencing the mechanical, electrical and plumbing services with the building works."),
+      ("Interior fit-out", "Partitions, ceilings, floors, finishes and fittings that turn a shell or an existing space into one ready for use."),
+      ("Industrial and commercial buildings", "Warehouses, workshops, offices and retail premises, planned around how the building will be used."),
+     ]),
+    ("table", "stages", "How a project runs", "Stages of a construction or fit-out project",
+     "Every project is different, but most follow these stages.",
+     ["Stage", "What happens", "What we need from you"],
+     [
+      ["Site visit and brief", "We view the site, discuss your needs and identify constraints such as access, working hours and existing services", "Your requirements, the site address and access arrangements"],
+      ["Scope and quotation", "A written scope of work, programme and quotation", "Drawings or specifications if you have them, and your decision"],
+      ["Mobilisation", "Planning the sequence, materials and site arrangements", "Permissions and access agreed in writing"],
+      ["Execution", "Works carried out in sequence with the trades coordinated and progress reported", "Prompt answers to queries and approval of any changes"],
+      ["Inspection and snagging", "A joint walk-through, a list of defects and their correction", "Attendance at the walk-through"],
+      ["Handover", "Handover records and documents for the completed work", "Confirmation of acceptance"],
+     ], None),
+    ("prose", "mep", "Coordination", "Why MEP coordination matters",
+     ["Mechanical, electrical and plumbing services share the same ceilings, walls and risers. If each is planned separately, they clash on site, and the fix is slow and disruptive.",
+      "Coordination means the services are planned together with the structure and the interior layout, so routes, levels and access panels are agreed before work starts. It also decides the order of the trades, so that finished work is not opened up again. For fit-out, it includes checking that AC layouts, lighting and fittings match the ceiling design."]),
+    ("table", "types", "By building type", "Commercial and industrial buildings need different things",
+     "The brief changes with how the building will be used.",
+     ["Building", "What matters most", "Typical works"],
+     [
+      ["Offices", "Comfort, layout flexibility and a finished appearance", "Partitions, ceilings, flooring, AC layout and fittings"],
+      ["Retail and restaurants", "Customer-facing finish, services in the right places and a schedule that meets the opening date", "Interior fit-out, MEP coordination and signage positions"],
+      ["Warehouses and workshops", "Floor strength, clear spans, access for vehicles and safe movement", "Civil and structural works, markings and safety signage"],
+      ["Clinics and schools", "Hygiene, durable finishes and safety", "Interior fit-out with attention to finishes and services"],
+     ], None),
+    ("list", "prepare", "Before we start", "How to prepare a fit-out brief",
+     "A clear brief saves time and reduces changes later. Gather what you can of the following:",
+     ["The address, the unit size and any existing drawings", "How the space will be used and by how many people", "Your required finishes and any brand or design requirements", "Your target start and opening dates", "Landlord or building management rules for contractors and working hours", "Any equipment that needs special services, such as extra AC load"]),
+    ("list", "handover", "Closing out", "What you receive at handover",
+     "Handover is when the project becomes yours. You should receive:",
+     ["A completed snagging list showing each item closed", "Records of the works carried out", "Information on installed equipment and the AC and services layout", "Guidance on maintenance of installed finishes and equipment"]),
+    ("callout", "quote", "Request a quote",
+     "Tell us the location, the type of building and what you want built or fitted out. We will arrange a free site visit and send a written scope and quotation."),
+]
+
+# ---------------- Safety signage and equipment ----------------
+FAC["safety-signage-equipment"] = dict(
+    title="Safety Signage and Safety Equipment in {city} | Omnexa Solutions",
+    desc="Warning, prohibition, mandatory and safe condition signs, photoluminescent signs, and personal protective equipment such as helmets, gloves and harnesses in {city}. Request a quote.",
+    h1="Safety Signage and Safety Equipment in {city}",
+    lead="Safety signs for workplaces, sites and public buildings, and personal protective equipment for staff and contractors.",
+    service="Safety Signage and Equipment",
+    intro="Good signs tell people what to do and where to go when it matters, and the right protective equipment protects the people doing the work. We supply both, and help you choose what suits your site.",
+    bullets=["Warning signs", "Prohibition signs", "Mandatory signs", "Safe condition signs", "Photoluminescent (glow-in-the-dark) signs", "Safety helmets, gloves, eye protection, high-visibility clothing, safety footwear and harnesses"],
+    steps=[
+        ("Site or needs review", "We review your site, your risks and the signs and equipment you already have."),
+        ("List and quotation", "You receive a written list of signs or equipment, quantities and a quotation. Nothing starts before you agree."),
+        ("Supply and installation", "Items are supplied, and signs are installed where agreed."),
+        ("Check and replace", "Signs and equipment are checked from time to time and replaced when damaged or worn."),
+    ],
+    cta="quote", plink=False,
+    faqs=[
+        ("What types of safety signs do you supply?", "Warning, prohibition, mandatory and safe condition signs, plus photoluminescent signs that glow in the dark. Tell us your site and we will help you list what you need."),
+        ("What is a photoluminescent sign?", "A sign made with a material that absorbs light and releases it slowly, so it stays visible for a period in the dark. It is used for escape routes and other places where lighting may fail."),
+        ("What protective equipment do you supply?", "Safety helmets, gloves, eye protection, high-visibility clothing, safety footwear and safety harnesses for staff and contractors."),
+        ("How do I know which equipment I need?", "Start from a risk assessment of the tasks being done. We can discuss the hazards with you and suggest the equipment that matches them."),
+        ("Can you supply equipment that is not on your list?", "Tell us what you need and we will confirm whether we can supply it."),
+    ],
+)
+FAC_EXTRA["safety-signage-equipment"] = [
+    ("table", "signs", "Sign types", "The four main types of safety sign",
+     "Colour and shape tell people what a sign means before they read it.",
+     ["Type", "Look", "Meaning", "Examples"],
+     [
+      ["Warning", "Yellow triangle with a black symbol", "A hazard is present: take care", "Slippery floor, overhead load, electrical hazard, forklift traffic"],
+      ["Prohibition", "Red circle with a diagonal bar", "This action is not allowed", "No entry, no smoking, no mobile phones, do not touch"],
+      ["Mandatory", "Blue circle with a white symbol", "This action must be taken", "Wear a helmet, wear gloves, wear eye protection, wash hands"],
+      ["Safe condition", "Green rectangle or square", "Shows an exit, route or safe point", "Exit, assembly point, first aid, escape route direction"],
+     ], "Use the same colours and symbols throughout a site so that staff and visitors learn them once."),
+    ("prose", "photo", "In the dark", "Photoluminescent signs",
+     ["Photoluminescent signs contain a material that absorbs light from lamps or daylight and then releases it slowly. When the lights go out, the sign stays visible in the dark for a period without any power supply.",
+      "They are used on escape routes, stairwells, exit doors and other places where people must find their way if the lighting fails. They need to be placed where they receive enough light to recharge, and they should not be covered or blocked. How long they glow depends on the material and the light they received, so ask us for the details of the product you are considering."]),
+    ("list", "placement", "Placement", "Where signs should go",
+     "A sign only works if it is seen at the right moment. As a guide:",
+     ["Place warning signs before the hazard, at a distance that gives time to react", "Put mandatory signs at the point where the equipment must be worn", "Place prohibition signs at entrances and on the object or area concerned", "Mount exit and route signs where they can be seen along the whole escape route", "Keep signs at a consistent height and in clear view, not behind doors or stock", "Repeat key signs in the languages your workforce reads"]),
+    ("table", "ppe", "Protective equipment", "Personal protective equipment by body area",
+     "PPE is the last line of defence, used together with safe methods and guarding.",
+     ["Category", "Equipment", "Protects against", "Typical use"],
+     [
+      ["Head", "Safety helmets", "Falling objects and knocks", "Construction, warehouses, maintenance work"],
+      ["Hands", "Gloves", "Cuts, abrasion, heat, chemicals and handling hazards, depending on the type", "Handling, assembly, maintenance"],
+      ["Eyes", "Eye protection", "Dust, splashes and flying particles", "Cutting, grinding, cleaning, chemical handling"],
+      ["Visibility", "High-visibility clothing", "Being unseen by vehicles and machinery", "Roads, yards, loading bays, building sites"],
+      ["Feet", "Safety footwear", "Crush, puncture and slips", "Sites, warehouses, workshops"],
+      ["Fall protection", "Safety harnesses", "Falls from height", "Work at height, roofs, scaffolds"],
+     ], None),
+    ("list", "choose", "Choosing", "How to choose the right equipment",
+     "Equipment that does not fit or suit the task will not be worn. Work through these steps:",
+     ["List the tasks and the hazards in each, starting from a risk assessment", "Match each hazard to the type of protection that addresses it", "Check the product is marked as meeting a recognised standard for that protection", "Choose sizes that fit and styles that are comfortable in hot conditions", "Make sure items work together, such as a helmet with eye protection", "Train staff to use, inspect and store equipment, and replace anything damaged"]),
+    ("cards", "sites", "By site", "What different sites usually need", None,
+     [
+      ("Construction sites", "Helmets, high-visibility clothing, safety footwear, gloves and eye protection for all, with harnesses for work at height."),
+      ("Warehouses and logistics", "High-visibility clothing, safety footwear, gloves, and signs for traffic routes and loading areas."),
+      ("Factories and workshops", "Eye protection, gloves, safety footwear and mandatory and warning signs at machines."),
+      ("Offices and public buildings", "Exit, route and assembly point signs, with photoluminescent signs on escape routes."),
+     ]),
+    ("callout", "quote", "Request a quote",
+     "Tell us the site, the tasks and how many people you need to equip, or the areas you need signs for. We will send a written list and quotation."),
+]
+
+# ---------------- IT and software ----------------
+FAC["it-software"] = dict(
+    title="IT and Custom Software Development in {city} | Omnexa Solutions",
+    desc="Custom software, web and enterprise applications, AI-powered applications and system integration for businesses in Saudi Arabia and the Gulf. Request a quote.",
+    h1="IT and Software Services",
+    lead="Custom software and system integration for businesses in Saudi Arabia and the Gulf.",
+    service="IT and Software",
+    intro="Off-the-shelf tools do not always fit how a business works. We build custom software, web and enterprise applications and AI-powered applications, and connect the systems you already use so that data flows between them.",
+    bullets=["Custom software development", "Web and enterprise applications", "AI-powered applications", "System integration"],
+    steps=[
+        ("Discovery", "We listen to how the work is done today and what you want to change, and write it down."),
+        ("Scope and quotation", "You receive a written scope, a plan and a quotation. Nothing starts before you agree."),
+        ("Build and review", "The software is built in stages, with demonstrations so you can review as it develops."),
+        ("Launch and support", "We help you go live and agree how fixes and changes will be handled afterwards."),
+    ],
+    cta="quote", plink=False,
+    faqs=[
+        ("What kinds of software do you build?", "Custom software, web and enterprise applications, AI-powered applications, and integrations between existing systems."),
+        ("Can you connect our existing systems?", "Yes. System integration links systems such as accounting, inventory, customer and reporting tools so that data does not need to be entered twice."),
+        ("What do you need from us to start?", "A description of the problem, who will use the software, what it must connect to and your target date. A rough list is enough for a first conversation."),
+        ("Will we own the software?", "Ownership, hosting and support arrangements should be agreed in writing before work starts. We will set them out in the quotation."),
+        ("Do you build AI features?", "Yes, AI-powered applications are part of what we offer. We start from the business task, and tell you honestly whether AI is the right tool for it."),
+    ],
+)
+FAC_EXTRA["it-software"] = [
+    ("cards", "services", "What we build", "Software services", None,
+     [
+      ("Custom software development", "Applications built around your own processes, where standard products force you to change how you work."),
+      ("Web and enterprise applications", "Browser-based systems for staff, customers or partners, from internal tools to larger business applications."),
+      ("AI-powered applications", "Applications that use AI for tasks such as searching documents, sorting requests or drafting text, where it fits the job."),
+      ("System integration", "Connecting the systems you already use so that information moves between them reliably."),
+     ]),
+    ("table", "process", "How a project runs", "From idea to launch",
+     "Software projects go better when they are staged and reviewed.",
+     ["Stage", "What happens", "What we need from you"],
+     [
+      ["Discovery", "We map the current process, users, data and systems involved", "Time with the people who do the work"],
+      ["Scope and plan", "A written scope, the main features, a plan and a quotation", "Decisions on priorities"],
+      ["Design", "Screens and workflows are drawn up for review before building", "Feedback on the designs"],
+      ["Build", "The software is developed in stages with regular demonstrations", "A named contact to answer questions and review"],
+      ["Testing", "Checks against the agreed scope, with your staff trying it", "Real-world test cases"],
+      ["Launch and support", "Go-live, handover and agreed support arrangements", "Agreement on the go-live date"],
+     ], None),
+    ("list", "brief", "Preparing", "What to prepare before we speak",
+     "You do not need a technical specification. A short description is enough:",
+     ["The problem you want to solve, in plain words", "Who will use the system and roughly how many people", "The tools and systems it must connect to", "Examples of the reports or screens you expect", "Language requirements, such as Arabic and English", "Your target date, and any rules about where data may be stored"]),
+    ("prose", "integration", "Connecting systems", "What system integration means in practice",
+     ["Most businesses run several systems: accounting, inventory, sales, customer records. When they do not talk to each other, staff re-type data and mistakes creep in.",
+      "Integration connects them, so that an order entered once appears where it is needed. It begins with a map of what data is held where, followed by agreeing which system is the source of truth for each item, and then building and testing the connections."]),
+    ("list", "ai", "AI", "Where AI features can help",
+     "AI is a tool, not a goal. It suits tasks that involve language, documents and pattern recognition. Examples:",
+     ["Searching and summarising large sets of documents", "Sorting incoming requests or emails", "Drafting standard replies for a person to review", "Extracting details from forms and invoices", "Answering routine questions from a knowledge base"]),
+    ("callout", "ownership", "Agree ownership early",
+     "Before work starts, agree in writing who owns the source code, where the data is hosted, who can access it and how support will work afterwards. We include these points in the quotation."),
+]
+
+
+# =====================================================================
+# Pest control: sector pages and guides
+# =====================================================================
+PEST_NEW = {}
+PEST_EXTRA = {}
+SECTORS = ["restaurants-cafes", "hotels-serviced-apartments", "warehouses-food-facilities", "villas-compounds", "hospitals-clinics", "schools-offices"]
+GUIDES = ["pests-by-season-riyadh-jeddah", "how-to-identify-pests", "pest-proofing-checklist", "pest-control-service-report"]
+
+LICENCE_NOTE = "Ask any provider to show you its Balady qualification, and check that public health pesticides carry an SFDA registration number on the label."
+
+# ---------------- Restaurants and cafes ----------------
+PEST_NEW["restaurants-cafes"] = dict(
+    title="Restaurant and Cafe Pest Control in {city} | Omnexa Solutions",
+    desc="Pest control for restaurants, cafes and central kitchens in {city}: out-of-hours visits, monitoring points, drain treatment and inspection-ready service reports. Free site inspection.",
+    h1="Restaurant and Cafe Pest Control in {city}",
+    lead="Scheduled, discreet pest control for kitchens and dining areas, with records an inspector or auditor can read.",
+    service="Restaurants and cafes", form_service="Commercial IPM Programme",
+    intro="A pest sighting in a restaurant damages trust faster than almost anything else. Kitchens offer food, warmth, water and hiding places, so control has to be continuous, planned around service hours and kept away from food.",
+    inc_kicker="What we cover", inc_title="Pest control for food service",
+    bullets=["Inspection of kitchens, stores, bins and drains", "Cockroach, fly, ant and rodent control", "Out-of-hours visits that avoid service times", "Numbered monitoring points on a site plan", "Fly control units for kitchens and dining areas", "Service reports after every visit"],
+    steps=None,
+    faqs=[
+        ("Can you treat while we are open?", "Most work can be scheduled before opening or after closing. We plan visits around your service hours and tell you if any area needs to stay closed for a short time."),
+        ("Is the treatment safe around food?", "We choose methods suited to food areas, such as gel baits placed in cracks and hiding places and non-toxic monitoring, and we keep products away from food and food contact surfaces. Tell us which areas handle open food."),
+        ("How often will you visit a restaurant?", "It depends on the size of the kitchen, the risk and the findings. We propose a frequency after the survey and adjust it using the monitoring records."),
+        ("What do we do if a customer sees a cockroach?", "Call us straight away. We attend, find where it came from and treat the source. Please record the date, time and location in your sighting log."),
+        ("Do you work with cafes and cloud kitchens too?", "Yes. A small cafe, a cloud kitchen and a central kitchen need different visit patterns, and we plan each one separately."),
+    ],
+)
+PEST_EXTRA["restaurants-cafes"] = [
+    ("table", "areas", "By area", "Where pests appear in a restaurant",
+     "Pests concentrate where food, water and shelter meet. These are the usual places.",
+     ["Area", "Likely pests", "Why", "What we do"],
+     [
+      ["Kitchen and cooking line", "Cockroaches, flies", "Warmth, grease and food residue, with many hiding places behind and under equipment", "Gel baits in cracks and equipment voids, monitoring, advice on cleaning behind equipment"],
+      ["Dry stores", "Rodents, stored-product insects, cockroaches", "Sacks, boxes and cardboard give shelter and food", "Monitoring stations, shelving advice, stock rotation guidance"],
+      ["Bins and waste area", "Flies, cockroaches, rodents", "Food waste and moisture, often next to a service door", "Treatment of the area, advice on lidded bins and daily removal"],
+      ["Floor drains and grease traps", "Cockroaches, drain flies", "Moisture and organic build-up", "Drain treatment and advice on regular cleaning"],
+      ["Dining and seating areas", "Flies, ants", "Spilled food and open doors", "Fly control units and treatment of entry points"],
+      ["Delivery and back doors", "Rodents, cockroaches, flies", "Gaps, doors left open and cartons coming in", "Door sweeps and sealing advice, perimeter monitoring"],
+     ], None),
+    ("cards", "programme", "The programme", "How a restaurant programme works", None,
+     [
+      ("Survey and site plan", "We inspect, grade the risk areas and number every monitoring point on a plan."),
+      ("Out-of-hours visits", "Visits are arranged before opening or after closing, so service is not interrupted."),
+      ("Methods suited to food areas", "Baits go into cracks and hiding places away from food, and monitoring replaces spraying wherever possible."),
+      ("Reports and review", "A report follows every visit, and the records are reviewed so the programme is adjusted."),
+     ]),
+    ("list", "staff", "Your team", "Daily habits that keep pests out",
+     "Pest control works best alongside good housekeeping. These habits make the biggest difference:",
+     ["Clean up spills and food residue at the end of every shift, including under and behind equipment", "Empty bins daily, keep them lidded and clean the bin area", "Keep stored food off the floor, in sealed containers", "Break down cardboard and remove it quickly, as it shelters cockroaches", "Keep back and delivery doors closed when not in use", "Report any sighting immediately and write it in the sighting log"]),
+    ("list", "records", "Inspection ready", "The records an inspector or auditor expects",
+     "Whether the visitor is a municipal inspector or a food-safety auditor, the questions are similar. Keep these in one file:",
+     ["The service contract and scope", "A site plan showing every monitoring point", "A service report for each visit", "A list of products used, with their labels", "The provider's qualification and technician details", "A sighting log completed by your staff", "A record of corrective actions and when they were closed"]),
+    ("cards", "formats", "By format", "Restaurants, cafes and cloud kitchens differ", None,
+     [
+      ("Full-service restaurants", "Larger kitchens, more storage and staff turnover. Regular visits and drain and waste area attention matter most."),
+      ("Cafes and bakeries", "Sweet and dry stock draws ants, flies and stored-product insects. Sealed storage and entry-point sealing come first."),
+      ("Central and cloud kitchens", "High volume, long working hours and bulk deliveries. Monitoring points, receiving-area control and trend reports matter most."),
+      ("Food courts and shared kitchens", "Several tenants share drains and waste areas, so coordination between tenants decides the result."),
+     ]),
+    ("callout", "licence", "Check your provider",
+     "A pest control provider should be ready to show its credentials. " + LICENCE_NOTE),
+    ("list", "quote", "Quotation", "What we need to quote for your restaurant",
+     "Request a quote and tell us:",
+     ["The type of business and the size of the kitchen and stores", "Opening hours and the best time for visits", "Any current problem, with photos if possible", "Whether you need a contract with scheduled visits or a one-off treatment", "Which food-safety or municipal requirements you are inspected against"]),
+]
+
+# ---------------- Hotels and serviced apartments ----------------
+PEST_NEW["hotels-serviced-apartments"] = dict(
+    title="Hotel and Serviced Apartment Pest Control in {city} | Omnexa Solutions",
+    desc="Pest control for hotels and serviced apartments in {city}: bed bug response, room inspection routines, kitchen and back-of-house programmes, and discreet service. Free inspection.",
+    h1="Hotel and Serviced Apartment Pest Control in {city}",
+    lead="Room-by-room programmes, a fast response when a guest reports a problem, and service that stays out of sight.",
+    service="Hotels and serviced apartments", form_service="Commercial IPM Programme",
+    intro="Guests expect clean rooms and do not forgive pests. Hotels and serviced apartments face the same pests as other buildings, plus bed bugs that arrive in luggage. Prevention, a quick response and discretion protect your guests and your reputation.",
+    inc_kicker="What we cover", inc_title="Pest control for hospitality",
+    bullets=["Room inspection routines and bed bug response", "Kitchen, laundry and back-of-house programmes", "Public area, lobby and exterior treatment", "Discreet scheduling around guests", "Rodent proofing and monitoring", "Service reports for each visit"],
+    steps=None,
+    faqs=[
+        ("What should staff do when a guest reports bed bugs?", "Apologise, move the guest to another room that has been checked, and do not use the affected room until it is inspected and treated. Call us so we can inspect adjacent rooms as well."),
+        ("Can treatment happen while the hotel is full?", "Yes, in most cases. We plan room-by-room work around occupancy, and rooms stay out of use only for the time we advise."),
+        ("Do you work with apartment buildings and staff accommodation too?", "Yes. Serviced apartments and staff housing have longer stays and more cooking, which changes the programme, and we plan for that."),
+        ("How do bed bugs get into a hotel?", "Mostly in guests' luggage and belongings. They hide in bed frames, headboards and furniture, so even a very clean property can be affected."),
+        ("Will guests notice the treatment?", "Our aim is for them not to. Visits are scheduled to avoid disturbing guests, and our technicians work discreetly."),
+    ],
+)
+PEST_EXTRA["hotels-serviced-apartments"] = [
+    ("table", "areas", "By area", "Pest risks across a hotel",
+     "Different parts of the property carry different risks.",
+     ["Area", "Likely pests", "What to look for", "Programme focus"],
+     [
+      ["Guest rooms and suites", "Bed bugs, cockroaches, ants", "Dark spots on mattress seams, bites reported, insects near bathrooms and kitchenettes", "Inspection routine, prompt response, treatment of beds and furniture"],
+      ["Kitchens and restaurants", "Cockroaches, flies, rodents", "Droppings, sightings at night, flies near waste", "Scheduled visits, monitoring, drain treatment, fly control"],
+      ["Laundry and linen stores", "Cockroaches, rodents, bed bugs on soiled linen", "Warm, damp corners and stacked linen", "Inspection of stores, advice on linen handling"],
+      ["Back-of-house and staff areas", "Rodents, cockroaches", "Droppings and gnawing in stores and corridors", "Monitoring stations, proofing, waste area control"],
+      ["Lobby, gardens and exterior", "Mosquitoes, flies, birds, rodents", "Standing water, nesting, burrows", "Breeding-site checks, bird and rodent control"],
+     ], None),
+    ("cards", "bedbug", "Bed bugs", "A fast, discreet response to bed bugs", None,
+     [
+      ("Isolate", "The room is taken out of use and the guest is moved to a room that has been checked."),
+      ("Inspect", "We inspect the room, the neighbouring rooms and the rooms above and below, because bed bugs travel."),
+      ("Treat and follow up", "Beds, frames and furniture are treated, and we return to check after the egg cycle."),
+      ("Record", "The service report records what was found and done, so repeat cases show up."),
+     ]),
+    ("list", "housekeeping", "Housekeeping", "What housekeeping teams can look for",
+     "Housekeepers see every room. A short routine at turnover catches problems early:",
+     ["Lift the mattress corner and check seams and piping for dark spots or blood marks", "Look behind the headboard and at the bed frame joints", "Check luggage racks, upholstered chairs and curtains in rooms with a complaint", "Report live insects or shed skins at once, without moving bedding to other rooms", "Seal soiled linen in bags and keep it off the floor", "Record the room number and date for every report"]),
+    ("prose", "discretion", "Discretion", "Handling guest complaints quietly",
+     ["How a hotel handles a pest complaint matters as much as the pest itself. Move quickly, move the guest, and do not discuss the problem in public areas.",
+      "We work with your duty manager and housekeeping so that technicians are discreet, use service entrances and avoid leaving visible signs of treatment in guest areas. The details of the room and the finding stay in the service report for your records."]),
+    ("list", "records", "Records", "What the hotel's pest control file should hold",
+     "A complete file shows inspectors and brand auditors that the property is under control:",
+     ["The contract and scope", "A site plan with numbered monitoring points", "A service report for each visit", "A log of guest and staff reports, and the response to each", "Details of any bed bug cases, treatment and follow-up", "Products used and the technician's details"]),
+    ("callout", "licence", "Check your provider",
+     "A pest control provider should be ready to show its credentials. " + LICENCE_NOTE),
+    ("list", "quote", "Quotation", "What we need to quote for your property",
+     "Request a quote and tell us:",
+     ["The number of rooms, floors and buildings", "Whether you have a restaurant, kitchen, laundry or staff accommodation", "Any current issue, such as bed bugs, with room numbers", "Occupancy patterns and the best times for visits", "Whether you need a contract or a one-off treatment"]),
+]
+
+# ---------------- Warehouses and food facilities ----------------
+PEST_NEW["warehouses-food-facilities"] = dict(
+    title="Warehouse and Food Facility Pest Control in {city} | Omnexa Solutions",
+    desc="Pest control for warehouses, food stores and food production sites in {city}: rodent monitoring, stored-product insect control, fumigation and audit-ready records. Free inspection.",
+    h1="Warehouse and Food Facility Pest Control in {city}",
+    lead="Rodent monitoring, stored-product pest control and fumigation, planned around receiving and dispatch.",
+    service="Warehouses and food facilities", form_service="Commercial IPM Programme",
+    intro="Warehouses and food facilities hold stock for long periods, with large doors, pallets and loading bays. That suits rodents, stored-product insects and birds. A programme here protects your stock and the paperwork your customers and auditors ask for.",
+    inc_kicker="What we cover", inc_title="Pest control for storage and production",
+    bullets=["Perimeter and internal rodent monitoring", "Stored-product insect inspection and control", "Fumigation of stock, containers and structures where needed", "Bird control at loading bays and roofs", "Loading-bay and door proofing advice", "Trend reports and audit file"],
+    steps=None,
+    faqs=[
+        ("How do stored-product insects get into stock?", "They are often already in the goods when they arrive, or enter from infested residues in the building. Warm conditions let them breed quickly, so inspection of incoming stock and clean storage matter."),
+        ("Do you offer fumigation for warehouses?", "Yes. Fumigation is planned with a site assessment, sealing, an exposure period, aeration and written clearance before anyone re-enters."),
+        ("Can you work around our shifts and deliveries?", "Yes. We plan visits around receiving and dispatch and agree access to each area with your supervisors."),
+        ("What pest records do customers and auditors ask for?", "Usually the contract, a site plan with monitoring points, service reports, trend analysis and a log of corrective actions. We keep this file complete."),
+        ("We store food and non-food goods. Does that change the plan?", "Yes. Food areas get stricter product control and monitoring-based methods. We map the zones with you and set the rules for each."),
+    ],
+)
+PEST_EXTRA["warehouses-food-facilities"] = [
+    ("table", "zones", "By zone", "Pest risks by zone of a warehouse",
+     "Pests exploit the gaps between zones. A programme should cover each one.",
+     ["Zone", "Likely pests", "Why", "What we do"],
+     [
+      ["Loading bays and doors", "Rodents, birds, flies, cockroaches", "Doors stay open for long periods and goods arrive from outside", "Door proofing advice, perimeter stations, bird deterrents"],
+      ["Racking and pallet storage", "Rodents, stored-product insects", "Undisturbed stock and gaps behind pallets", "Internal monitoring, inspection of stock, guidance on spacing and rotation"],
+      ["Dry food stores", "Beetles, moths, weevils, rodents", "Grain, flour, dates and packaged goods are a food source", "Inspection, hygiene advice, targeted treatment, fumigation when needed"],
+      ["Production and packing areas", "Flies, cockroaches, rodents", "Warmth, moisture and food residue", "Monitoring, drain treatment, fly control units"],
+      ["Waste yard and perimeter", "Rodents, flies, cockroaches, birds", "Waste and spilled goods outside", "External bait stations, waste handling advice, vegetation control"],
+      ["Roofs and eaves", "Birds, rodents", "Shelter and nesting sites", "Proofing and bird control"],
+     ], None),
+    ("cards", "grid", "Monitoring", "A monitoring grid you can audit", None,
+     [
+      ("Perimeter stations", "Tamper-resistant stations around the building catch rodents before they reach the doors."),
+      ("Internal stations and traps", "Placed along walls, near doors and in dead corners, each one numbered on the site plan."),
+      ("Insect monitoring", "Traps for stored-product insects show where activity is building up before stock is damaged."),
+      ("Trend reports", "Activity from each point is recorded, so a rising trend triggers action early."),
+     ]),
+    ("prose", "stored", "Stored-product pests", "Why stock gets infested, and what to do",
+     ["Beetles, moths and weevils live in grain, flour, dates, spices, pet food and packaged goods. Warm conditions let them breed quickly, and a small infestation in one pallet can spread through a store.",
+      "The answer is a combination: check incoming goods, rotate stock so nothing sits for long, clean spills and residue from floors and racking, and keep the store tidy enough for inspection. Where an infestation is established, targeted treatment or fumigation may be needed."]),
+    ("list", "habits", "Storage practice", "Habits that reduce infestation",
+     "These practices make the biggest difference to warehouse pest risk:",
+     ["Keep pallets away from walls to leave an inspection gap", "Rotate stock so the oldest goods leave first", "Sweep and remove spilled product and packaging debris", "Do not store waste or damaged goods inside", "Keep dock doors closed when not loading", "Inspect incoming goods and reject or isolate infested consignments"]),
+    ("list", "file", "Audit file", "Records customers and auditors expect",
+     "Keep these together and up to date:",
+     ["The contract and scope of service", "A site plan showing every monitoring point", "Service reports for each visit", "Trend analysis of activity", "Records of any fumigation, including clearance", "Product list with labels", "A log of corrective actions and who closed them"]),
+    ("callout", "fumigation", "When fumigation is needed",
+     "If stored goods or the structure are infested, fumigation may be the right tool. It is planned with a site assessment, sealing, an exposure period and aeration, and nobody enters until the air has been tested and we have issued written clearance."),
+    ("list", "quote", "Quotation", "What we need to quote",
+     "Request a quote and tell us:",
+     ["The type of goods stored and whether food is handled", "The size and layout of the site, with a plan if available", "Opening hours, shift patterns and delivery times", "Any current pests, with photos", "The standards or customer requirements you are audited against"]),
+]
+
+# ---------------- Villas and compounds ----------------
+PEST_NEW["villas-compounds"] = dict(
+    title="Villa and Compound Pest Control in {city} | Omnexa Solutions",
+    desc="Pest control for villas and residential compounds in {city}: termites, cockroaches, rodents, mosquitoes and seasonal treatment, planned around children and pets. Free inspection.",
+    h1="Villa and Compound Pest Control in {city}",
+    lead="Seasonal and one-off treatment for villas, plus coordinated programmes for compounds, planned around children and pets.",
+    service="Villas and compounds", form_service="Pest Control",
+    intro="A villa has more edges than an apartment: gardens, boundary walls, roof spaces, drains and a kitchen that may be used all day. Compounds add shared areas and many households to coordinate. A plan that covers the whole property works better than treating one room.",
+    inc_kicker="What we cover", inc_title="Pest control for homes and compounds",
+    bullets=["Whole-property inspection, inside and out", "Cockroach, ant, fly and rodent control", "Termite inspection and treatment", "Mosquito breeding-site checks and treatment", "Preparation guidance for families, children and pets", "Coordinated programmes for compound management"],
+    steps=None,
+    faqs=[
+        ("Is it safe for children and pets?", "Tell us about children, pets, fish tanks and any health conditions when you book. We choose products and methods to suit and tell you how long to keep people and pets out of treated areas."),
+        ("Do we need to move out during treatment?", "Usually not. We tell you in advance if an area needs to be empty for a short time, and give a clear re-entry time."),
+        ("How often should a villa be treated?", "It depends on the pests, the garden and the surroundings. Some households treat seasonally and others only when a problem appears. We advise after the inspection."),
+        ("Can compound management arrange treatment for all villas?", "Yes. We can coordinate a schedule with management, so shared areas and individual villas are treated together and residents are informed in advance."),
+        ("Should I worry about termites in a villa?", "Termites are a risk to door frames, cabinets and timber in any building with soil contact. An inspection tells you if there is activity, and a plan tells you how to protect the property."),
+    ],
+)
+PEST_EXTRA["villas-compounds"] = [
+    ("table", "areas", "Whole property", "Where pests appear around a villa",
+     "Checking only the kitchen misses most of the picture.",
+     ["Area", "Likely pests", "What to look for", "What we do"],
+     [
+      ["Kitchen and pantry", "Cockroaches, ants, flies, stored-product insects", "Droppings, egg cases, trails to food", "Gel baits in hiding places, sealing, storage advice"],
+      ["Bathrooms and drains", "Cockroaches, drain flies", "Sightings at night, damp smell", "Drain treatment, sealing around pipes"],
+      ["Garden, pool area and boundary", "Mosquitoes, ants, rodents, termites", "Standing water, burrows, mud tubes on walls", "Breeding-site checks, perimeter treatment, rodent stations"],
+      ["Roof space and false ceilings", "Rodents, birds, cockroaches", "Droppings, gnawing, noises at night", "Inspection, proofing and monitoring"],
+      ["Doors, frames and cupboards", "Termites", "Hollow-sounding timber, mud tubes, discarded wings", "Inspection and a treatment plan"],
+      ["Maid's room, storage and garage", "Cockroaches, rodents, bed bugs", "Clutter, stored cartons, bites", "Inspection, clearing advice, targeted treatment"],
+     ], None),
+    ("cards", "seasons", "Planning", "A simple plan through the year", None,
+     [
+      ("Before summer", "Check for termite activity, seal entry points and treat the garden and drains before the hottest weeks."),
+      ("During summer", "Keep an eye on standing water, kitchen hygiene and flies. Call early if you see cockroaches."),
+      ("Around wet weather", "After rain, check for standing water, blocked drains and winged termites near lights."),
+      ("Annual check", "A yearly inspection catches termite and rodent problems before they reach the structure."),
+     ]),
+    ("list", "prepare", "Before we arrive", "How to prepare your villa",
+     "A little preparation makes treatment more effective and safer for your household:",
+     ["Tell us about children, pets, fish tanks, pregnancy or respiratory conditions", "Clear under sinks and from the kitchen cupboards to be treated", "Cover or put away food, utensils, baby items and toys", "Move pet food, bowls and cages out of the area", "Keep children and pets out of treated areas for the period we advise", "Ventilate as instructed, and keep the service report"]),
+    ("prose", "termites", "Termites", "Termite risk in villas",
+     ["Villas have soil contact all around the building, and gardens, irrigation and leaking pipes keep the ground damp near walls. Subterranean termites can enter through the slab, expansion joints and gaps around pipes, then attack door frames, skirting and cabinets.",
+      "The signs are easy to miss: mud tubes, hollow-sounding wood, blistered paint and discarded wings. An inspection every year is the practical protection, and treatment before or after construction creates a barrier. See our termite control page for the options."]),
+    ("list", "compound", "Compounds", "How compound programmes work",
+     "A compound is easier to protect when treatment is coordinated:",
+     ["A survey of shared areas, drains, waste points and landscaping", "A schedule agreed with management and communicated to residents", "Treatment of shared areas on the same visit as villa treatments", "A central record of visits and any resident reports", "A route for residents to report a problem", "Regular review of recurring locations"]),
+    ("callout", "mosquito", "Mosquitoes around the home",
+     "Mosquitoes breed in small amounts of standing water: pot saucers, buckets, blocked gutters and uncovered tanks. Removing standing water is the first step, and fogging works best alongside it. See our mosquito control page for the full approach."),
+    ("list", "quote", "Quotation", "What we need to quote",
+     "Request a quote and tell us:",
+     ["The type of property, number of floors and rooms", "The size of the garden and whether there is a pool", "Which pests you have seen, with photos if you can", "Whether you want a one-off treatment or a regular plan", "For compounds, the number of villas and shared areas"]),
+]
+
+# ---------------- Hospitals and clinics ----------------
+PEST_NEW["hospitals-clinics"] = dict(
+    title="Hospital and Clinic Pest Control in {city} | Omnexa Solutions",
+    desc="Pest control for hospitals, clinics and healthcare facilities in {city}: low-risk methods in patient areas, controlled product use, monitoring and documented service. Free inspection.",
+    h1="Hospital and Clinic Pest Control in {city}",
+    lead="Careful, documented pest control that suits patient areas, with strict control of products and access.",
+    service="Hospitals and clinics", form_service="Commercial IPM Programme",
+    intro="Healthcare sites have to control pests without putting patients, staff and sensitive areas at risk. That means choosing low-risk methods, agreeing access and timing with your infection control and facilities teams, and keeping clear records.",
+    inc_kicker="What we cover", inc_title="Pest control for healthcare",
+    bullets=["Risk assessment of wards, kitchens, stores and waste areas", "Low-risk methods in patient and treatment areas", "Cockroach, ant, fly and rodent control", "Monitoring points and trend reports", "Coordination with infection control and facilities teams", "Records of products, areas and times"],
+    steps=None,
+    faqs=[
+        ("Do you spray in patient rooms?", "In patient and treatment areas we prefer monitoring and low-risk methods such as baits in cracks and traps. Any treatment is agreed in advance with your team, and some areas may be excluded entirely."),
+        ("Can you work around infection control rules?", "Yes. We agree access, timing, personal protective equipment and any restricted areas with your infection control and facilities teams before work starts."),
+        ("How do you report what products were used?", "The service report lists the areas treated, the products used with their registration numbers, and the times, so your team has a full record."),
+        ("Which pests are a concern in healthcare?", "Cockroaches, ants, flies and rodents are the usual ones. Cafeterias, kitchens, waste areas and stores are common sources."),
+        ("Do you serve small clinics as well as hospitals?", "Yes. A small clinic needs a simpler plan, usually focused on waiting areas, staff kitchens, stores and waste, and we scale the programme to suit."),
+    ],
+)
+PEST_EXTRA["hospitals-clinics"] = [
+    ("table", "areas", "By area", "Pest control by area of a healthcare site",
+     "The approach changes with how sensitive the area is.",
+     ["Area", "Likely pests", "Approach", "Notes"],
+     [
+      ["Wards and patient rooms", "Cockroaches, ants", "Monitoring and low-risk methods, only as agreed with the ward team", "Often a sighting-driven call-out rather than routine treatment"],
+      ["Theatres and treatment rooms", "Rarely affected, but entry points matter", "Proofing and monitoring at doors and service penetrations", "Access and timing set by your team"],
+      ["Kitchens and cafeterias", "Cockroaches, flies, rodents", "Scheduled programme with monitoring and drain treatment", "Treated as a food premises"],
+      ["Stores, laundry and pharmacy stores", "Rodents, cockroaches, stored-product insects", "Monitoring stations and stock inspection", "Keep stock off the floor"],
+      ["Waste and loading areas", "Flies, rodents, cockroaches", "Perimeter control and waste handling advice", "Often the source of pests entering the building"],
+      ["Staff areas and waiting rooms", "Ants, cockroaches, flies", "Inspection, sealing and targeted treatment", "Pantry hygiene matters"],
+     ], None),
+    ("cards", "principles", "Principles", "How we plan healthcare pest control", None,
+     [
+      ("Prevention first", "Sealing gaps, managing waste and fixing moisture reduce the need to treat at all."),
+      ("Low-risk methods", "Baits in cracks and hiding places, traps and monitoring are preferred in sensitive areas."),
+      ("Agreed access", "We agree timing, access and protective equipment with your teams, and respect restricted areas."),
+      ("Documented work", "Every visit records the areas, the products and the times, so your team has a full record."),
+     ]),
+    ("list", "rules", "Working rules", "What we agree before the first visit",
+     "A short written agreement keeps everyone clear on how pest control works on your site:",
+     ["Who our technicians report to on arrival", "Areas that are restricted or need an escort", "Times when each area can be visited", "Personal protective equipment and hygiene rules for technicians", "How products are stored and carried on site", "How staff report a sighting and how quickly we attend"]),
+    ("prose", "why", "Why it matters", "Pests are a hygiene issue in healthcare",
+     ["Cockroaches, flies and rodents can carry contamination from drains and waste onto surfaces and food. In a healthcare setting, where patients may be vulnerable, that is a hygiene risk as well as a nuisance.",
+      "Good control reduces the need for chemical treatments in clinical areas by keeping pests out in the first place: sealed entry points, controlled waste, dry floors and clean kitchens."]),
+    ("list", "records", "Records", "What the pest control file should contain",
+     "Your quality and infection control teams may ask for these:",
+     ["The contract and scope of service", "A site plan with numbered monitoring points", "A service report for each visit, with areas and times", "A list of products used, with labels and safety data sheets", "The provider's qualification and technician details", "A log of sightings, response and corrective actions"]),
+    ("callout", "licence", "Check your provider",
+     "A pest control provider should be ready to show its credentials. " + LICENCE_NOTE),
+    ("list", "quote", "Quotation", "What we need to quote",
+     "Request a quote and tell us:",
+     ["The type and size of the facility and the number of buildings", "Which areas are clinical, which serve food and which are stores", "Your infection control or facilities contact", "Any current pest problems and their locations", "Access rules and the best times for visits"]),
+]
+
+# ---------------- Schools and offices ----------------
+PEST_NEW["schools-offices"] = dict(
+    title="School and Office Pest Control in {city} | Omnexa Solutions",
+    desc="Pest control for schools, nurseries and offices in {city}: planned around children and working hours, with pantry, canteen and washroom checks. Request a free inspection.",
+    h1="School and Office Pest Control in {city}",
+    lead="Pest control planned around children, staff and working hours, with clear re-entry times and written records.",
+    service="Schools and offices", form_service="Commercial IPM Programme",
+    intro="Schools and offices have fewer hiding places than a kitchen, but they have canteens, pantries, washrooms and storage rooms, and many people moving through. The priorities are protecting children and staff, avoiding disruption and keeping a clear record.",
+    inc_kicker="What we cover", inc_title="Pest control for schools and workplaces",
+    bullets=["Inspection of canteens, pantries, washrooms and stores", "Cockroach, ant, fly and rodent control", "Treatment scheduled outside school and office hours", "Mosquito checks in playgrounds, gardens and car parks", "Staff and teacher guidance on reporting", "Service reports for each visit"],
+    steps=None,
+    faqs=[
+        ("When is treatment carried out in a school?", "Normally after school hours, at weekends or during holidays, so that children are not in the building. We give a clear re-entry time for each area."),
+        ("Is it safe for children?", "We plan methods and products for the setting, keep treatments away from areas where children play and eat, and agree re-entry times before we start. Tell us the ages of the children and any health concerns."),
+        ("What if staff notice a pest during the week?", "Report it to us by phone or WhatsApp. We attend, identify the pest and the source, and treat only what is needed."),
+        ("Do offices really need regular pest control?", "Offices with a kitchen, pantry or food delivered to desks often attract ants, cockroaches and flies, and rodents can enter from shared service areas. A light programme with call-outs is usually enough."),
+        ("Can you treat a nursery?", "Yes. Nurseries need extra care, with product choices, timing and re-entry agreed with the management in advance."),
+    ],
+)
+PEST_EXTRA["schools-offices"] = [
+    ("table", "areas", "By area", "Where pests appear in schools and offices",
+     "Look at the places where food, water and quiet corners meet.",
+     ["Area", "Likely pests", "Why", "What we do"],
+     [
+      ["Canteen and kitchen", "Cockroaches, flies, rodents", "Food preparation, bins and drains", "Scheduled treatment, monitoring and drain care"],
+      ["Staff pantry and breakroom", "Ants, cockroaches, flies", "Crumbs, open food and sinks", "Baiting and sealing, plus hygiene advice"],
+      ["Washrooms", "Drain flies, cockroaches", "Moisture and drains", "Drain treatment and sealing"],
+      ["Storage rooms and archives", "Rodents, cockroaches, silverfish", "Quiet, dark, undisturbed boxes and paper", "Monitoring, shelving advice and targeted treatment"],
+      ["Playgrounds, gardens and car park", "Mosquitoes, ants, rodents, birds", "Standing water, vegetation, food scraps", "Breeding-site checks, perimeter control"],
+      ["Roofs and service areas", "Birds, rodents", "Shelter and nesting", "Proofing and monitoring"],
+     ], None),
+    ("cards", "timing", "Timing", "Planned around the school and office calendar", None,
+     [
+      ("Outside hours", "Treatment is carried out after hours or at weekends, so staff and children are not present."),
+      ("Holiday programme", "Longer breaks allow deeper work such as proofing and more intensive treatments."),
+      ("Re-entry times", "Every area has a stated re-entry time before it is used again, and it is written in the report."),
+      ("Quick call-outs", "If a pest is seen during the term, we attend promptly and treat only what is needed."),
+     ]),
+    ("list", "children", "Children's safety", "How we protect children",
+     "Safety around children shapes the whole plan:",
+     ["We plan treatments for times when children are not in the building", "Bait and monitoring stations are placed out of reach and, where required, in locked boxes", "Products are not applied where children play, eat or sit", "Re-entry times are agreed with management and noted in the report", "Tell us the age group and any health concerns so we can plan accordingly", "Staff are told in advance which areas will be treated"]),
+    ("list", "offices", "Offices", "Keeping an office pest-free",
+     "Most office problems start in the pantry. Good habits help:",
+     ["Wash up and wipe surfaces daily, including the sink and coffee area", "Store snacks in sealed containers, not in open drawers", "Empty bins daily and use lidded bins", "Report any sighting to facilities straight away", "Keep boxes and archives off the floor and away from walls", "Do not leave food at desks overnight"]),
+    ("prose", "reporting", "Reporting", "Make it easy to report a sighting",
+     ["The quickest way to prevent a small problem becoming a large one is to make reporting simple. Name one person, such as the facilities manager or school administrator, as the contact, and make sure staff know how to tell them.",
+      "We recommend a short sighting log recording the date, place and what was seen, with a photo if possible. We use it to decide where to look and to review whether the programme is working."]),
+    ("callout", "records", "Written records",
+     "Every visit ends with a written service report listing the areas treated, the products used and the re-entry times. Keep it with your facilities records."),
+    ("list", "quote", "Quotation", "What we need to quote",
+     "Request a quote and tell us:",
+     ["The type of site, the number of buildings and the approximate floor area", "Whether there is a canteen, kitchen or pantry", "The age group of the children, for schools and nurseries", "Opening hours, holidays and the best time for visits", "Any current pest problems, with photos"]),
+]
+
+
+# ---------------- Guide: pests by season ----------------
+PEST_NEW["pests-by-season-riyadh-jeddah"] = dict(
+    title="Pests in Riyadh and Jeddah by Season | Omnexa Solutions",
+    desc="Which pests are active in Riyadh and Jeddah through the year: how hot, dry Riyadh and humid coastal Jeddah differ, and what to do each season. Practical guide.",
+    h1="Pests Common in Riyadh and Jeddah, by Season",
+    lead="How climate shapes pest activity in hot, dry Riyadh and humid coastal Jeddah, and what to do in each season.",
+    service="Pests by season", form_service="Pest Control",
+    intro="Pests do not take a season off in Saudi Arabia, but their behaviour changes with temperature, humidity and rain. This guide explains the general pattern in Riyadh and Jeddah. Individual buildings vary a lot, so use it as a planning aid rather than a forecast.",
+    inc_kicker="About this guide", inc_title="What this guide covers",
+    bullets=["How the climates of Riyadh and Jeddah differ", "Which pests are active in which season", "Why water matters more than the calendar", "A year-round checklist", "When to call for an inspection"],
+    steps=None,
+    faqs=[
+        ("Is there a pest-free season?", "No. Indoor pests such as cockroaches, rodents and bed bugs can be active all year, because buildings stay warm and food and water are always available. Seasons change what is most active and where."),
+        ("Are mosquitoes a problem in Riyadh as well as Jeddah?", "Mosquitoes need standing water to breed, so any property with pools of water, leaking pipes or irrigation can have them. Humid coastal areas tend to have more favourable conditions, but the breeding sites decide the risk."),
+        ("When should I check for termites?", "Termites work all year inside and under buildings. Winged termites near lights are often seen at certain times of year, but the safe approach is an inspection once a year, or whenever you see mud tubes or hollow-sounding wood."),
+        ("When is the best time to book a treatment?", "Before the problem peaks. A check in spring ahead of the hot months is a sensible habit, and a check after heavy rain helps find new standing water."),
+        ("Does the weather affect how long treatment lasts?", "Heat, sun, rain and cleaning can all affect how long a treatment stays effective outdoors. We explain what to expect for your site when we quote."),
+    ],
+)
+PEST_EXTRA["pests-by-season-riyadh-jeddah"] = [
+    ("prose", "climate", "Two climates", "Hot and dry Riyadh, humid coastal Jeddah",
+     ["Riyadh is inland, in the desert. Summers are very hot and dry, winters are cooler, especially at night, and rain is occasional. Jeddah is on the Red Sea coast, so it is warm all year and noticeably more humid, with mild winters.",
+      "For pests, the difference comes down to water and shelter. In Riyadh, pests are drawn to anything that offers water and shade, such as drains, irrigation, air-conditioner condensate and kitchens. In Jeddah, humidity makes moisture-loving pests and mosquitoes more of a year-round concern. In both cities, air-conditioned buildings give pests a comfortable place to live all year."]),
+    ("table", "seasons", "Season by season", "What tends to be active, and when",
+     "These are general patterns. The condition of your building decides what you actually see.",
+     ["Season", "Riyadh", "Jeddah", "What to do"],
+     [
+      ["Summer", "Intense heat sends insects and rodents towards water and shade. Cockroaches enter through drains, and flies breed quickly around waste", "Heat and high humidity favour cockroaches, ants, flies and mosquitoes", "Check drains, bins and standing water, and keep kitchens clean"],
+      ["Autumn", "Temperatures ease and pests move around more as conditions become comfortable outdoors", "Warm, humid conditions often continue and mosquito breeding can carry on", "Review entry points and drain condition before cooler weather"],
+      ["Winter", "Cooler nights push rodents to seek warm shelter inside buildings and stores", "Mild weather means little pause in activity, with mosquitoes and cockroaches still a concern", "Proof doors and gaps, and check stores and roof spaces for rodents"],
+      ["Spring", "Warming weather increases ant and fly activity, and birds begin to nest on roofs and in eaves", "Rising humidity and warmth bring flies and ants back in numbers", "Inspect for termites and nesting birds before the hot months"],
+     ], "After rain in either city, check for standing water, which mosquitoes use for breeding, and for winged termites near lights."),
+    ("cards", "yearround", "All year", "Pests that do not follow the calendar", None,
+     [
+      ("Cockroaches", "Active indoors all year, near kitchens, drains and warm corners. Heat and humidity can increase their numbers, but the source of food and water is the real driver."),
+      ("Rodents", "Look for shelter, food and water in every season. Colder spells can push them into buildings, and stores and roof spaces suit them year-round."),
+      ("Bed bugs", "Not seasonal. They travel in luggage and furniture, so travel and holiday periods can bring cases."),
+      ("Termites", "Work continuously under and inside buildings, wherever there is soil contact and moisture. Irrigation and leaking pipes raise the risk."),
+     ]),
+    ("cards", "water", "The common factor", "Water matters more than the calendar", None,
+     [
+      ("Air-conditioner condensate", "Dripping lines and puddles give insects a reliable water source in dry weather."),
+      ("Irrigation and leaks", "Damp soil near walls attracts termites, ants and cockroaches."),
+      ("Standing water", "Pot saucers, buckets, tyres and uncovered tanks let mosquitoes breed within days."),
+      ("Drains", "Warm, wet and full of food residue, drains are cockroach habitat in both cities."),
+     ]),
+    ("list", "calendar", "A year-round plan", "A simple yearly checklist",
+     "A few checks at the right time prevent most problems:",
+     ["Early spring: inspect for termites, nests in eaves and roof spaces, and gaps around doors", "Before summer: service drains, seal gaps around pipes and check bins and the waste area", "Summer: remove standing water weekly and keep kitchens and stores clean", "After rain: look for puddles, blocked gutters and winged termites near lights", "Early winter: proof doors and vents against rodents seeking warmth", "Once a year: a professional inspection of the whole property"]),
+    ("callout", "buildings", "The building matters more than the city",
+     "Two buildings in the same street can have very different pest problems because of drains, waste, irrigation and how well they are sealed. If you are unsure, a site inspection is the quickest way to know what applies to your property."),
+    ("list", "call", "When to call", "Signs that mean you should call us",
+     "Do not wait for the next season if you notice:",
+     ["Cockroaches seen in daylight or in several rooms", "Droppings, gnawing or noises in ceilings", "Mud tubes, hollow-sounding wood or discarded wings", "Bites in lines or clusters, or blood spots on bedding", "Mosquitoes in numbers indoors or around the garden", "Birds nesting on the roof, or flies breeding around waste"]),
+]
+
+# ---------------- Guide: how to identify pests ----------------
+PEST_NEW["how-to-identify-pests"] = dict(
+    title="How to Tell Which Pest You Have | Droppings and Signs Guide | Omnexa Solutions",
+    desc="How to identify pests from droppings, damage and sightings: a guide to cockroach, rodent, termite, bed bug and bird signs, with tips on taking useful photos.",
+    h1="How to Tell Which Pest You Have",
+    lead="Droppings, marks and sightings explained, plus how to take photos that help us identify the problem.",
+    service="How to identify pests", form_service="Pest Control",
+    intro="The right treatment depends on the right identification. Many pests leave signs before you ever see them, and a clear photo or a description of the droppings is often enough to tell which one you are dealing with.",
+    inc_kicker="About this guide", inc_title="What this guide covers",
+    bullets=["Droppings and what they tell you", "Signs by room and location", "Damage and what causes it", "How to take useful photos", "What not to do before help arrives"],
+    steps=None,
+    faqs=[
+        ("Can you identify a pest from a photo?", "Often, yes. A clear close-up with something for scale, plus a wider shot of where it was found, lets us identify many pests and tell you what to expect. Some need an inspection to confirm."),
+        ("What should I do with a pest I have caught?", "Place it in a sealed container or stick it to clear tape so it stays intact, and show it to us. Do not crush it, because that makes identification harder."),
+        ("I see droppings but no pest. Is it still worth calling?", "Yes. Droppings often mean activity at night. The size and shape tell us what it is, and we can find where it is entering."),
+        ("Are rodent droppings dangerous?", "They can carry contamination. Wear gloves, avoid raising dust, dampen the area before cleaning and wash your hands afterwards. For large amounts, ask us for advice."),
+        ("Should I spray first and call later?", "Spraying can scatter insects and make the problem harder to treat, and it can disturb evidence we need to identify the pest. If you can, call first."),
+    ],
+)
+PEST_EXTRA["how-to-identify-pests"] = [
+    ("table", "droppings", "Droppings", "What droppings tell you",
+     "Size, shape and quantity are the quickest clues. Droppings are rarely a reason to panic, but they do tell us where to look.",
+     ["Pest", "What the droppings look like", "Where you find them", "Other clues"],
+     [
+      ["German cockroach", "Tiny dark specks like ground pepper or coffee grounds", "Kitchen cupboards, behind appliances, near sinks", "Egg cases, musty smell, insects in the dark"],
+      ["American cockroach", "Larger, cylindrical pellets with ridges", "Drains, bathrooms, basements, manholes", "Large reddish-brown insects, often near drains"],
+      ["House mouse", "Small, about the size of a rice grain, pointed at the ends", "Cupboards, behind equipment, along walls", "Gnaw marks, shredded paper nests"],
+      ["Roof rat", "Spindle-shaped, about 12 mm", "High up: roof spaces, cable trays, beams", "Greasy rub marks, noises in ceilings at night"],
+      ["Norway (brown) rat", "Larger and blunt-ended, up to 20 mm", "Ground level: drains, waste areas, burrows", "Burrows, gnawed door bottoms"],
+      ["Bed bugs", "Small dark spots, like ink dots, on bedding and mattress seams", "Mattress piping, headboard, bed frame", "Blood spots on sheets, bites in lines, shed skins"],
+      ["Birds", "White and grey splashes, often with darker centres", "Under roofs, on ledges, air-conditioner platforms", "Nesting material, noise at dawn"],
+      ["Geckos and lizards", "Small dark pellets with a white tip", "Walls, behind pictures, near lights", "Sightings of the animal on walls at night"],
+      ["Drywood termites", "Tiny hard pellets in small piles beneath wood", "Under furniture, window sills, timber", "Small holes in timber, discarded wings"],
+     ], None),
+    ("table", "damage", "Damage", "What the damage tells you",
+     "Look at what has been damaged, how, and where.",
+     ["What you see", "Likely cause", "What to check"],
+     [
+      ["Mud tubes on walls or skirting", "Subterranean termites", "Tap nearby wood, check door frames and cabinets"],
+      ["Hollow-sounding timber, blistered paint", "Termites", "Probe gently with a screwdriver and call for an inspection"],
+      ["Gnawed packaging, cables or doors", "Rodents", "Droppings, grease marks and noises at night"],
+      ["Chewed food boxes with small holes", "Stored-product insects or rodents", "Look for beetles, moths or webbing in dry food"],
+      ["Bites in lines or clusters, mainly on exposed skin at night", "Bed bugs, though mosquitoes and fleas can cause similar marks", "Check mattress seams and the bed frame"],
+      ["Piles of sand or soil in lines of ants", "Ants nesting nearby", "Follow the trail to the entry point"],
+     ], None),
+    ("list", "rooms", "By room", "Where to look in each room",
+     "A systematic look finds more than a quick glance. Use a torch, and look behind and under things.",
+     ["Kitchen: under the sink, behind the fridge and cooker, inside cupboard corners and in the dry food store", "Bathrooms: around drain covers, behind toilets and under vanity units", "Bedrooms: mattress seams, headboard, bed frame, behind picture frames", "Living areas: skirting boards, door frames, behind furniture and curtains", "Roof space and ceilings: along beams and pipes, near insulation and cable routes", "Outside: air-conditioner platforms, bins, drains, boundary walls and the garden"]),
+    ("cards", "time", "Time of day", "When you see it can help", None,
+     [
+      ("At night in the kitchen", "Cockroaches. Seeing one by day usually means a large population."),
+      ("Scratching in ceilings at night", "Rodents, often rats if the noise is heavy, mice if it is light."),
+      ("Insects near lights after dusk", "Winged ants or termites, flying insects, or mosquitoes outdoors."),
+      ("Bites found in the morning", "Bed bugs are the usual suspect, though other insects can bite too."),
+     ]),
+    ("list", "photos", "Photos", "How to take a photo that helps",
+     "A good photo can speed up identification. Try to include:",
+     ["A close-up of the insect, dropping or damage, with a coin or ruler beside it for scale", "A wider shot showing where it was found", "More than one angle, with a light that avoids glare", "A sample of droppings or an insect in a sealed container, if you can", "The date, the time of day and the room", "A short note about what you have noticed, such as noises, smells or bites"]),
+    ("list", "dont", "Avoid", "What not to do before help arrives",
+     "Some well-meant actions make things worse:",
+     ["Do not spray repeatedly or mix products, as it can scatter insects and is unsafe", "Do not move bedding or furniture to another room if you suspect bed bugs", "Do not sweep or vacuum dry droppings: dampen them and wear gloves", "Do not block holes in the hope the pest goes away, as it may be trapped inside", "Do not disturb termite mud tubes more than necessary", "Do not throw away evidence such as droppings or damaged wood until we have seen it"]),
+    ("callout", "send", "Send us what you have",
+     "Send photos and a short description on WhatsApp, with the location of your property. We will tell you what we think it is, what it needs, and arrange a free site inspection if one is useful."),
+]
+
+# ---------------- Guide: pest-proofing checklist ----------------
+PEST_NEW["pest-proofing-checklist"] = dict(
+    title="Pest-Proofing Checklist for Your Property | Omnexa Solutions",
+    desc="A practical pest-proofing checklist for homes and businesses in Saudi Arabia: doors, drains, roofs, kitchens, waste, storage and outdoor areas, with a routine to follow.",
+    h1="Pest-Proofing Checklist for Your Property",
+    lead="A practical checklist to keep pests out: doors, drains, roofs, kitchens, waste and outdoor areas.",
+    service="Pest-proofing checklist", form_service="Pest Control",
+    intro="Pests need three things: food, water and shelter. Proofing your property takes those away and closes the entry points. Most of it is simple maintenance you can do yourself, and it makes professional treatment far more effective.",
+    inc_kicker="About this guide", inc_title="What this guide covers",
+    bullets=["Entry points to seal", "Food, waste and storage habits", "Water and drainage checks", "Outdoor and garden measures", "A weekly, monthly and yearly routine"],
+    steps=None,
+    faqs=[
+        ("Can I pest-proof my property myself?", "Many measures, such as storing food properly, managing waste, fixing leaks and fitting door sweeps, are simple to do yourself. Larger gaps, roof proofing and treatments for established infestations are better done with professional help."),
+        ("What is the most important thing to do?", "Remove food, water and shelter. Sealed food storage, dry floors and sinks, covered bins and a clear, tidy store make the biggest difference."),
+        ("Does proofing replace pest control?", "No. Proofing reduces the risk and helps treatment work, but an existing infestation still needs treating. The two work together."),
+        ("Who is responsible for proofing in a rented property?", "It depends on your tenancy agreement and on whether the problem is in the structure or in how the space is used. Report structural gaps to the landlord or building management in writing."),
+        ("Is there anything to do when building or renovating?", "Yes. Sealing around pipes and cables, fitting door sweeps and vent covers, and planning termite protection before the slab is poured are far easier at this stage."),
+    ],
+)
+PEST_EXTRA["pest-proofing-checklist"] = [
+    ("table", "entry", "Entry points", "Close the gaps pests use",
+     "A mouse can use a gap about the width of a pencil. Check each of these.",
+     ["Where", "What to check", "Fix"],
+     [
+      ["External doors", "Gaps at the bottom and sides, doors left open", "Fit door sweeps and seals, keep doors closed"],
+      ["Windows and vents", "Missing or torn screens, uncovered vents", "Repair screens and fit mesh over vents"],
+      ["Pipes and cables", "Gaps where they pass through walls and floors", "Seal with suitable filler or metal mesh"],
+      ["Roof and eaves", "Gaps under tiles, open eaves, nesting sites", "Close gaps and fit bird deterrents where needed"],
+      ["Floor and wall cracks", "Cracks in the slab, skirting and expansion joints", "Seal and, if signs of termites appear, call for an inspection"],
+      ["Drains and manholes", "Missing or loose covers", "Fit secure covers or traps"],
+      ["Air-conditioner platforms and ducts", "Open penetrations and unscreened openings", "Seal around pipework and screen openings"],
+     ], None),
+    ("list", "kitchen", "Kitchen and food", "Take away the food source",
+     "Keeping food out of reach does more than any spray:",
+     ["Store dry food in sealed containers", "Clean spills and crumbs the same day, including behind appliances", "Do not leave pet food out overnight", "Empty the kitchen bin daily and use a lidded bin", "Wash dishes before bed and do not leave dirty plates out overnight", "Keep fruit in the fridge or a closed container"]),
+    ("cards", "water", "Water", "Remove standing and leaking water", None,
+     [
+      ("Fix leaks", "Dripping taps, pipes and air-conditioner condensate lines give pests a constant supply of water."),
+      ("Empty standing water", "Pot saucers, buckets, tyres and uncovered tanks are mosquito breeding sites."),
+      ("Keep drains clear", "Clean floor drains and fit covers. Run water through seldom-used drains."),
+      ("Check irrigation", "Wet soil beside walls attracts termites, so direct irrigation away from the building."),
+     ]),
+    ("list", "waste", "Waste and storage", "Manage waste and storage",
+     "Waste and clutter give pests shelter and food:",
+     ["Use bins with tight lids and keep them away from doors", "Take waste out daily and clean the bin area", "Keep stores tidy, with items off the floor and away from walls", "Break down cardboard quickly and remove it", "Clear unused items from roof spaces, garages and maid's rooms", "Do not store firewood, timber or boxes against exterior walls"]),
+    ("list", "outdoors", "Outdoors", "Garden and exterior measures",
+     "What happens outside decides what comes in:",
+     ["Trim plants and branches that touch the building", "Keep soil and mulch below the damp-proof course", "Remove fallen fruit and garden waste", "Keep gutters and drains clear", "Store timber and building materials off the ground", "Cover water tanks and fit tight covers on manholes"]),
+    ("table", "routine", "A routine", "What to do, and how often",
+     "A short routine keeps the property protected.",
+     ["How often", "What to do"],
+     [
+      ["Daily", "Empty kitchen bins, clean spills, wipe surfaces, close external doors"],
+      ["Weekly", "Empty standing water, take waste out, clean drains and check the garden"],
+      ["Monthly", "Check door seals, screens, vents and under sinks for leaks and droppings"],
+      ["Seasonal", "Check the roof, eaves and entry points, and review the plan before the hot months"],
+      ["Yearly", "Book a professional inspection of the whole property, including for termites"],
+     ], None),
+    ("callout", "inspection", "Get a second opinion",
+     "A professional inspection finds entry points and conditions that are easy to miss from the inside. Request a free site inspection and we will give you a written list of what to fix."),
+]
+
+# ---------------- Guide: service report ----------------
+PEST_NEW["pest-control-service-report"] = dict(
+    title="What a Pest Control Service Report Should Contain | Omnexa Solutions",
+    desc="What to expect in a pest control service report: findings, areas treated, products and registration numbers, monitoring records, recommendations and follow-up.",
+    h1="What a Pest Control Service Report Should Contain",
+    lead="A checklist of what a good report says, how to read it and what to do with it.",
+    service="Pest control service report", form_service="Pest Control",
+    intro="A service report is your evidence that the work was done, what was used and what to do next. For homes it is peace of mind; for restaurants, hotels and warehouses it is part of the file an inspector or auditor reads. Here is what a good one contains.",
+    inc_kicker="About this guide", inc_title="What this guide covers",
+    bullets=["The essential fields in every report", "How to read findings and recommendations", "Product and safety information", "Extra records for commercial sites", "Red flags in a poor report"],
+    steps=None,
+    faqs=[
+        ("Should I get a report after every visit?", "Yes. A dated report after each visit shows what was found, what was done and what remains. We provide one after every visit."),
+        ("Why do the products and registration numbers matter?", "They let you check what was applied and where, and show that the products are registered. Public health pesticides carry an SFDA registration number on the label."),
+        ("Is a paper or digital report better?", "Either works if it is complete, dated and signed. Digital copies are easier to store and share with auditors."),
+        ("How long should I keep reports?", "Keep them for as long as your auditors, insurers or customers require. For food and hospitality sites, keep them together in one pest control file."),
+        ("What if a report says nothing was found?", "A report should still record what was inspected and where, so you know the check was done. A clean finding is also useful evidence."),
+    ],
+)
+PEST_EXTRA["pest-control-service-report"] = [
+    ("table", "fields", "The essentials", "What every report should say",
+     "If a report is missing any of these, ask for it to be added.",
+     ["Section", "What it should say", "Why it matters"],
+     [
+      ["Date, time and site", "When the visit happened, how long it lasted and the address", "Proves the visit and sets the timeline"],
+      ["Technician", "Name and signature, and the company details", "Shows who did the work"],
+      ["Findings", "What was found and where: pest, signs, level of activity and likely cause", "Explains the problem and its source"],
+      ["Areas inspected and treated", "Which rooms or zones were inspected and which were treated", "Shows the scope covered"],
+      ["Method and products", "What was done and the products used, with their registration numbers", "Lets you check what was applied and where"],
+      ["Safety instructions", "Re-entry times, ventilation and areas to avoid", "Protects people and pets"],
+      ["Recommendations", "What you should do, such as sealing gaps or fixing leaks", "Prevents the problem coming back"],
+      ["Follow-up", "The date of the next visit or what to do if activity continues", "Closes the loop"],
+     ], None),
+    ("cards", "read", "Reading it", "How to read a report", None,
+     [
+      ("Findings", "Were pests found, how many, and where? Compare with the previous visit."),
+      ("Actions", "What was done in response, and did it address the cause or only the symptom?"),
+      ("Recommendations", "What is your part? Items for you or your landlord are listed here."),
+      ("Follow-up", "When will the next check happen, and what will it confirm?"),
+     ]),
+    ("prose", "products", "Products and safety", "Product information and safety",
+     ["A good report names every product used, with its registration number and the areas where it was applied. Public health pesticides carry an SFDA registration number on the label, so you can check it matches.",
+      "The report should also give the re-entry time, any ventilation needed and instructions for children, pets and food areas. If something is not clear, ask the technician before they leave."]),
+    ("list", "commercial", "Commercial sites", "Extra records for restaurants, hotels and warehouses",
+     "Food-safety and hospitality audits look for more than a one-page report. The file should also hold:",
+     ["A site plan with numbered monitoring points", "Monitoring results for each point, visit by visit", "Trend analysis of activity", "A log of sightings reported by your staff", "Corrective actions with dates and who closed them", "The contract, scope of service, and the provider's qualification"]),
+    ("list", "redflags", "Warning signs", "Red flags in a poor report",
+     "Ask for a better report if you see any of these:",
+     ["No date, no signature or no technician name", "Products listed without registration numbers, or not listed at all", "No mention of which areas were treated", "Only a generic statement such as 'service done'", "No recommendations, even though conditions need attention", "No follow-up date after a treatment that needs one"]),
+    ("list", "use", "Next steps", "What to do with the report",
+     "A report is only useful if you act on it:",
+     ["Read the recommendations and fix what is yours to fix", "File it with previous reports, in date order", "Share relevant points with staff, such as sighting reporting", "Compare each report with the last to see the trend", "Keep it ready for inspections, audits and insurers", "Call us if the report and what you see do not match"]),
+    ("callout", "check", "Check your provider",
+     "A report is only as reliable as the company behind it. " + LICENCE_NOTE),
+]
+
+
+def apply(ns):
+    """Merge into content.py's namespace (called at the end of content.py)."""
+    steps = ns["PEST_STEPS"]
+    hub = ns["PEST"]["hub"]
+    hub["sectors"], hub["guides"] = list(SECTORS), list(GUIDES)
+    for k, d in PEST_NEW.items():
+        d["steps"] = steps
+        ns["PEST"][k] = d
+    for k, v in PEST_EXTRA.items():
+        ns["EXTRA"][("pest", k)] = v
+    ns["FAC"] = FAC
+    for k, v in FAC_EXTRA.items():
+        ns["EXTRA"][("fac", k)] = v

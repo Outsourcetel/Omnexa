@@ -634,3 +634,19 @@ header.site.menu-open .mb-i:after{top:0;transform:rotate(-45deg)}
 .hero.home .wrap.hs{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
 .hs-a{max-width:460px;justify-self:center;width:100%}
 @media (max-width:900px){.hero.home .wrap.hs{grid-template-columns:1fr}.hs-a{display:none}}
+
+/* compact tile grids (hub sector/guide lists) and 6-column footer */
+.cards.tiles{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.cards.tiles .card{padding:18px}
+.cards.tiles h3{font-size:1.08rem;margin:0 0 6px}
+.cards.tiles .ic{width:40px;height:40px}
+footer.site .cols.c6{grid-template-columns:1.2fr 1fr 1fr 1fr .9fr .9fr}
+@media (max-width:1100px){footer.site .cols.c6{grid-template-columns:1fr 1fr 1fr}}
+@media (max-width:760px){footer.site .cols.c6{grid-template-columns:1fr}}
+@media (max-width:640px){
+  .cards.tiles{grid-template-columns:1fr 1fr;gap:10px}
+  .cards.tiles .card{padding:14px}
+  .cards.tiles .card p{display:none}
+  .cards.tiles h3{font-size:.98rem;margin:8px 0 2px}
+  .cards.tiles .ic{width:36px;height:36px}
+}

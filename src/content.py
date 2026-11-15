@@ -1296,3 +1296,7 @@ for _slug, _d in _TRAIN_EN.items():
     ISO[_slug] = _pg
     EXTRA[("iso", _slug)] = _bl
     ISO["hub"]["children"].append(_slug)
+
+
+import content_more as _more
+_more.apply(globals())
