@@ -11,15 +11,19 @@
   "whatsapp": "966558187808",
   "email": "info@omnexasol.com",
   "street_address": "",
-  "address_note": "Al Olaya District, Riyadh, Saudi Arabia",
+  "address_note": "Al Olaya District, Riyadh 12611, Saudi Arabia",
   "gtm_id": "",
   "form_endpoint": "",
   "proof": {
     "iso9001_certificate": "",
     "iso9001_certifying_body": "",
     "pest_licence": "",
-    "commercial_registration": "",
+    "commercial_registration": "7051985807",
     "years_in_service": "",
-    "verified_clients": []
-  }
+    "verified_clients": [],
+    "vat_number": "314289593300003"
+  },
+  "legal_name": "Omnexa Solutions Company",
+  "legal_form": "Limited liability company (one person)",
+  "postal_code": "12611"
 }

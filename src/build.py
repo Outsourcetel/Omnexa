@@ -34,7 +34,11 @@ def business_ld():
     o = {"@context": "https://schema.org", "@type": "LocalBusiness", "@id": BASE + "/#business", "name": C["brand"],
          "url": BASE + "/", "telephone": C["phone"], "email": C["email"],
          "areaServed": [{"@type": "City", "name": x} for x in CITIES] + [{"@type": "Country", "name": C["country"]}],
-         "address": {"@type": "PostalAddress", "addressLocality": CITIES[0], "addressCountry": "SA"}}
+         "address": {"@type": "PostalAddress", "addressLocality": CITIES[0], "postalCode": C.get("postal_code", ""), "addressCountry": "SA"}}
+    if C.get("legal_name"):
+        o["legalName"] = C["legal_name"]
+    if C["proof"].get("vat_number"):
+        o["vatID"] = C["proof"]["vat_number"]
     if C["street_address"]:
         o["address"]["streetAddress"] = C["street_address"]
     return o
@@ -163,6 +167,28 @@ def header():
 </div></header>"""
 
 
+def legal_line():
+    p = C["proof"]
+    bits = [C.get("legal_name", C["brand"])]
+    if p.get("commercial_registration"):
+        bits.append("CR " + p["commercial_registration"])
+    if p.get("vat_number"):
+        bits.append("VAT " + p["vat_number"])
+    return " &middot; ".join(E(b) if "&" not in b else b for b in bits)
+
+
+def company_box():
+    p = C["proof"]
+    rows = [("Legal name", C.get("legal_name", C["brand"])), ("Company type", C.get("legal_form", ""))]
+    if p.get("commercial_registration"):
+        rows.append(("Commercial registration (CR)", p["commercial_registration"]))
+    if p.get("vat_number"):
+        rows.append(("VAT registration number", p["vat_number"]))
+    rows.append(("Registered address", C["street_address"] or C["address_note"]))
+    dl = "".join(f"<div><dt>{E(k)}</dt><dd>{E(v)}</dd></div>" for k, v in rows if v)
+    return f'<div class="paper company"><p class="kicker">Company details</p><h3>Registered in the Kingdom of Saudi Arabia</h3><dl>{dl}</dl></div>'
+
+
 def footer():
     pest = "".join(f'<li><a href="/pest-control/{s}/">{E(fmt(PEST[s]["service"]))}</a></li>' for s in PEST["hub"]["children"])
     iso = "".join(f'<li><a href="/iso-consultancy/{s}/">{E(ISO[s]["service"])}</a></li>' for s in ISO["hub"]["children"])
@@ -174,7 +200,7 @@ def footer():
 <div><h4>ISO Consultancy</h4><ul>{iso}</ul></div>
 <div><h4>Areas</h4><ul>{areas}</ul></div>
 <div><h4>Company</h4><ul><li><a href="/how-it-works/">How it works</a></li><li><a href="/facility-services/">Other services</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li></ul></div>
-</div><p class="copy">&copy; 2026 {E(C['brand'])}</p></div></footer>
+</div><p class="legal">{legal_line()}</p><p class="copy">&copy; 2026 {E(C.get('legal_name', C['brand']))}</p></div></footer>
 <div class="sticky"><a class="btn btn-call" href="tel:{C['phone']}">{ICON['phone']}Call</a><a class="btn btn-wa" href="{WA}">{ICON['wa']}WhatsApp</a></div>"""
 
 
@@ -500,6 +526,7 @@ def build():
 <section class="alt"><div class="wrap"><div class="cards wide"><div class="card plain"><h3>Our mission</h3><p>To give clients dependable service, and to make sure our staff, products and equipment meet the standards our clients set.</p></div>
 <div class="card plain"><h3>Our vision</h3><p>To be the pest management and facility services provider that clients choose for reliability and value.</p></div></div></div></section>
 <section><div class="wrap"><p class="kicker">What we stand for</p><h2 class="s">Our values</h2><div class="cards wide">{vals}</div></div></section>
+<section><div class="wrap narrow">{company_box()}</div></section>
 <section class="alt"><div class="wrap"><p class="kicker">Where we work</p><h2 class="s">Sectors we serve</h2><p class="sub">Our pest control and consultancy cover public health and food safety across these kinds of sites.</p><ul class="ticks">{sec}</ul></div></section>
 <!-- TODO: add verified company facts, licences, certificate details, team and client list. Nothing is shown here until provided. -->
 <div class="cta-band"><div class="wrap"><h2>Talk to us</h2><p>Free site inspection and free ISO consultation.</p><div class="cta">{btn_wa(WA)}{btn_call("Call now")}</div></div></div>"""
@@ -508,7 +535,7 @@ def build():
     # contact
     cr = [("Home", "/"), ("Contact", "/contact/")]
     body = f"""{simple_hero(cr, 'Contact us', 'Phone and WhatsApp are the fastest ways to reach us.')}
-<section><div class="wrap two"><div class="contact"><p><b>Phone</b><a href="tel:{C['phone']}">{E(C['phone_display'])}</a></p><p><b>WhatsApp</b><a href="{WA}">Chat on WhatsApp</a></p><p><b>Email</b><a href="mailto:{C['email']}">{E(C['email'])}</a></p><p><b>Office</b>{E(C['street_address'] or C['address_note'])}</p></div>
+<section><div class="wrap two"><div class="contact"><p><b>Phone</b><a href="tel:{C['phone']}">{E(C['phone_display'])}</a></p><p><b>WhatsApp</b><a href="{WA}">Chat on WhatsApp</a></p><p><b>Email</b><a href="mailto:{C['email']}">{E(C['email'])}</a></p><p><b>Office</b>{E(C['street_address'] or C['address_note'])}</p><p><b>Registered company</b>{legal_line()}</p></div>
 <div class="card formcard"><h2>Send an enquiry</h2>{form('Other')}</div></div></section>"""
     page("/contact/", "Contact Omnexa Solutions", "Contact Omnexa Solutions by phone, WhatsApp or email for pest control and ISO consultancy.", body, crumbs=cr)
 

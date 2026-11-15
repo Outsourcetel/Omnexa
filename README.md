@@ -18,7 +18,7 @@ Serve `/404.html` as the error page and keep trailing-slash URLs. Redirect `www`
 1. `gtm_id`: add the GTM container ID; in GTM add GA4 + Google Ads conversion tags on events
    `generate_lead`, `click_whatsapp`, `click_to_call` (already pushed to dataLayer by site.js).
 2. `proof`: add ISO certificate no./body, pest licence, CR, years in service ONLY when verified. Empty = not shown.
-3. `street_address`: add the full street address; `cities` lists the cities served (each gets a landing page per service; add content in CITY_PAGES).
+3. `street_address`: add the full street address (the CR and VAT certificates give only Al Olaya, Riyadh 12611). `cities` lists the cities served.
 4. `form_endpoint`: optional JSON endpoint to store leads; otherwise the form opens WhatsApp prefilled.
 5. Add real photos, verified client logos and testimonials (the old site's Pakistani client logos were NOT carried over).
 6. Search Console: verify domain, submit /sitemap.xml. Create Google Business Profile.
@@ -41,3 +41,7 @@ Arabic pages (/ar/ with hreflang), blog, HVAC/electrical/plumbing/construction d
 3. Deploy. Every push to `main` redeploys; other branches get their own preview URLs.
 4. Domain: add `omnexasol.com` and `www.omnexasol.com` under Settings > Domains, make `www` redirect to the apex.
 Note: Vercel's free Hobby plan is for non-commercial use; a company site needs Pro (verify current terms).
+
+## Company details on the site
+Legal name, CR and VAT numbers come from `src/config.json` (`legal_name`, `proof.commercial_registration`, `proof.vat_number`) and appear in the footer, About, Contact and schema.
+The CR certificate shows a 2025 registration, so `years_in_service` must stay empty unless a verified trading history exists under another entity.
