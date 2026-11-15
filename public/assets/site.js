@@ -12,7 +12,10 @@
     f.addEventListener('submit',function(e){
       e.preventDefault();
       var d=new FormData(f), g=function(k){return (d.get(k)||'').toString().trim();};
-      var msg='Hello, I need: '+g('service')+'\nName: '+g('name')+'\nPhone: '+g('phone')+'\nCity: '+g('city')+(g('message')?'\nDetails: '+g('message'):'')+'\nPage: '+location.pathname;
+      var ar=document.documentElement.lang==='ar';
+      var msg=ar
+        ? 'السلام عليكم، أحتاج إلى: '+g('service')+'\nالاسم: '+g('name')+'\nالجوال: '+g('phone')+'\nالمدينة: '+g('city')+(g('message')?'\nالتفاصيل: '+g('message'):'')+'\nالصفحة: '+location.pathname
+        : 'Hello, I need: '+g('service')+'\nName: '+g('name')+'\nPhone: '+g('phone')+'\nCity: '+g('city')+(g('message')?'\nDetails: '+g('message'):'')+'\nPage: '+location.pathname;
       track('generate_lead',{service:g('service'),page:location.pathname});
       var ep=f.getAttribute('data-endpoint');
       var wa='https://wa.me/'+f.getAttribute('data-wa')+'?text='+encodeURIComponent(msg);
@@ -62,8 +65,10 @@
       s.addEventListener('click',function(){userPick(i);});
       s.addEventListener('keydown',function(e){
         var n=null;
-        if(e.key==='ArrowDown'||e.key==='ArrowRight')n=(cur+1)%steps.length;
-        if(e.key==='ArrowUp'||e.key==='ArrowLeft')n=(cur-1+steps.length)%steps.length;
+        var rtl=document.documentElement.dir==='rtl';
+        var nextK=rtl?'ArrowLeft':'ArrowRight', prevK=rtl?'ArrowRight':'ArrowLeft';
+        if(e.key==='ArrowDown'||e.key===nextK)n=(cur+1)%steps.length;
+        if(e.key==='ArrowUp'||e.key===prevK)n=(cur-1+steps.length)%steps.length;
         if(n!==null){e.preventDefault();userPick(n);steps[n].focus();}
       });
     });

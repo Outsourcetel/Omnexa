@@ -862,6 +862,8 @@ PEST.update({
 ),
 })
 
+_old_ipm = list(EXTRA[("pest", "commercial-ipm")])
+_old_hub = list(EXTRA[("iso", "hub")])
 EXTRA.update({
 ("pest", "mosquito-control"): [
     ("table", "cycle", "Know your pest", "How mosquitoes develop, and where to break the cycle",
@@ -929,7 +931,7 @@ EXTRA.update({
      "Animals come for food, water and shelter. Removing those reduces visits.",
      ["Remove rubble, wood piles and dense ground cover next to buildings", "Control rodents, because snakes follow them", "Keep waste in lidded bins and clear food waste daily", "Seal gaps under doors and around pipes", "Trim vegetation away from walls and fences", "Fix leaking taps and standing water"]),
 ],
-("pest", "commercial-ipm"): [
+("pest", "_ipm_add"): [
     ("cards", "cycle", "The IPM cycle", "Assess, prevent, control, then assess again", None,
      [
       ("Assessment", "Survey the site, identify pests and risks, and set a baseline."),
@@ -1007,7 +1009,7 @@ EXTRA.update({
      "Each participant and the company receive:",
      ["Course materials", "A certificate of attendance", "Practical exercises and worked examples", "Attendance and competence records for your files", "Follow-up questions answered after the course"]),
 ],
-("iso", "hub"): [
+("iso", "_hub_add"): [
     ("callout", "conf", "Your information stays confidential",
      "To assess your system we need to see your processes, customers and sometimes your costs. We treat everything you share as confidential, and are happy to sign a confidentiality agreement before the gap analysis."),
     ("table", "cbsteps", "The certification body's process", "What the certification body does at its end",
@@ -1022,6 +1024,10 @@ EXTRA.update({
      ], None),
 ],
 })
+_ipm_add = EXTRA.pop(("pest", "_ipm_add"))
+EXTRA[("pest", "commercial-ipm")] = [_ipm_add[0], _old_ipm[0], _ipm_add[1]] + _old_ipm[1:]
+_hub_add = EXTRA.pop(("iso", "_hub_add"))
+EXTRA[("iso", "hub")] = _old_hub[:3] + [_hub_add[1]] + _old_hub[3:] + [_hub_add[0]]
 ISO["hub"]["children"] += ["other-standards", "training"]
 ISO.update({
 "other-standards": dict(

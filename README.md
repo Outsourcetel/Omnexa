@@ -45,3 +45,9 @@ Note: Vercel's free Hobby plan is for non-commercial use; a company site needs P
 ## Company details on the site
 Legal name, CR and VAT numbers come from `src/config.json` (`legal_name`, `proof.commercial_registration`, `proof.vat_number`) and appear in the footer, About, Contact and schema.
 The CR certificate shows a 2025 registration, so `years_in_service` must stay empty unless a verified trading history exists under another entity.
+
+## Arabic site (/ar/)
+`python3 src/build.py` builds English and Arabic. Arabic copy lives in `src/content_ar.py` (mirrors `content.py` and `process.py`);
+UI strings are inline in `src/build.py` as `T("English", "العربية")`. `ONLY_EN=1 python3 src/build.py` builds English only.
+Arabic pages use `lang="ar" dir="rtl"`, IBM Plex Sans Arabic, hreflang links and a language switch in the header.
+Arabic legal name (`legal_name_ar`) and Arabic address are in `src/config.json` and must match the Arabic CR.

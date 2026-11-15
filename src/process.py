@@ -117,8 +117,11 @@ _S = {
 }
 
 
-def scene(key):
-    return ('<svg class="scene" viewBox="0 0 160 110" role="img" aria-hidden="true">' + _S[key] + "</svg>")
+def scene(key, lang="en"):
+    inner = _S[key]
+    if lang == "ar":
+        inner = inner.replace(">3 yr<", ">3 سنوات<")
+    return ('<svg class="scene" viewBox="0 0 160 110" role="img" aria-hidden="true">' + inner + "</svg>")
 
 
 # Sample service report fields (clearly marked as a sample on the page)

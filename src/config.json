@@ -30,13 +30,21 @@
     {
       "city": "Riyadh",
       "label": "Head office",
-      "address": "Al Olaya District, Riyadh 12611, Saudi Arabia"
+      "address": "Al Olaya District, Riyadh 12611, Saudi Arabia",
+      "label_ar": "المكتب الرئيسي",
+      "address_ar": "حي العليا، الرياض 12611، المملكة العربية السعودية"
     },
     {
       "city": "Jeddah",
       "label": "Jeddah office",
-      "address": "Al Salah Center, Al Handawiya, Jeddah, Saudi Arabia"
+      "address": "Al Salah Center, Al Handawiya, Jeddah, Saudi Arabia",
+      "label_ar": "مكتب جدة",
+      "address_ar": "مركز الصلاح، حي الهنداوية، جدة، المملكة العربية السعودية"
     }
   ],
-  "certification_partner": "ACERTA Certification & Inspection"
+  "certification_partner": "ACERTA Certification & Inspection",
+  "brand_ar": "أومنكسا سوليوشنز",
+  "legal_name_ar": "شركة أومنكسا سوليوشنز",
+  "legal_form_ar": "شركة ذات مسؤولية محدودة (شخص واحد)",
+  "address_note_ar": "حي العليا، الرياض 12611، المملكة العربية السعودية"
 }
