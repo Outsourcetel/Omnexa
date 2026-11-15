@@ -232,8 +232,8 @@ def page(path, title, desc, body, extra_ld=None, crumbs=None, noindex=False):
     doc = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{E(title)}</title><meta name="description" content="{E(desc)}">
-<link rel="canonical" href="{url}"><link rel="icon" type="image/png" href="/assets/favicon.png">{robots}
-<meta property="og:type" content="website"><meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{url}">
+<link rel="canonical" href="{url}"><link rel="icon" type="image/png" href="/assets/favicon.png"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">{robots}
+<meta property="og:type" content="website"><meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="{BASE}/assets/og.png"><meta property="og:site_name" content="{E(C['brand'])}"><meta name="twitter:card" content="summary_large_image">
 <script>document.documentElement.className="js"</script>
 {FONTS}
 <link rel="stylesheet" href="/assets/style.css">
