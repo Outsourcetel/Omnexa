@@ -249,7 +249,9 @@ def header():
     swl = T("ar", "en")
     return f"""<header class="site"><div class="wrap">
 <a class="brand" href="/"><img src="/assets/logo.png" width="154" height="40" alt="{E(brand())}"></a>
-<nav class="main" aria-label="{T('Main', 'القائمة الرئيسية')}"><a href="/pest-control/">{T('Pest Control', 'مكافحة الحشرات')}</a><a href="/iso-consultancy/">{T('ISO Consultancy', 'استشارات الأيزو')}</a><a href="/how-it-works/">{T('How It Works', 'آلية العمل')}</a><a href="/facility-services/">{T('Other Services', 'خدمات أخرى')}</a><a href="/about/">{T('About', 'من نحن')}</a><a href="/contact/">{T('Contact', 'اتصل بنا')}</a></nav>
+<button class="menu-btn" type="button" aria-label="{T('Menu', 'القائمة')}" aria-expanded="false" aria-controls="mnav"><span class="mb-i"></span></button>
+<nav class="main" id="mnav" aria-label="{T('Main', 'القائمة الرئيسية')}"><a href="/pest-control/">{T('Pest Control', 'مكافحة الحشرات')}</a><a href="/iso-consultancy/">{T('ISO Consultancy', 'استشارات الأيزو')}</a><a href="/how-it-works/">{T('How It Works', 'آلية العمل')}</a><a href="/facility-services/">{T('Other Services', 'خدمات أخرى')}</a><a href="/about/">{T('About', 'من نحن')}</a><a href="/contact/">{T('Contact', 'اتصل بنا')}</a>
+<div class="menu-extra"><a class="btn btn-call" href="tel:{C['phone']}">{ICON['phone']}{T('Call', 'اتصل')}</a><a class="btn btn-wa" href="{WA}">{ICON['wa']}{T('WhatsApp', 'واتساب')}</a></div></nav>
 <a class="lang" href="{other}" hreflang="{swl}" lang="{swl}">{sw}</a>
 <a class="btn btn-ghost" href="tel:{C['phone']}">{ICON['phone']}{ltr(E(C['phone_display']))}</a>
 </div></header>"""
@@ -394,10 +396,10 @@ def trust(family="pest", override=None):
 
 
 FONTS_EN = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-            '<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600;700'
-            '&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">')
+            '<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;600;700'
+            '&family=IBM+Plex+Sans+Condensed:wght@700&display=swap" rel="stylesheet">')
 FONTS_AR = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-            '<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700'
+            '<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+Arabic:wght@400;600;700'
             '&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">')
 
 
@@ -419,7 +421,7 @@ def page(path, title, desc, body, extra_ld=None, crumbs=None, noindex=False):
     htmlattr = 'lang="ar" dir="rtl"' if LANG == "ar" else 'lang="en"'
     locale = "ar_SA" if LANG == "ar" else "en_US"
     doc = f"""<!doctype html>
-<html {htmlattr}><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html {htmlattr}><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff">
 <title>{E(title)}</title><meta name="description" content="{E(desc)}">
 <link rel="canonical" href="{url}">{alts}<link rel="icon" type="image/png" href="/assets/favicon.png"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">{robots}
 <meta property="og:type" content="website"><meta property="og:locale" content="{locale}"><meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="{BASE}/assets/og.png"><meta property="og:site_name" content="{E(brand())}"><meta name="twitter:card" content="summary_large_image">
@@ -461,7 +463,7 @@ def render_blocks(blocks):
             continue
         kicker, title = b[2], fmt(b[3])
         toc.append((bid, title))
-        head = f'<p class="kicker">{E(kicker)}</p><h2 class="s">{E(title)}</h2>'
+        head = f'<p class="kicker">{E(kicker)}</p><h2 class="s fold-h">{E(title)}</h2>'
         if kind == "table":
             intro, headers, rows, note = b[4], b[5], b[6], b[7]
             th = "".join(f"<th>{E(h)}</th>" for h in headers)
@@ -471,18 +473,18 @@ def render_blocks(blocks):
             body = (f'<p class="sub">{E(fmt(intro))}</p>' if intro else "") + f'<div class="tbl"><table><thead><tr>{th}</tr></thead><tbody>{tr}</tbody></table></div>'
             if note:
                 body += f'<p class="note">{E(note)}</p>'
-            out += f'<section{alt} id="{bid}"><div class="wrap">{head}{body}</div></section>'
+            out += f'<section{alt} id="{bid}" data-fold><div class="wrap">{head}<div class="fold-b">{body}</div></div></section>'
         elif kind == "list":
             intro, items = b[4], b[5]
             li = "".join(f"<li>{E(x)}</li>" for x in items)
-            out += f'<section{alt} id="{bid}"><div class="wrap narrow">{head}<p class="sub">{E(fmt(intro))}</p><ul class="ticks one">{li}</ul></div></section>'
+            out += f'<section{alt} id="{bid}" data-fold><div class="wrap narrow">{head}<div class="fold-b"><p class="sub">{E(fmt(intro))}</p><ul class="ticks one">{li}</ul></div></div></section>'
         elif kind == "cards":
             intro, items = b[4], b[5]
             cards = "".join(f'<div class="card plain"><h3>{E(h)}</h3><p>{E(t)}</p></div>' for h, t in items)
-            out += f'<section{alt} id="{bid}"><div class="wrap">{head}' + (f'<p class="sub">{E(intro)}</p>' if intro else "") + f'<div class="cards wide">{cards}</div></div></section>'
+            out += f'<section{alt} id="{bid}" data-fold><div class="wrap">{head}<div class="fold-b">' + (f'<p class="sub">{E(intro)}</p>' if intro else "") + f'<div class="cards wide">{cards}</div></div></div></section>'
         elif kind == "prose":
             ps = "".join(f"<p>{E(x)}</p>" for x in b[4])
-            out += f'<section{alt} id="{bid}"><div class="wrap narrow prose">{head}{ps}</div></section>'
+            out += f'<section{alt} id="{bid}" data-fold><div class="wrap narrow prose">{head}<div class="fold-b">{ps}</div></div></section>'
     return out, toc
 
 
