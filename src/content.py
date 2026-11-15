@@ -110,7 +110,6 @@ PEST = {
         faqs=[
             ("What is IPM?", "Integrated Pest Management combines prevention, monitoring and targeted treatment to control pests while limiting unnecessary chemical use."),
             ("Can you support our food-safety audits?", "We provide service reports and records. Which audit requirements apply depends on your scheme, so tell us what you are audited against."),
-            ("Do you also help with ISO 22000 or HACCP?", "Yes, our ISO consultancy team can help with food-safety management systems. See the ISO consultancy section."),
         ],
     ),
 }
@@ -166,7 +165,6 @@ ISO = {
         steps=ISO_STEPS,
         faqs=[
             ("What is the link between ISO 22000 and HACCP?", "ISO 22000 includes HACCP principles within a wider management system."),
-            ("Do you also offer pest control for food sites?", "Yes. See our commercial pest control and IPM programme."),
         ],
     ),
     "iso-45001": dict(
@@ -518,8 +516,8 @@ EXTRA.update({
     ("list", "file", "Audit file", "The pest control file your auditor expects",
      "Food-safety audits ask for the same documents. We keep the file complete and up to date.",
      ["The contract and scope of service", "The provider's licence and technician training records", "A site plan showing every monitoring point", "A service report for each visit", "A list of the products used, with labels and safety data sheets", "Trend analysis of pest activity", "A log of corrective actions and who closed them", "A pest sighting log completed by your staff"]),
-    ("callout", "iso", "Pest control and food-safety certification",
-     "Pest control is one of the prerequisite programmes that food-safety standards such as ISO 22000 and HACCP expect to see. Because we also provide ISO consultancy, your pest control records are set up the way the auditor wants them from the first visit."),
+    ("callout", "audit", "Pest control is part of your food-safety audit",
+     "Food-safety standards such as ISO 22000, HACCP and BRCGS treat pest control as a prerequisite programme. Auditors ask to see the contract, the site plan, the monitoring records and the service reports. We keep that file complete and up to date from the first visit."),
 ],
 ("iso", "iso-22000"): [
     ("table", "compare", "Start here", "HACCP, ISO 22000 or FSSC 22000?",
@@ -543,8 +541,8 @@ EXTRA.update({
     ("list", "documents", "Deliverables", "What you will have at the end",
      "A system your team runs daily, with the evidence an auditor asks for.",
      ["Food-safety policy and objectives", "Prerequisite programme procedures", "Process flow diagrams", "Hazard analysis and the hazard control plan", "Monitoring records for critical limits", "Traceability and recall procedure, with a mock recall record", "Supplier approval records", "Training records", "Internal audit report and management review minutes"]),
-    ("callout", "pest", "One provider for pest control and food safety",
-     "Pest control is a prerequisite programme under ISO 22000. We can run it for you and document it to the standard, so there is no gap between what the auditor asks for and what your contractor provides."),
+    ("callout", "prp", "Prerequisite programmes come first",
+     "Cleaning, pest control, maintenance, personal hygiene and supplier approval must be working before the hazard analysis is credible. We review each one in the gap analysis and tell you which records an auditor will expect to see."),
 ],
 ("iso", "iso-45001"): [
     ("table", "requirements", "Inside the standard", "What ISO 45001 requires",
@@ -746,7 +744,6 @@ CITY_PAGES = {
     faqs=[
         ("Do you come to our site in Jeddah?", "Yes. The gap analysis, workshops, training and internal audit are carried out on site."),
         ("We are a food business. Which standard should we start with?", "Usually ISO 22000, sometimes together with ISO 9001. We confirm after looking at what your customers ask for."),
-        ("Can you also handle our pest control?", "Yes. We provide pest control in Jeddah and document it the way a food-safety auditor expects."),
     ],
 ),
 }

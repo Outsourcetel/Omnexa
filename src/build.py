@@ -442,7 +442,7 @@ def process_hub():
     for fam, nm, path, desc in (("pest", "Pest control", "/pest-control/how-it-works/", "Inspection first, a written plan, treatment, a report after every visit, and follow-up."),
                                 ("iso", "ISO consultancy", "/iso-consultancy/how-it-works/", "Gap analysis, documentation, training, internal audit, then the certification audit by an accredited body.")):
         cols += f'<a class="door t-{fam}" href="{path}"><div class="door-txt"><p class="kicker">{nm}</p><h2>{len(PROCESS[fam])} steps from first contact to result</h2><p>{desc}</p><span class="more">See the full process</span></div></a>'
-    body = (f'<div class="hero slim"><div class="wrap">{crumbs_html(cr)}<h1>How we work</h1><p class="lead">Both services follow a clear process, with written records at every stage.</p></div></div>'
+    body = (f'<div class="hero slim"><div class="wrap">{crumbs_html(cr)}<h1>How we work</h1><p class="lead">Pest control and ISO consultancy each follow a clear process, with written records at every stage.</p></div></div>'
             f'<section><div class="wrap doors flat">{cols}</div></section>')
     page("/how-it-works/", "How We Work | Pest Control and ISO Process | Omnexa Solutions", "How our pest control and ISO consultancy processes work, step by step.", body, crumbs=cr)
 
@@ -535,7 +535,7 @@ def build():
     iso_cards = "".join(f'<a class="card" href="/iso-consultancy/{s}/">{card_icon("iso", s)}<h3>{E(ISO[s]["service"])}</h3><span class="more">Learn more</span></a>' for s in ISO["hub"]["children"])
     home = f"""<div class="hero home"><div class="wrap"><p class="eyebrow">{E(" · ".join(CITIES))}</p>
 <h1>Pest Control and ISO Consultancy in Saudi Arabia</h1>
-<p class="lead">Inspection-led pest management and practical ISO implementation, from one company.</p>
+<p class="lead">Inspection-led pest control and practical ISO consultancy for homes and businesses in Riyadh and Jeddah.</p>
 <div class="cta">{btn_wa(wa_link('Hello, I would like to enquire'))}{btn_call()}</div>{trust('home')}</div></div>
 <div class="wrap doors">
 <a class="door t-pest" href="/pest-control/"><div class="art">{illus_pest()}</div><div class="door-txt"><p class="kicker">For homes and facilities</p><h2>Pest Control in {E(city)}</h2><p>Termites, rodents, cockroaches, bed bugs, fumigation and scheduled IPM programmes.</p><span class="more">Book a free inspection</span></div></a>
@@ -543,11 +543,11 @@ def build():
 </div>
 <section class="t-pest"><div class="wrap"><p class="kicker">Pest control</p><h2 class="s">Pest control services</h2><div class="cards">{pest_cards}</div></div></section>
 <section class="alt t-iso"><div class="wrap"><p class="kicker">ISO consultancy</p><h2 class="s">ISO standards we support</h2><div class="cards">{iso_cards}</div></div></section>
-<section id="how"><div class="wrap"><p class="kicker">How we work</p><h2 class="s">Clear steps, written records</h2><p class="sub">Every job follows the same path: we inspect or assess first, agree the plan in writing, do the work, and give you the paperwork.</p><div class="lanes">{lane("pest")}{lane("iso")}</div></div></section>
+<section id="how"><div class="wrap"><p class="kicker">How we work</p><h2 class="s">Clear steps, written records</h2><p class="sub">Each service has its own clear path. Pest control starts with an inspection; ISO consultancy starts with a gap analysis. Both end with written records you can show an auditor or a client.</p><div class="lanes">{lane("pest")}{lane("iso")}</div></div></section>
 {field_strip()}
-<section class="alt"><div class="wrap narrow"><p class="kicker">One provider</p><h2 class="s">Why food, hospitality and industrial clients use both</h2>
-<p class="sub">Food-safety audits look at both your management system and your pest control records. Working with one company for both makes audits simpler.</p>
-<a class="btn btn-call" href="/contact/">Talk to us</a></div></section>
+<section class="alt"><div class="wrap"><p class="kicker">Who we work with</p><h2 class="s">Different customers, different needs</h2>
+<div class="cards wide"><div class="card plain t-pest"><h3>Pest control customers</h3><p>Homeowners and villa residents, restaurants and cafes, hotels and serviced apartments, hospitals and clinics, warehouses and food facilities.</p><a class="more" href="/pest-control/">See pest control</a></div>
+<div class="card plain t-iso"><h3>ISO consultancy clients</h3><p>Contractors, food manufacturers, factories, logistics companies and IT firms that need a certificate for a tender, a customer or their own growth.</p><a class="more" href="/iso-consultancy/">See ISO consultancy</a></div></div></div></section>
 <div class="cta-band"><div class="wrap"><h2>Tell us what you need</h2><p>We respond with next steps.</p><div class="cta">{btn_wa(WA)}{btn_call("Call now")}</div></div></div>"""
     page("/", "Pest Control & ISO Consultancy in Saudi Arabia | Omnexa Solutions",
          "Pest control and ISO consultancy in Saudi Arabia. Free site inspection and free ISO consultation. Termites, rodents, ISO 9001, 22000, 45001.", home)
@@ -568,9 +568,9 @@ def build():
     vals = "".join(f'<div class="card plain"><h3>{E(t)}</h3><p>{E(d)}</p></div>' for t, d in VALUES)
     sec = "".join(f"<li>{E(x)}</li>" for x in SECTORS)
     body = f"""{simple_hero(cr, 'About ' + C['brand'], 'Pest management, ISO consultancy and training, and facility services for businesses in Saudi Arabia.')}
-<section><div class="wrap two"><div><p class="kicker">Who we are</p><h2 class="s">One company for pest control and ISO</h2>
-<p class="sub">{E(C['brand'])} provides Integrated Pest Management (pesticide and non-pesticide), ISO consultancy and training, and facility services including air-conditioning, construction and IT. Our offices are in Riyadh (Al Olaya) and Jeddah (Al Handawiya).</p>
-<p class="sub">We also advise and train in environment, health and safety, quality management, Integrated Pest Management and food safety management.</p></div>
+<section><div class="wrap two"><div><p class="kicker">Who we are</p><h2 class="s">What we do</h2>
+<p class="sub"><b>Pest management.</b> Integrated Pest Management, with pesticide and non-pesticide methods, for homes, food sites, hotels, hospitals and warehouses.</p><p class="sub"><b>ISO consultancy and training.</b> Gap analysis, documentation, internal audit and training for ISO standards and food-safety schemes.</p><p class="sub"><b>Facility services.</b> Air-conditioning, construction, safety signage and equipment, and IT.</p><p class="sub">Our offices are in Riyadh (Al Olaya) and Jeddah (Al Handawiya).</p>
+</div>
 <div class="art"><img class="about-logo" src="/assets/logo.png" width="360" height="94" alt="{E(C['brand'])}" loading="lazy"></div></div></section>
 <section class="alt"><div class="wrap"><div class="cards wide"><div class="card plain"><h3>Our mission</h3><p>To give clients dependable service, and to make sure our staff, products and equipment meet the standards our clients set.</p></div>
 <div class="card plain"><h3>Our vision</h3><p>To be the pest management and facility services provider that clients choose for reliability and value.</p></div></div></div></section>
