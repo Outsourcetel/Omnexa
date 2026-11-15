@@ -25,5 +25,18 @@
   },
   "legal_name": "Omnexa Solutions Company",
   "legal_form": "Limited liability company (one person)",
-  "postal_code": "12611"
+  "postal_code": "12611",
+  "offices": [
+    {
+      "city": "Riyadh",
+      "label": "Head office",
+      "address": "Al Olaya District, Riyadh 12611, Saudi Arabia"
+    },
+    {
+      "city": "Jeddah",
+      "label": "Jeddah office",
+      "address": "Al Salah Center, Al Handawiya, Jeddah, Saudi Arabia"
+    }
+  ],
+  "certification_partner": "ACERTA Certification & Inspection"
 }

@@ -35,6 +35,7 @@ def business_ld():
          "url": BASE + "/", "telephone": C["phone"], "email": C["email"],
          "areaServed": [{"@type": "City", "name": x} for x in CITIES] + [{"@type": "Country", "name": C["country"]}],
          "address": {"@type": "PostalAddress", "addressLocality": CITIES[0], "postalCode": C.get("postal_code", ""), "addressCountry": "SA"}}
+    o["location"] = [{"@type": "Place", "name": f["label"], "address": {"@type": "PostalAddress", "streetAddress": f["address"].replace(", Saudi Arabia", ""), "addressLocality": f["city"], "addressCountry": "SA"}} for f in C.get("offices", [])]
     if C.get("legal_name"):
         o["legalName"] = C["legal_name"]
     if C["proof"].get("vat_number"):
@@ -167,6 +168,45 @@ def header():
 </div></header>"""
 
 
+def offices_html():
+    return "".join(f'<p><b>{E(o["label"])}</b><br>{E(o["address"])}</p>' for o in C.get("offices", [])) or f'<p>{E(C["street_address"] or C["address_note"])}</p>'
+
+
+def office_for(city):
+    for o in C.get("offices", []):
+        if o["city"] == city:
+            return o["address"]
+    return ""
+
+
+IMG = {
+    "field-fogging": ("Technician fogging a residential area", 246, 242), "field-warehouse": ("Technician treating a warehouse", 171, 169),
+    "field-termite": ("Termite treatment by drilling and injection", 150, 148), "field-bait-station": ("Rodent bait station being checked", 141, 138),
+    "field-aircon": ("Technician servicing an air conditioner", 165, 164),
+    "sector-government": ("Government building", 297, 187), "sector-mall": ("Shopping mall", 296, 187), "sector-hotel": ("Hotel", 296, 186),
+    "sector-hospital": ("Hospital", 297, 187), "sector-bank": ("Bank building", 297, 186), "sector-restaurant": ("Restaurant", 297, 187),
+    "sector-food-industry": ("Food production line", 297, 186),
+}
+
+
+def img(name, cls=""):
+    alt, w, h = IMG[name]
+    return f'<img{" class=%s" % chr(34) + cls + chr(34) if cls else ""} src="/assets/img/{name}.webp" width="{w}" height="{h}" alt="{E(alt)}" loading="lazy">'
+
+
+def field_strip():
+    items = [("field-fogging", "Fogging"), ("field-warehouse", "Warehouse treatment"), ("field-termite", "Termite treatment"), ("field-bait-station", "Rodent monitoring")]
+    fig = "".join(f'<figure>{img(n, "round")}<figcaption>{E(t)}</figcaption></figure>' for n, t in items)
+    return f'<section><div class="wrap"><p class="kicker">In the field</p><h2 class="s">Trained teams, proper equipment</h2><div class="field">{fig}</div></div></section>'
+
+
+def sector_grid():
+    items = [("sector-government", "Government"), ("sector-mall", "Shopping malls"), ("sector-hotel", "Hotels"), ("sector-hospital", "Hospitals"),
+             ("sector-bank", "Banks and offices"), ("sector-restaurant", "Restaurants"), ("sector-food-industry", "Food industries")]
+    fig = "".join(f'<figure>{img(n, "sec")}<figcaption>{E(t)}</figcaption></figure>' for n, t in items)
+    return f'<div class="sgrid">{fig}</div>'
+
+
 def legal_line():
     p = C["proof"]
     bits = [C.get("legal_name", C["brand"])]
@@ -195,7 +235,7 @@ def footer():
     addr = E(C["street_address"] or C["address_note"])
     areas = "".join(f'<li><a href="/{h}/{x.lower()}/">{l} in {E(x)}</a></li>' for h, l in (("pest-control", "Pest control"), ("iso-consultancy", "ISO consultants")) for x in CITIES)
     return f"""<footer class="site"><div class="wrap"><div class="cols">
-<div><p class="flogo"><img src="/assets/logo.png" width="190" height="50" alt="{E(C['brand'])}" loading="lazy"></p><p>{addr}</p><p><a href="tel:{C['phone']}">{E(C['phone_display'])}</a><br><a href="mailto:{C['email']}">{E(C['email'])}</a></p></div>
+<div><p class="flogo"><img src="/assets/logo.png" width="190" height="50" alt="{E(C['brand'])}" loading="lazy"></p>{offices_html()}<p><a href="tel:{C['phone']}">{E(C['phone_display'])}</a><br><a href="mailto:{C['email']}">{E(C['email'])}</a></p></div>
 <div><h4>Pest Control</h4><ul>{pest}</ul></div>
 <div><h4>ISO Consultancy</h4><ul>{iso}</ul></div>
 <div><h4>Areas</h4><ul>{areas}</ul></div>
@@ -450,14 +490,22 @@ def service_page(path, d, parent, family, slug=None):
         proc = (f'<section class="alt" id="process"><div class="wrap"><p class="kicker">Process</p><h2 class="s">How it works</h2><ol class="steps">{steps}</ol>'
                 f'<p class="more-link"><a href="/{hub["slug"]}/how-it-works/">See the full process &rarr;</a></p></div></section>')
     cta = wa_link("Hello, I need " + d["service"])
+    office_note = f'<p class="office-note">Our {E(d["city"])} office: {E(office_for(d["city"]))}</p>' if d.get("city") and office_for(d.get("city")) else ""
+    gallery = field_strip() if (family == "pest" and (slug is None or d.get("city"))) else ""
+    if slug == "commercial-ipm":
+        gallery = f'<section><div class="wrap"><p class="kicker">Where we work</p><h2 class="s">Sites we protect</h2>{sector_grid()}</div></section>'
+    if family == "iso" and slug is None and C.get("certification_partner"):
+        gallery = (f'<section class="tight"><div class="wrap narrow"><div class="callout"><h3>Our certification partner</h3><p>We work with {E(C["certification_partner"])} as a certification partner. '
+                   'You are free to choose any accredited certification body, and we prepare you for its audit whichever you choose. We do not take part in the audit or influence the certification decision.</p></div></div></section>')
     body = f"""<div class="hero"><div class="wrap">{crumbs_html(cr)}<div class="grid"><div>
 <p class="eyebrow">{E(eyebrow)}</p><h1>{E(h1)}</h1><p class="lead">{E(fmt(d['lead']))}</p>
-<div class="cta">{btn_wa(cta)}{btn_call()}</div>{trust(family)}</div>
+<div class="cta">{btn_wa(cta)}{btn_call()}</div>{trust(family)}{office_note}</div>
 <div class="card formcard"><h2>Request a free {noun}</h2>{form(d['service'], d.get('city'))}</div></div></div></div>
 {onpage}
 <section><div class="wrap two"><div><p class="kicker">What's included</p><h2 class="s">{E(d['service'])}: what we do</h2><p class="sub">{E(fmt(d['intro']))}</p><ul class="ticks">{ticks}</ul>{notice}</div>
 <div class="art">{art}</div></div></section>
 {extra}
+{gallery}
 {proc}
 {related}
 <section id="faq"><div class="wrap narrow"><p class="kicker">FAQ</p><h2 class="s">Frequently asked questions</h2>{faq}</div></section>
@@ -496,6 +544,7 @@ def build():
 <section class="t-pest"><div class="wrap"><p class="kicker">Pest control</p><h2 class="s">Pest control services</h2><div class="cards">{pest_cards}</div></div></section>
 <section class="alt t-iso"><div class="wrap"><p class="kicker">ISO consultancy</p><h2 class="s">ISO standards we support</h2><div class="cards">{iso_cards}</div></div></section>
 <section id="how"><div class="wrap"><p class="kicker">How we work</p><h2 class="s">Clear steps, written records</h2><p class="sub">Every job follows the same path: we inspect or assess first, agree the plan in writing, do the work, and give you the paperwork.</p><div class="lanes">{lane("pest")}{lane("iso")}</div></div></section>
+{field_strip()}
 <section class="alt"><div class="wrap narrow"><p class="kicker">One provider</p><h2 class="s">Why food, hospitality and industrial clients use both</h2>
 <p class="sub">Food-safety audits look at both your management system and your pest control records. Working with one company for both makes audits simpler.</p>
 <a class="btn btn-call" href="/contact/">Talk to us</a></div></section>
@@ -509,7 +558,7 @@ def build():
 
     # other services
     cr = [("Home", "/"), ("Other services", "/facility-services/")]
-    cards = "".join(f'<div class="card plain"><h3>{E(a)}</h3><p>{E(b)}</p><ul class="mini">' + "".join(f"<li>{E(x)}</li>" for x in c) + "</ul></div>" for a, b, c in OTHER)
+    cards = "".join(f'<div class="card plain"><h3>{E(a)}</h3><p>{E(b)}</p><ul class="mini">' + "".join(f"<li>{E(x)}</li>" for x in c) + "</ul>" + (img("field-aircon", "inl") if a.startswith("HVAC") else "") + "</div>" for a, b, c in OTHER)
     body = f"""{simple_hero(cr, 'Facility and Technical Services', 'We also provide these services. Contact us for a quotation.')}
 <section><div class="wrap"><div class="cards wide">{cards}</div><div class="cta" style="margin-top:28px">{btn_wa(WA)}{btn_call()}</div></div></section>"""
     page("/facility-services/", "Facility & Technical Services | Omnexa Solutions", "HVAC, construction, safety signage and equipment, and IT services from Omnexa Solutions in Saudi Arabia.", body, crumbs=cr)
@@ -520,14 +569,14 @@ def build():
     sec = "".join(f"<li>{E(x)}</li>" for x in SECTORS)
     body = f"""{simple_hero(cr, 'About ' + C['brand'], 'Pest management, ISO consultancy and training, and facility services for businesses in Saudi Arabia.')}
 <section><div class="wrap two"><div><p class="kicker">Who we are</p><h2 class="s">One company for pest control and ISO</h2>
-<p class="sub">{E(C['brand'])} provides Integrated Pest Management (pesticide and non-pesticide), ISO consultancy and training, and facility services including air-conditioning, construction and IT. Our office is at {E(C['street_address'] or C['address_note'])}.</p>
+<p class="sub">{E(C['brand'])} provides Integrated Pest Management (pesticide and non-pesticide), ISO consultancy and training, and facility services including air-conditioning, construction and IT. Our offices are in Riyadh (Al Olaya) and Jeddah (Al Handawiya).</p>
 <p class="sub">We also advise and train in environment, health and safety, quality management, Integrated Pest Management and food safety management.</p></div>
 <div class="art"><img class="about-logo" src="/assets/logo.png" width="360" height="94" alt="{E(C['brand'])}" loading="lazy"></div></div></section>
 <section class="alt"><div class="wrap"><div class="cards wide"><div class="card plain"><h3>Our mission</h3><p>To give clients dependable service, and to make sure our staff, products and equipment meet the standards our clients set.</p></div>
 <div class="card plain"><h3>Our vision</h3><p>To be the pest management and facility services provider that clients choose for reliability and value.</p></div></div></div></section>
 <section><div class="wrap"><p class="kicker">What we stand for</p><h2 class="s">Our values</h2><div class="cards wide">{vals}</div></div></section>
 <section><div class="wrap narrow">{company_box()}</div></section>
-<section class="alt"><div class="wrap"><p class="kicker">Where we work</p><h2 class="s">Sectors we serve</h2><p class="sub">Our pest control and consultancy cover public health and food safety across these kinds of sites.</p><ul class="ticks">{sec}</ul></div></section>
+<section class="alt"><div class="wrap"><p class="kicker">Where we work</p><h2 class="s">Sectors we serve</h2><p class="sub">Our pest control and consultancy cover public health and food safety across these kinds of sites.</p>{sector_grid()}</div></section>
 <!-- TODO: add verified company facts, licences, certificate details, team and client list. Nothing is shown here until provided. -->
 <div class="cta-band"><div class="wrap"><h2>Talk to us</h2><p>Free site inspection and free ISO consultation.</p><div class="cta">{btn_wa(WA)}{btn_call("Call now")}</div></div></div>"""
     page("/about/", "About Omnexa Solutions", "About Omnexa Solutions: pest management, ISO consultancy and training, and facility services in Saudi Arabia.", body, crumbs=cr)
@@ -535,7 +584,7 @@ def build():
     # contact
     cr = [("Home", "/"), ("Contact", "/contact/")]
     body = f"""{simple_hero(cr, 'Contact us', 'Phone and WhatsApp are the fastest ways to reach us.')}
-<section><div class="wrap two"><div class="contact"><p><b>Phone</b><a href="tel:{C['phone']}">{E(C['phone_display'])}</a></p><p><b>WhatsApp</b><a href="{WA}">Chat on WhatsApp</a></p><p><b>Email</b><a href="mailto:{C['email']}">{E(C['email'])}</a></p><p><b>Office</b>{E(C['street_address'] or C['address_note'])}</p><p><b>Registered company</b>{legal_line()}</p></div>
+<section><div class="wrap two"><div class="contact"><p><b>Phone</b><a href="tel:{C['phone']}">{E(C['phone_display'])}</a></p><p><b>WhatsApp</b><a href="{WA}">Chat on WhatsApp</a></p><p><b>Email</b><a href="mailto:{C['email']}">{E(C['email'])}</a></p>{"".join(f'<p><b>{E(o["label"])}</b>{E(o["address"])}</p>' for o in C.get("offices", []))}<p><b>Registered company</b>{legal_line()}</p></div>
 <div class="card formcard"><h2>Send an enquiry</h2>{form('Other')}</div></div></section>"""
     page("/contact/", "Contact Omnexa Solutions", "Contact Omnexa Solutions by phone, WhatsApp or email for pest control and ISO consultancy.", body, crumbs=cr)
 

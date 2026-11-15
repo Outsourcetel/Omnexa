@@ -464,3 +464,16 @@ footer.site .legal{margin-top:28px;padding-top:18px;border-top:1px solid rgba(25
 footer.site .copy{margin-top:8px;padding-top:0;border-top:0}
 .paper.company dl>div{grid-template-columns:230px 1fr}
 .paper.company h3{margin-bottom:12px}
+
+/* photos */
+.field{display:flex;flex-wrap:wrap;gap:22px 26px;justify-content:center;margin-top:10px}
+.field figure{text-align:center;width:170px}
+.field img.round{width:150px;height:150px;object-fit:cover;border-radius:50%;border:5px solid #fff;box-shadow:0 0 0 2px var(--acc),var(--sh);background:var(--tint)}
+.field figcaption{margin-top:10px;font-weight:600;font-size:.92rem;color:var(--ink)}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.sgrid figure{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--sh)}
+.sgrid img.sec{display:block;width:100%;height:auto;aspect-ratio:297/187;object-fit:cover}
+.sgrid figcaption{padding:10px 14px;font-weight:600;font-size:.93rem;color:var(--ink)}
+img.inl{display:block;margin-top:14px;border-radius:10px;max-width:160px;height:auto}
+.office-note{margin-top:14px;font-size:.9rem;color:var(--muted)}
+footer.site p b{color:#fff}
