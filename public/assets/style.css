@@ -629,3 +629,8 @@ header.site.menu-open .mb-i:after{top:0;transform:rotate(-45deg)}
   header.site nav.main .menu-extra a.btn-call{background:#0f2233}
   header.site nav.main .menu-extra a.btn-wa{background:#128043}
 }
+
+/* single-service home hero: text left, illustration right */
+.hero.home .wrap.hs{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.hs-a{max-width:460px;justify-self:center;width:100%}
+@media (max-width:900px){.hero.home .wrap.hs{grid-template-columns:1fr}.hs-a{display:none}}

@@ -16,6 +16,9 @@ CITIES = C["cities"]
 city = " and ".join(CITIES)
 BASE = C["base_url"].rstrip("/")
 PAGES = []  # (url path) for sitemap
+ED = C.get("edition", "both")          # "pest" | "iso" | "both"
+HP, HI = ED in ("both", "pest"), ED in ("both", "iso")
+HOWP = "/how-it-works/" if ED == "both" else ("/pest-control/how-it-works/" if ED == "pest" else "/iso-consultancy/how-it-works/")
 
 
 LANG = "en"
@@ -243,6 +246,14 @@ def btn_call(label=None):
 CURPATH = "/"
 
 
+def NAV_SERVICES():
+    a = f"<a href=\"/pest-control/\">{T('Pest Control', 'مكافحة الحشرات')}</a>" if HP else ""
+    b = f"<a href=\"/iso-consultancy/\">{T('ISO Consultancy', 'استشارات الأيزو')}</a>" if HI else ""
+    c = f"<a href=\"/iso-consultancy/iso-9001-training/\">{T('Training', 'التدريب')}</a>" if ED == "iso" else ""
+    d = f"<a href=\"/facility-services/\">{T('Building Maintenance', 'صيانة المباني')}</a>" if ED == "pest" else ""
+    return a + b + c + d
+
+
 def header():
     other = ("/__en__" + CURPATH) if LANG == "ar" else ("/ar" + CURPATH if CURPATH != "/" else "/ar/")
     sw = T("العربية", "English")
@@ -250,7 +261,7 @@ def header():
     return f"""<header class="site"><div class="wrap">
 <a class="brand" href="/"><img src="/assets/logo.png" width="154" height="40" alt="{E(brand())}"></a>
 <button class="menu-btn" type="button" aria-label="{T('Menu', 'القائمة')}" aria-expanded="false" aria-controls="mnav"><span class="mb-i"></span></button>
-<nav class="main" id="mnav" aria-label="{T('Main', 'القائمة الرئيسية')}"><a href="/pest-control/">{T('Pest Control', 'مكافحة الحشرات')}</a><a href="/iso-consultancy/">{T('ISO Consultancy', 'استشارات الأيزو')}</a><a href="/how-it-works/">{T('How It Works', 'آلية العمل')}</a><a href="/facility-services/">{T('Other Services', 'خدمات أخرى')}</a><a href="/about/">{T('About', 'من نحن')}</a><a href="/contact/">{T('Contact', 'اتصل بنا')}</a>
+<nav class="main" id="mnav" aria-label="{T('Main', 'القائمة الرئيسية')}">{NAV_SERVICES()}<a href="{HOWP}">{T('How It Works', 'آلية العمل')}</a><a href="/about/">{T('About', 'من نحن')}</a><a href="/contact/">{T('Contact', 'اتصل بنا')}</a>
 <div class="menu-extra"><a class="btn btn-call" href="tel:{C['phone']}">{ICON['phone']}{T('Call', 'اتصل')}</a><a class="btn btn-wa" href="{WA}">{ICON['wa']}{T('WhatsApp', 'واتساب')}</a></div></nav>
 <a class="lang" href="{other}" hreflang="{swl}" lang="{swl}">{sw}</a>
 <a class="btn btn-ghost" href="tel:{C['phone']}">{ICON['phone']}{ltr(E(C['phone_display']))}</a>
@@ -341,13 +352,13 @@ def footer():
     pest = "".join(f'<li><a href="/pest-control/{s}/">{E(fmt(PEST[s]["service"]))}</a></li>' for s in PEST["hub"]["children"])
     iso = "".join(f'<li><a href="/iso-consultancy/{s}/">{E(ISO[s]["service"])}</a></li>' for s in ISO["hub"]["children"])
     pl, il = T("Pest control", "مكافحة الحشرات"), T("ISO consultants", "استشارات الأيزو")
-    areas = "".join(f'<li><a href="/{h}/{x.lower()}/">{l} {T("in", "في")} {E(cname(x))}</a></li>' for h, l in (("pest-control", pl), ("iso-consultancy", il)) for x in CITIES)
+    areas = "".join(f'<li><a href="/{h}/{x.lower()}/">{l} {T("in", "في")} {E(cname(x))}</a></li>' for h, l in (("pest-control", pl), ("iso-consultancy", il)) if (h == "pest-control" and HP) or (h == "iso-consultancy" and HI) for x in CITIES)
     return f"""<footer class="site"><div class="wrap"><div class="cols">
 <div><p class="flogo"><img src="/assets/logo.png" width="190" height="50" alt="{E(brand())}" loading="lazy"></p>{offices_html()}<p><a href="tel:{C['phone']}">{ltr(E(C['phone_display']))}</a><br><a href="mailto:{C['email']}">{E(C['email'])}</a></p></div>
-<div><h4>{pl}</h4><ul>{pest}</ul></div>
-<div><h4>{T('ISO Consultancy', 'استشارات الأيزو')}</h4><ul>{iso}</ul></div>
+{('<div><h4>' + pl + '</h4><ul>' + pest + '</ul></div>') if HP else ''}
+{('<div><h4>' + T('ISO Consultancy', 'استشارات الأيزو') + '</h4><ul>' + iso + '</ul></div>') if HI else ''}
 <div><h4>{T('Areas', 'المناطق')}</h4><ul>{areas}</ul></div>
-<div><h4>{T('Company', 'الشركة')}</h4><ul><li><a href="/how-it-works/">{T('How it works', 'آلية العمل')}</a></li><li><a href="/facility-services/">{T('Other services', 'خدمات أخرى')}</a></li><li><a href="/about/">{T('About', 'من نحن')}</a></li><li><a href="/contact/">{T('Contact', 'اتصل بنا')}</a></li><li><a href="/privacy/">{T('Privacy', 'الخصوصية')}</a></li></ul></div>
+<div><h4>{T('Company', 'الشركة')}</h4><ul><li><a href="{HOWP}">{T('How it works', 'آلية العمل')}</a></li>{('<li><a href="/facility-services/">' + T('Building maintenance', 'صيانة المباني') + '</a></li>') if ED == 'pest' else ''}<li><a href="/about/">{T('About', 'من نحن')}</a></li><li><a href="/contact/">{T('Contact', 'اتصل بنا')}</a></li><li><a href="/privacy/">{T('Privacy', 'الخصوصية')}</a></li></ul></div>
 </div><p class="legal">{legal_line()}</p><p class="copy">&copy; 2026 {E(legal_name())}</p></div></footer>
 <div class="sticky"><a class="btn btn-call" href="tel:{C['phone']}">{ICON['phone']}{T('Call', 'اتصل')}</a><a class="btn btn-wa" href="{WA}">{ICON['wa']}{T('WhatsApp', 'واتساب')}</a></div>"""
 
@@ -362,6 +373,8 @@ FORM_OPTS_AR = ["مكافحة الحشرات", "مكافحة النمل الأب
 
 def form(service, sel_city=None):
     opts = list(FORM_OPTS_AR if LANG == "ar" else FORM_OPTS_EN)
+    if ED != "both":   # keep each site's form to its own services (first 10 options are pest, the rest ISO, last is "Other")
+        opts = opts[:10] + opts[-1:] if ED == "pest" else opts[10:]
     if service not in opts:
         opts.insert(0, service)
     o = "".join(f'<option{" selected" if x == service else ""}>{E(x)}</option>' for x in opts)
@@ -407,7 +420,7 @@ def page(path, title, desc, body, extra_ld=None, crumbs=None, noindex=False):
     global CURPATH
     CURPATH = path
     url = BASE + P(path)
-    fam = "t-pest" if path.startswith("/pest-control") else "t-iso" if path.startswith("/iso-consultancy") else "t-home"
+    fam = "t-pest" if path.startswith("/pest-control") else "t-iso" if path.startswith("/iso-consultancy") else ("t-pest" if ED == "pest" else "t-iso" if ED == "iso" else "t-home")
     ldo = [business_ld()] if path == "/" else []
     if crumbs:
         ldo.append({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
@@ -679,9 +692,57 @@ def service_page(path, d, parent, family, slug=None):
     page(path, title, desc, body, [svc, fq] + ([crs] if crs else []), cr)
 
 
+def ABOUT_LEAD():
+    if ED == "pest":
+        return T("Pest management and building maintenance for homes and businesses in Riyadh and Jeddah.", "إدارة الآفات وصيانة المباني للمنازل والشركات في الرياض وجدة.")
+    if ED == "iso":
+        return T("ISO consultancy and training for companies in Saudi Arabia.", "استشارات وتدريب الأيزو للشركات في المملكة العربية السعودية.")
+    return T('Pest management, ISO consultancy and training, and facility services for businesses in Saudi Arabia.', 'إدارة الآفات واستشارات الأيزو والتدريب وخدمات المرافق للشركات في المملكة العربية السعودية.')
+
+
+def ABOUT_WHAT():
+    off = T("Our offices are in Riyadh (Al Olaya) and Jeddah (Al Handawiya).", "يقع مكتبانا في الرياض (العليا) وجدة (الهنداوية).")
+    if ED == "pest":
+        return (f'<p class="sub"><b>{T("Pest management.", "إدارة الآفات.")}</b> {T("Integrated Pest Management, with pesticide and non-pesticide methods, for homes, food sites, hotels, hospitals and warehouses.", "الإدارة المتكاملة للآفات بالطرق الكيميائية وغير الكيميائية، للمنازل والمنشآت الغذائية والفنادق والمستشفيات والمستودعات.")}</p>'
+                f'<p class="sub"><b>{T("Building maintenance and facility services.", "صيانة المباني وخدمات المرافق.")}</b> {T("Air-conditioning, construction and technical services, safety signage and equipment.", "التكييف والإنشاءات والخدمات الفنية ولوحات ومعدات السلامة.")}</p><p class="sub">{off}</p>')
+    if ED == "iso":
+        return (f'<p class="sub"><b>{T("ISO consultancy.", "استشارات الأيزو.")}</b> {T("Gap analysis, documentation, implementation support and internal audit, so you are ready for the certification audit.", "تحليل الفجوات والتوثيق ودعم التطبيق والتدقيق الداخلي، لتكون جاهزاً لتدقيق منح الشهادة.")}</p>'
+                f'<p class="sub"><b>{T("ISO training.", "تدريب الأيزو.")}</b> {T("Courses on ISO 9001, 14001, 45001, 22000 and HACCP, and 27001 for your teams and auditors.", "دورات في ISO 9001 و14001 و45001 و22000 وهاسب و27001 لفرقك ومدققيك.")}</p><p class="sub">{off}</p>')
+    return f"""<p class="sub"><b>{T("Pest management.", "إدارة الآفات.")}</b> {T("Integrated Pest Management, with pesticide and non-pesticide methods, for homes, food sites, hotels, hospitals and warehouses.", "الإدارة المتكاملة للآفات بالطرق الكيميائية وغير الكيميائية، للمنازل والمنشآت الغذائية والفنادق والمستشفيات والمستودعات.")}</p><p class="sub"><b>{T("ISO consultancy and training.", "استشارات الأيزو والتدريب.")}</b> {T("Gap analysis, documentation, internal audit and training for ISO standards and food-safety schemes.", "تحليل الفجوات والتوثيق والتدقيق الداخلي والتدريب على معايير الأيزو وأنظمة سلامة الغذاء.")}</p><p class="sub"><b>{T("Facility services.", "خدمات المرافق.")}</b> {T("Air-conditioning, construction, safety signage and equipment, and IT.", "التكييف والإنشاءات ولوحات ومعدات السلامة وتقنية المعلومات.")}</p><p class="sub">{T("Our offices are in Riyadh (Al Olaya) and Jeddah (Al Handawiya).", "يقع مكتبانا في الرياض (العليا) وجدة (الهنداوية).")}</p>"""
+
+
+def home_single():
+    more = T("Learn more", "اعرف المزيد")
+    if ED == "pest":
+        cards = "".join(f'<a class="card" href="/pest-control/{s}/">{card_icon("pest", s)}<h3>{E(fmt(PEST[s]["service"]))}</h3><p>{E(fmt(PEST[s]["lead"]))}</p><span class="more">{more}</span></a>' for s in PEST["hub"]["children"])
+        fac = "".join(f'<div class="card plain"><h3>{E(a)}</h3><p>{E(b)}</p></div>' for a, b, c in OTHER[:3])
+        body = f"""<div class="hero home t-pest"><div class="wrap hs"><div class="hs-t"><p class="eyebrow">{E(" · ".join(cname(x) for x in CITIES))}</p>
+<h1>{T("Pest Control and Building Maintenance in " + city_all(), "مكافحة الحشرات وصيانة المباني في " + city_all())}</h1>
+<p class="lead">{T("Inspection-led pest management for homes, food sites, hotels, hospitals and warehouses, backed by facility and maintenance services.", "إدارة آفات تبدأ بالفحص للمنازل والمنشآت الغذائية والفنادق والمستشفيات والمستودعات، مدعومة بخدمات المرافق والصيانة.")}</p>
+<div class="cta">{btn_wa(wa_link(T('Hello, I would like to book a free inspection', 'السلام عليكم، أرغب في حجز فحص مجاني')))}{btn_call()}</div>{trust('pest')}</div><div class="hs-a art">{illus_pest()}</div></div></div>
+<section class="t-pest"><div class="wrap"><p class="kicker">{T("Pest control", "مكافحة الحشرات")}</p><h2 class="s">{T("Pest control services", "خدمات مكافحة الحشرات")}</h2><div class="cards">{cards}</div></div></section>
+<section id="how" class="alt"><div class="wrap"><p class="kicker">{T("How we work", "كيف نعمل")}</p><h2 class="s">{T("Clear steps, written records", "خطوات واضحة وسجلات مكتوبة")}</h2><div class="lanes">{lane("pest")}</div></div></section>
+{field_strip()}
+<section><div class="wrap"><p class="kicker">{T("Building maintenance", "صيانة المباني")}</p><h2 class="s">{T("Facility and maintenance services", "خدمات المرافق والصيانة")}</h2><div class="cards wide">{fac}</div><p class="more-link"><a href="/facility-services/">{T("See all facility services", "اطّلع على جميع خدمات المرافق")} &{"l" if LANG == "ar" else "r"}arr;</a></p></div></section>
+<div class="cta-band"><div class="wrap"><h2>{T("Book a free site inspection", "احجز فحصاً مجانياً للموقع")}</h2><p>{T("We respond with next steps.", "نردّ عليك بالخطوات التالية.")}</p><div class="cta">{btn_wa(WA)}{btn_call(T("Call now", "اتصل الآن"))}</div></div></div>"""
+        return (T("Pest Control & Building Maintenance in Riyadh and Jeddah | Omnexa Solutions", "مكافحة الحشرات وصيانة المباني في الرياض وجدة | " + brand()),
+                T("Pest control, termite, rodent and fumigation services plus building maintenance in Riyadh and Jeddah. Free site inspection.", "مكافحة حشرات ونمل أبيض وقوارض وتبخير وخدمات صيانة المباني في الرياض وجدة. فحص مجاني للموقع."), body)
+    cards = "".join(f'<a class="card" href="/iso-consultancy/{s}/">{card_icon("iso", s)}<h3>{E(ISO[s]["service"])}</h3><p>{E(fmt(ISO[s]["lead"]))}</p><span class="more">{more}</span></a>' for s in ISO["hub"]["children"])
+    body = f"""<div class="hero home t-iso"><div class="wrap hs"><div class="hs-t"><p class="eyebrow">{T("Saudi Arabia", "المملكة العربية السعودية")} · {E(" · ".join(cname(x) for x in CITIES))}</p>
+<h1>{T("ISO Consultancy and Training in Saudi Arabia", "استشارات وتدريب الأيزو في المملكة العربية السعودية")}</h1>
+<p class="lead">{T("Practical help to get ISO 9001, 14001, 45001, 22000 and 27001 certified, with gap analysis, documentation, internal audit and trained staff.", "دعم عملي للحصول على شهادات ISO 9001 و14001 و45001 و22000 و27001، من تحليل الفجوات والتوثيق والتدقيق الداخلي إلى تدريب الموظفين.")}</p>
+<div class="cta">{btn_wa(wa_link(T('Hello, I would like a free ISO consultation', 'السلام عليكم، أرغب في استشارة أيزو مجانية')))}{btn_call()}</div>{trust('iso')}</div><div class="hs-a art">{illus_iso(T('ISO 9001 · 22000 · 45001', 'ISO 9001 · 22000 · 45001'))}</div></div></div>
+<section class="t-iso"><div class="wrap"><p class="kicker">{T("Standards and training", "المعايير والتدريب")}</p><h2 class="s">{T("ISO standards we support", "معايير الأيزو التي ندعمها")}</h2><div class="cards">{cards}</div></div></section>
+<section id="how" class="alt"><div class="wrap"><p class="kicker">{T("How we work", "كيف نعمل")}</p><h2 class="s">{T("From gap analysis to certificate", "من تحليل الفجوات إلى الشهادة")}</h2><div class="lanes">{lane("iso")}</div></div></section>
+<section><div class="wrap"><p class="kicker">{T("Who we work with", "عملاؤنا")}</p><h2 class="s">{T("Companies that need a certificate", "شركات تحتاج إلى شهادة")}</h2><p class="sub">{T("Contractors, food manufacturers, factories, logistics companies and IT firms that need a certificate for a tender, a customer or their own growth.", "المقاولون ومصنّعو الأغذية والمصانع وشركات اللوجستيات وشركات تقنية المعلومات التي تحتاج إلى شهادة لمناقصة أو لعميل أو لنمو أعمالها.")}</p></div></section>
+<div class="cta-band"><div class="wrap"><h2>{T("Book a free ISO consultation", "احجز استشارة أيزو مجانية")}</h2><p>{T("Tell us your industry and the standard you need.", "أخبرنا عن نشاطك والمعيار الذي تحتاجه.")}</p><div class="cta">{btn_wa(WA)}{btn_call(T("Call now", "اتصل الآن"))}</div></div></div>"""
+    return (T("ISO Consultancy & Training in Saudi Arabia | ISO 9001, 14001, 45001, 22000, 27001", "استشارات وتدريب الأيزو في السعودية | ISO 9001 و14001 و45001 و22000 و27001"),
+            T("ISO consultancy and training in Riyadh and Jeddah. Free consultation, gap analysis, documentation, internal audit. Request a quote.", "استشارات وتدريب أيزو في الرياض وجدة. استشارة مجانية وتحليل فجوات وتوثيق وتدقيق داخلي. اطلب عرض سعر."), body)
+
+
 def build_site():
     names = (T("Pest Control", "مكافحة الحشرات"), T("ISO Consultancy", "استشارات الأيزو"))
-    for (fam, data), name in zip((("pest", PEST), ("iso", ISO)), names):
+    for (fam, data), name in [fd for fd in zip((("pest", PEST), ("iso", ISO)), names) if (fd[0][0] == "pest" and HP) or (fd[0][0] == "iso" and HI)]:
         hub = data["hub"]
         hp = "/" + hub["slug"] + "/"
         service_page(hp, hub, None, fam)
@@ -711,37 +772,47 @@ def build_site():
 <div class="cards wide"><div class="card plain t-pest"><h3>{T("Pest control customers", "عملاء مكافحة الحشرات")}</h3><p>{T("Homeowners and villa residents, restaurants and cafes, hotels and serviced apartments, hospitals and clinics, warehouses and food facilities.", "ملاك المنازل وسكان الفلل، والمطاعم والمقاهي، والفنادق والشقق المخدومة، والمستشفيات والعيادات، والمستودعات والمنشآت الغذائية.")}</p><a class="more" href="/pest-control/">{T("See pest control", "تعرّف على مكافحة الحشرات")}</a></div>
 <div class="card plain t-iso"><h3>{T("ISO consultancy clients", "عملاء استشارات الأيزو")}</h3><p>{T("Contractors, food manufacturers, factories, logistics companies and IT firms that need a certificate for a tender, a customer or their own growth.", "المقاولون ومصنّعو الأغذية والمصانع وشركات اللوجستيات وشركات تقنية المعلومات التي تحتاج إلى شهادة لمناقصة أو لعميل أو لنمو أعمالها.")}</p><a class="more" href="/iso-consultancy/">{T("See ISO consultancy", "تعرّف على استشارات الأيزو")}</a></div></div></div></section>
 <div class="cta-band"><div class="wrap"><h2>{T("Tell us what you need", "أخبرنا بما تحتاجه")}</h2><p>{T("We respond with next steps.", "نردّ عليك بالخطوات التالية.")}</p><div class="cta">{btn_wa(WA)}{btn_call(T("Call now", "اتصل الآن"))}</div></div></div>"""
-    page("/", T("Pest Control & ISO Consultancy in Saudi Arabia | Omnexa Solutions", "مكافحة الحشرات واستشارات الأيزو في السعودية | " + brand()),
-         T("Pest control and ISO consultancy in Saudi Arabia. Free site inspection and free ISO consultation. Termites, rodents, ISO 9001, 22000, 45001.",
-           "مكافحة حشرات واستشارات أيزو في الرياض وجدة. فحص مجاني للموقع واستشارة أيزو مجانية. النمل الأبيض والقوارض وISO 9001 و22000 و45001."), home)
+    if ED == "both":
+        page("/", T("Pest Control & ISO Consultancy in Saudi Arabia | Omnexa Solutions", "مكافحة الحشرات واستشارات الأيزو في السعودية | " + brand()),
+             T("Pest control and ISO consultancy in Saudi Arabia. Free site inspection and free ISO consultation.",
+               "مكافحة حشرات واستشارات أيزو في الرياض وجدة. فحص مجاني للموقع واستشارة أيزو مجانية."), home)
+    else:
+        t, dsc, body = home_single()
+        page("/", t, dsc, body)
 
-    process_page("pest")
-    process_page("iso")
-    process_hub()
+    if HP:
+        process_page("pest")
+    if HI:
+        process_page("iso")
+    if ED == "both":
+        process_hub()
 
     # other services
-    cr = [(HOME(), "/"), (T("Other services", "خدمات أخرى"), "/facility-services/")]
-    cards = "".join(f'<div class="card plain"><h3>{E(a)}</h3><p>{E(b)}</p><ul class="mini">' + "".join(f"<li>{E(x)}</li>" for x in c) + "</ul>" + (img("field-aircon", "inl") if i == 0 else "") + "</div>" for i, (a, b, c) in enumerate(OTHER))
-    body = f"""{simple_hero(cr, T('Facility and Technical Services', 'الخدمات الفنية وخدمات المرافق'), T('We also provide these services. Contact us for a quotation.', 'نقدم أيضاً هذه الخدمات. تواصل معنا للحصول على عرض سعر.'))}
-<section><div class="wrap"><div class="cards wide">{cards}</div><div class="cta" style="margin-top:28px">{btn_wa(WA)}{btn_call()}</div></div></section>"""
-    page("/facility-services/", T("Facility & Technical Services | Omnexa Solutions", "الخدمات الفنية وخدمات المرافق | " + brand()),
-         T("HVAC, construction, safety signage and equipment, and IT services from Omnexa Solutions in Saudi Arabia.", "التكييف والإنشاءات ولوحات ومعدات السلامة وخدمات تقنية المعلومات من أومنكسا سوليوشنز في المملكة العربية السعودية."), body, crumbs=cr)
+    if ED != "iso":
+        cr = [(HOME(), "/"), (T("Other services", "خدمات أخرى"), "/facility-services/")]
+        cards = "".join(f'<div class="card plain"><h3>{E(a)}</h3><p>{E(b)}</p><ul class="mini">' + "".join(f"<li>{E(x)}</li>" for x in c) + "</ul>" + (img("field-aircon", "inl") if i == 0 else "") + "</div>" for i, (a, b, c) in enumerate(OTHER))
+        body = f"""{simple_hero(cr, T('Facility and Technical Services', 'الخدمات الفنية وخدمات المرافق'), T('We also provide these services. Contact us for a quotation.', 'نقدم أيضاً هذه الخدمات. تواصل معنا للحصول على عرض سعر.'))}
+    <section><div class="wrap"><div class="cards wide">{cards}</div><div class="cta" style="margin-top:28px">{btn_wa(WA)}{btn_call()}</div></div></section>"""
+        page("/facility-services/", T("Facility & Technical Services | Omnexa Solutions", "الخدمات الفنية وخدمات المرافق | " + brand()),
+             T("HVAC, construction, safety signage and equipment, and IT services from Omnexa Solutions in Saudi Arabia.", "التكييف والإنشاءات ولوحات ومعدات السلامة وخدمات تقنية المعلومات من أومنكسا سوليوشنز في المملكة العربية السعودية."), body, crumbs=cr)
 
     # about
     cr = [(HOME(), "/"), (T("About", "من نحن"), "/about/")]
     vals = "".join(f'<div class="card plain"><h3>{E(t)}</h3><p>{E(d)}</p></div>' for t, d in VALUES)
-    body = f"""{simple_hero(cr, T('About ' + brand(), 'عن ' + brand()), T('Pest management, ISO consultancy and training, and facility services for businesses in Saudi Arabia.', 'إدارة الآفات واستشارات الأيزو والتدريب وخدمات المرافق للشركات في المملكة العربية السعودية.'))}
+    body = f"""{simple_hero(cr, T('About ' + brand(), 'عن ' + brand()), ABOUT_LEAD())}
 <section><div class="wrap two"><div><p class="kicker">{T("Who we are", "من نحن")}</p><h2 class="s">{T("What we do", "ماذا نقدّم")}</h2>
-<p class="sub"><b>{T("Pest management.", "إدارة الآفات.")}</b> {T("Integrated Pest Management, with pesticide and non-pesticide methods, for homes, food sites, hotels, hospitals and warehouses.", "الإدارة المتكاملة للآفات بالطرق الكيميائية وغير الكيميائية، للمنازل والمنشآت الغذائية والفنادق والمستشفيات والمستودعات.")}</p><p class="sub"><b>{T("ISO consultancy and training.", "استشارات الأيزو والتدريب.")}</b> {T("Gap analysis, documentation, internal audit and training for ISO standards and food-safety schemes.", "تحليل الفجوات والتوثيق والتدقيق الداخلي والتدريب على معايير الأيزو وأنظمة سلامة الغذاء.")}</p><p class="sub"><b>{T("Facility services.", "خدمات المرافق.")}</b> {T("Air-conditioning, construction, safety signage and equipment, and IT.", "التكييف والإنشاءات ولوحات ومعدات السلامة وتقنية المعلومات.")}</p><p class="sub">{T("Our offices are in Riyadh (Al Olaya) and Jeddah (Al Handawiya).", "يقع مكتبانا في الرياض (العليا) وجدة (الهنداوية).")}</p>
+{ABOUT_WHAT()}
 </div>
 <div class="art"><img class="about-logo" src="/assets/logo.png" width="360" height="94" alt="{E(brand())}" loading="lazy"></div></div></section>
 <section class="alt"><div class="wrap"><div class="cards wide"><div class="card plain"><h3>{T("Our mission", "رسالتنا")}</h3><p>{T("To give clients dependable service, and to make sure our staff, products and equipment meet the standards our clients set.", "تقديم خدمة يعتمد عليها عملاؤنا، والتأكد من أن موظفينا ومنتجاتنا ومعداتنا تلبي المعايير التي يضعها عملاؤنا.")}</p></div>
-<div class="card plain"><h3>{T("Our vision", "رؤيتنا")}</h3><p>{T("To be the pest management and facility services provider that clients choose for reliability and value.", "أن نكون مزوّد إدارة الآفات وخدمات المرافق الذي يختاره العملاء لموثوقيته وقيمته.")}</p></div></div></div></section>
+<div class="card plain"><h3>{T("Our vision", "رؤيتنا")}</h3><p>{(T("To be the pest management and facility services provider that clients choose for reliability and value.", "أن نكون مزوّد إدارة الآفات وخدمات المرافق الذي يختاره العملاء لموثوقيته وقيمته.") if ED != "iso" else T("To be the ISO consultancy and training partner that companies in Saudi Arabia choose for practical, audit-ready systems.", "أن نكون شريك استشارات وتدريب الأيزو الذي تختاره الشركات في المملكة لأنظمة عملية جاهزة للتدقيق."))}</p></div></div></div></section>
 <section><div class="wrap"><p class="kicker">{T("What we stand for", "ما نؤمن به")}</p><h2 class="s">{T("Our values", "قيمنا")}</h2><div class="cards wide">{vals}</div></div></section>
 <section><div class="wrap narrow">{company_box()}</div></section>
-<section class="alt"><div class="wrap"><p class="kicker">{T("Where we work", "أين نعمل")}</p><h2 class="s">{T("Sectors we serve", "القطاعات التي نخدمها")}</h2><p class="sub">{T("Our pest control and consultancy cover public health and food safety across these kinds of sites.", "تغطي أعمال المكافحة والاستشارات لدينا الصحة العامة وسلامة الغذاء في هذه الأنواع من المواقع.")}</p>{sector_grid()}</div></section>
-<div class="cta-band"><div class="wrap"><h2>{T("Talk to us", "تحدّث إلينا")}</h2><p>{T("Free site inspection and free ISO consultation.", "فحص مجاني للموقع واستشارة أيزو مجانية.")}</p><div class="cta">{btn_wa(WA)}{btn_call(T("Call now", "اتصل الآن"))}</div></div></div>"""
-    page("/about/", T("About Omnexa Solutions", "عن " + brand()), T("About Omnexa Solutions: pest management, ISO consultancy and training, and facility services in Saudi Arabia.", "عن أومنكسا سوليوشنز: إدارة الآفات واستشارات الأيزو والتدريب وخدمات المرافق في المملكة العربية السعودية."), body, crumbs=cr)
+<section class="alt"><div class="wrap"><p class="kicker">{T("Where we work", "أين نعمل")}</p><h2 class="s">{T("Sectors we serve", "القطاعات التي نخدمها")}</h2><p class="sub">{(T("Our pest control and consultancy cover public health and food safety across these kinds of sites.", "تغطي أعمال المكافحة والاستشارات لدينا الصحة العامة وسلامة الغذاء في هذه الأنواع من المواقع.") if ED == "both" else T("We work with these kinds of sites.", "نعمل مع هذه الأنواع من المواقع."))}</p>{sector_grid()}</div></section>
+<div class="cta-band"><div class="wrap"><h2>{T("Talk to us", "تحدّث إلينا")}</h2><p>{(T("Free site inspection and free ISO consultation.", "فحص مجاني للموقع واستشارة أيزو مجانية.") if ED == "both" else T("Free site inspection.", "فحص مجاني للموقع.") if ED == "pest" else T("Free ISO consultation.", "استشارة أيزو مجانية."))}</p><div class="cta">{btn_wa(WA)}{btn_call(T("Call now", "اتصل الآن"))}</div></div></div>"""
+    if ED == "iso":
+        body = re.sub(r'<section class="alt"><div class="wrap"><p class="kicker">[^<]*</p><h2 class="s">[^<]*</h2><p class="sub">[^<]*</p><div class="sgrid">.*?</section>', "", body, flags=re.S)
+    page("/about/", T("About Omnexa Solutions", "عن " + brand()), ABOUT_LEAD(), body, crumbs=cr)
 
     # contact
     cr = [(HOME(), "/"), (T("Contact", "اتصل بنا"), "/contact/")]
@@ -749,7 +820,7 @@ def build_site():
     body = f"""{simple_hero(cr, T('Contact us', 'اتصل بنا'), T('Phone and WhatsApp are the fastest ways to reach us.', 'الهاتف وواتساب هما أسرع وسيلة للوصول إلينا.'))}
 <section><div class="wrap two"><div class="contact"><p><b>{T("Phone", "الهاتف")}</b><a href="tel:{C['phone']}">{ltr(E(C['phone_display']))}</a></p><p><b>{T("WhatsApp", "واتساب")}</b><a href="{WA}">{T("Chat on WhatsApp", "تحدّث معنا عبر واتساب")}</a></p><p><b>{T("Email", "البريد الإلكتروني")}</b><a href="mailto:{C['email']}">{E(C['email'])}</a></p>{offs}<p><b>{T("Registered company", "الشركة المسجّلة")}</b>{legal_line()}</p></div>
 <div class="card formcard"><h2>{T("Send an enquiry", "أرسل استفساراً")}</h2>{form(T('Other', 'أخرى'))}</div></div></section>"""
-    page("/contact/", T("Contact Omnexa Solutions", "اتصل بنا | " + brand()), T("Contact Omnexa Solutions by phone, WhatsApp or email for pest control and ISO consultancy.", "تواصل مع أومنكسا سوليوشنز عبر الهاتف أو واتساب أو البريد الإلكتروني لخدمات مكافحة الحشرات واستشارات الأيزو."), body, crumbs=cr)
+    page("/contact/", T("Contact Omnexa Solutions", "اتصل بنا | " + brand()), (T("Contact Omnexa Solutions by phone, WhatsApp or email for pest control and ISO consultancy.", "تواصل مع أومنكسا سوليوشنز عبر الهاتف أو واتساب أو البريد الإلكتروني لخدمات مكافحة الحشرات واستشارات الأيزو.") if ED == "both" else T("Contact us by phone, WhatsApp or email for pest control and building maintenance in Riyadh and Jeddah.", "تواصل معنا عبر الهاتف أو واتساب أو البريد الإلكتروني لخدمات مكافحة الحشرات وصيانة المباني في الرياض وجدة.") if ED == "pest" else T("Contact us by phone, WhatsApp or email for ISO consultancy and training in Saudi Arabia.", "تواصل معنا عبر الهاتف أو واتساب أو البريد الإلكتروني لاستشارات وتدريب الأيزو في المملكة العربية السعودية.")), body, crumbs=cr)
 
     # privacy
     fs = T(" and our form service", " وعبر خدمة النماذج لدينا") if C["form_endpoint"] else ""
@@ -764,7 +835,20 @@ def build_404():
     write("/404.html", f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Page not found | الصفحة غير موجودة</title><meta name="robots" content="noindex">{FONTS_AR}<link rel="stylesheet" href="/assets/style.css"></head><body class="t-home"><main><div class="hero slim"><div class="wrap"><h1>Page not found</h1><p class="lead"><a href="/">Back to home</a></p><h1 dir="rtl" lang="ar" style="margin-top:28px">الصفحة غير موجودة</h1><p class="lead" dir="rtl" lang="ar"><a href="/ar/">العودة إلى الصفحة الرئيسية</a></p></div></div></main></body></html>""")
 
 
+def clean_output():
+    """Remove previously generated pages (keeps assets) so a rebuild never leaves stale pages from another edition."""
+    import shutil
+    if not os.path.isdir(OUT):
+        return
+    for name in os.listdir(OUT):
+        if name == "assets":
+            continue
+        f = os.path.join(OUT, name)
+        shutil.rmtree(f) if os.path.isdir(f) else os.remove(f)
+
+
 def main():
+    clean_output()
     for lang in (("en",) if os.environ.get("ONLY_EN") else ("en", "ar")):
         use(lang)
         build_site()
